@@ -1,4 +1,4 @@
-import { LAB_DELIVERABLES, labSessionTitle } from "../content/lab-deliverables.js";
+import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];
@@ -493,7 +493,7 @@ export function startJornada(cfg = {}) {
       etapas: [{ tools: [{ label:"ChatGPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
       out:"B04-A3-lingua.md — a IA estressa a unidade; não inventa PF",
       casca:"# B04-A2-medida.md\n\n## Time\n(1 linha)\n\n## O que o fluxo já diz\n- Lead time:\n- Cycle time:\n- Throughput:\n- WIP:\n\n## Lente deste ciclo (UMA)\nfuncional | técnica | qualitativa\n\n## Unidade\n\n## O que NÃO conta\n\n## Frase para o C-Level\n\n## Por que isso deixa o time puxar sem estimar o card\n",
-      prompt:"Persona: você NÃO escolhe a lente. Você estressa a unidade que o time já escreveu na Aula 2.\nTarefa: preencher B04-A3-lingua.md. Sem inventar pontos de função, COSMIC ou LOC que não estejam no bloco da Aula 2.\nFormato:\n# B04-A3-lingua.md\n## Lente (copiada da Aula 2)\n## O que inflaria esta unidade (3 tentações)\n## O que a diretoria entenderia errado\n## GATE HUMANO\n- PARA: a IA não troca a lente nem inventa contagem\n- QUEM: cargo que assina a língua do trimestre\n- SÓ DEPOIS:\n- FRASE DE TRAVA: Nenhuma contagem entra no comitê sem o sim de [QUEM].\nRegra: se o bloco da Aula 2 estiver vazio, PERGUNTE. Recuse velocity como tamanho.",
+      prompt:"Preencher B04-A3-lingua.md estressando a unidade que o time já escreveu na Aula 2 — sem inventar pontos de função, COSMIC ou LOC fora do bloco.\nFormato:\n# B04-A3-lingua.md\n## Lente (copiada da Aula 2)\n## O que inflaria esta unidade (3 tentações)\n## O que a diretoria entenderia errado\n## GATE HUMANO\n- PARA: a IA não troca a lente nem inventa contagem\n- QUEM: cargo que assina a língua do trimestre\n- SÓ DEPOIS:\n- FRASE DE TRAVA: Nenhuma contagem entra no comitê sem o sim de [QUEM].\nRegra: se o bloco da Aula 2 estiver vazio, PERGUNTE. Recuse velocity como tamanho.",
       tips:["A IA escolheu APF sozinha. Volte à lente do A2.","Número de PF sem inventário = alucinação.","Velocity no slide do C-Level: recuse."] }
   };
 
@@ -1122,10 +1122,10 @@ export function startJornada(cfg = {}) {
   function formatPromptSixPillars(lab) {
     const parsed = parseSixPillars(lab.prompt);
     return [
-      "Persona: " + (parsed.persona || "Executor da tarefa — não consultor que escreve ensaio."),
+      "Persona: " + (parsed.persona || labPersona(week, false)),
       "Contexto: " + homeworkContextLines(),
       "Tarefa: " + (parsed.tarefa || lab.prompt),
-      "Tom: " + (parsed.tom || "direto — sem segunda passada criativa"),
+      "Tom: " + (parsed.tom || "direto, técnico, orientado a entrega — não consultor que escreve ensaio"),
       "Formato: " + (parsed.formato || labFormatoBlock(lab)),
       "Exemplos: Caso Nexo no painel à direita — use o tipo de evidência, não os números. Ruim: ROI sem baseline, app genérico, dado fora do contrato."
     ].join("\n\n");
@@ -1134,10 +1134,10 @@ export function startJornada(cfg = {}) {
   function formatPromptReforco(lab) {
     const parsed = parseSixPillars(lab.prompt);
     return [
-      "Persona: " + (parsed.persona || "Executor em chat NOVO — o output anterior foi invalidado."),
+      "Persona: " + (parsed.persona || labPersona(week, true)),
       "Contexto: " + homeworkContextLines() + "\nFeche o chat que alucinou. Abra um chat novo antes de colar este prompt.",
       "Tarefa: " + (parsed.tarefa || "Repita a entrega da Aula 3 usando SÓ o contrato ao lado."),
-      "Tom: direto — sem consultoria",
+      "Tom: direto, auditor — sem consultoria; o output anterior foi invalidado",
       "Formato: " + labFormatoBlock(lab),
       "Exemplos: Caso Nexo à direita. Se inventou de novo, pare e pergunte."
     ].join("\n\n");

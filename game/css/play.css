@@ -49,10 +49,10 @@
     .pill.on { color: #fff; background: var(--conceito); border-color: var(--conceito); box-shadow: 0 6px 16px #5B2D8E33; }
     .pill.done { color: var(--path); border-color: var(--path); }
     .hud { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
-    #app.is-map .hud-lesson { display: none; }
-    #app.is-level .hud-streak, #app.is-level .hud-waves { display: none; }
+    #app.is-map #hud-lesson { display: none; }
+    #app.is-level #hud-streak, #app.is-level #hud-waves { display: none; }
     #app.is-level #pills { display: none; }
-    #app.is-level .hud-lesson { display: inline-flex; }
+    #app.is-level #hud-lesson { display: inline-flex; }
     .hud .chip {
       font: 700 0.72rem/1 var(--font-title); color: var(--ink);
       border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; background: var(--bg);

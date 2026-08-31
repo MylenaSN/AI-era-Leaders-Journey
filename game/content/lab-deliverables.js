@@ -2,7 +2,7 @@
 export const LAB_DELIVERABLES = {
   1: {
     session: "Arena",
-    deliverable: "Mapa as-is dos 3 pilares (Product · Delivery · Human & AI), com dor e fato do seu Gantt, com o bloco GATE HUMANO.",
+    deliverable: "Mapa as-is dos 3 pilares (Product · Delivery · Human & AI), com dor e fato do seu Gantt e o bloco GATE HUMANO.",
     why: "Rodar o mesmo pedido em dois modelos (GPT e Gemini) e comparar só o gate — você vê onde cada um inventa ou respeita a trava humana.",
     outputs: ["1 arquivo Markdown"],
     files: ["S01-A3-arena.md"],

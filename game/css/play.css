@@ -14,8 +14,26 @@
       --font-body: Roboto, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; height: 100dvh; background: var(--bg); color: var(--ink); font: 15px/1.35 var(--font-body); overflow: hidden; }
-    #app { height: 100%; display: flex; flex-direction: column; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      min-height: 100dvh;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.35 var(--font-body);
+      overflow-x: hidden;
+    }
+    body.journey-map {
+      height: 100dvh;
+      overflow: hidden;
+    }
+    body.journey-level {
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+    #app { min-height: 100dvh; display: flex; flex-direction: column; }
+    body.journey-map #app { height: 100dvh; overflow: hidden; }
     #app.is-level header {
       padding: 6px 14px;
     }
@@ -69,7 +87,12 @@
       header { grid-template-columns: 1fr auto; }
       .pills { grid-column: 1 / -1; justify-content: flex-start; }
     }
-    #stage { flex: 1; position: relative; min-height: 0; min-width: 0; }
+    #stage { flex: 1 1 auto; position: relative; min-height: 0; min-width: 0; }
+    body.journey-level #stage.level-on {
+      flex: 1 1 auto;
+      min-height: min-content;
+      overflow: visible;
+    }
     #stage.map-only { display: grid; grid-template-columns: minmax(15rem, min(32vw, 22rem)) minmax(0, 1fr); }
     #stage.map-only #hint { left: 22rem; }
     #explorer {
@@ -424,8 +447,9 @@
       grid-template-rows: minmax(0, 1fr);
       min-height: 0;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
+    body.journey-map #stage.level-on { overflow: hidden; }
     #stage.level-on #explorer { display: none; }
     #stage.level-on #mesa.show {
       grid-column: 1;
@@ -470,7 +494,8 @@
     #dock .dock-scroll {
       flex: 1;
       min-height: 0;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -532,19 +557,20 @@
     .score-opt.mid b, .score-opt.mid span { color: var(--raiz); }
     .score-opt.ok { border-color: var(--path); }
     .score-opt.ok b, .score-opt.ok span { color: var(--path); }
-    #rail-a3 .stack { overflow: hidden; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    #rail-a3 .stack { overflow-y: auto; flex: 1; min-height: 0; display: flex; flex-direction: column; }
     #rail-a3.rail.is-active {
       display: flex;
       flex-direction: column;
       min-height: 0;
       padding: 10px 12px;
+      overflow: visible;
     }
     #rail-a3 .lead { flex-shrink: 0; }
     #rail-a3.has-lab .lead { display: none; }
     #rail-a3.has-lab h2 { margin-bottom: 4px; }
     .lab-lab {
       display: flex; flex-direction: column; gap: 6px;
-      flex: 1; min-height: 0; overflow: hidden;
+      flex: 1; min-height: 0; overflow-y: auto;
     }
     .lab-workspace {
       display: flex;
@@ -848,11 +874,11 @@
     .mesa-tab[data-rail="2"].on { background: var(--raiz); border-color: var(--raiz); box-shadow: 0 6px 16px #E88F2B33; }
     .mesa-tab[data-rail="3"].on { background: var(--path); border-color: var(--path); box-shadow: 0 6px 16px #2BC0B433; }
     .mesa-tab:disabled { opacity: 0.42; cursor: default; }
-    #stage.level-on #mesa.show { display: grid; flex: 1; min-height: 0; position: relative; }
+    #stage.level-on #mesa.show { display: grid; flex: 1 1 auto; min-height: min-content; position: relative; overflow: visible; }
     .rail {
       display: none; flex-direction: column; grid-row: 2; grid-column: 1;
       background: var(--panel); border: 1px solid var(--line);
-      border-radius: 14px; padding: 10px 12px; min-height: 0; overflow: hidden;
+      border-radius: 14px; padding: 10px 12px; min-height: 0; overflow: visible;
       box-shadow: 0 8px 24px #5B2D8E0a;
       animation: rise 0.45s ease both;
     }
@@ -924,21 +950,21 @@
     .rail.locked .lead { margin-bottom: 0; min-height: 0; flex: 1; display: flex; align-items: center; }
     .stack {
       display: flex; flex-direction: column; gap: 6px;
-      min-height: 0; flex: 1; overflow: hidden;
+      min-height: 0; flex: 0 1 auto; overflow: visible;
     }
     .stack.cards-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      grid-template-rows: minmax(11rem, 1fr);
+      grid-template-rows: auto;
       gap: 14px;
-      align-content: center;
+      align-content: start;
       justify-items: center;
-      min-height: min(38vh, 17rem);
+      min-height: auto;
       padding: 8px 4px;
     }
     .stack.cards-3 .piece {
       height: auto;
-      min-height: 11rem;
+      min-height: 9rem;
       max-width: 19rem;
       width: 100%;
       align-self: stretch;
@@ -948,7 +974,7 @@
       align-items: center;
       text-align: center;
       min-width: 0;
-      overflow: hidden;
+      overflow: visible;
       padding: 18px 16px;
       background: linear-gradient(165deg, #ffffff 0%, #f9f7fc 100%);
       box-shadow: 0 6px 18px #5B2D8E0f;
@@ -967,10 +993,8 @@
       white-space: pre-line;
       overflow-wrap: anywhere;
       word-break: normal;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 10;
-      -webkit-box-orient: vertical;
+      overflow: visible;
+      display: block;
       flex: 0 1 auto;
       width: 100%;
       max-width: 100%;
@@ -987,7 +1011,6 @@
     #cards-a1 .piece.on .card-d,
     #slots-a2 .piece.on .card-body {
       opacity: 1;
-      -webkit-line-clamp: 12;
       line-height: 1.62;
       font-size: 0.96rem;
     }
@@ -1003,10 +1026,8 @@
     .piece.on { flex: 0 0 auto; padding: 9px 14px; }
     .piece.on .card-d,
     .piece.on .card-body {
-      display: -webkit-box;
-      -webkit-line-clamp: 8;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      display: block;
+      overflow: visible;
       opacity: 0.72;
     }
     .piece .card-body { display: block; font-size: 0.92rem; line-height: 1.5; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
@@ -1243,7 +1264,7 @@
       #mesa.has-caso #caso:not(.is-hidden) {
         grid-column: 1;
         grid-row: 3;
-        max-height: min(32vh, 14rem);
+        max-height: none;
       }
       .stack.cards-3 {
         grid-template-columns: 1fr;
@@ -1259,26 +1280,6 @@
         overflow: visible;
         padding: 16px 14px;
       }
-      .stack.cards-3 .piece .card-d,
-      .stack.cards-3 .piece .card-body {
-        display: block;
-        -webkit-line-clamp: unset;
-        overflow: visible;
-        font-size: 0.92rem;
-      }
-      #cards-a1 .piece.on .card-d,
-      #slots-a2 .piece.on .card-body {
-        -webkit-line-clamp: unset;
-        font-size: 0.94rem;
-      }
-      .rail.is-active {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .rail-main .stack {
-        overflow: visible;
-        flex: 0 0 auto;
-      }
       .preview { grid-template-columns: 1fr; }
       #stage.level-on.dock-open {
         grid-template-columns: 1fr;
@@ -1289,6 +1290,8 @@
         grid-row: 2;
         border-left: 0;
         border-top: 1px solid var(--line);
+        max-height: min(44vh, 22rem);
+        overflow-y: auto;
       }
     }
     @media (max-width: 720px) {

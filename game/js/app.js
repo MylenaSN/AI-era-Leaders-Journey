@@ -549,18 +549,18 @@ export function startJornada(cfg = {}) {
   };
 
   const PLAY = {
-    1: { metodo:"Gantt histórico × 3 pilares e baseline do time",
+    1: { metodo:"Gantt histórico × 3 pilares, baseline do time",
       a1:[
         { t: "As 5 revoluções", d: "Cada revolução industrial reorganiza o trabalho e o papel de quem lidera — o método muda de forma, não desaparece." },
-        { t: "Era agêntica", d: "Liderar hoje inclui orquestrar pessoas, agentes e ferramentas no mesmo fluxo de valor." },
+        { t: "Era agêntica", d: "Liderar hoje inclui orquestrar pessoas, agentes, ferramentas no mesmo fluxo de valor." },
         { t: "Continuidade histórica", d: "A era atual segue um padrão: novas tecnologias redistribuem papéis; o líder desenha o chão, não opera cada ferramenta." }
       ],
       a2Short: ["Gantt Revoluções", "Mapa AS-IS 3 pilares", "Momento atual do time"],
-      a2:["≥5 autores no Gantt (1 por era), com contribuição em 1 frase","Cruzar cada método → Product / Tech Delivery / Human & AI","Baseline honesto: o que o time já pratica sem nomear"] },
+      a2:["≥5 autores no Gantt (1 por era), com contribuição em 1 frase","Cruzar cada método → Product · Delivery · Human & AI","Baseline honesto: o que o time já pratica sem nomear"] },
     2: { metodo:"PDCA modernizado e Documento A3 (1 página)",
       a1:[
         { t: "Três pilares", d: "Product define o que vale construir; Tech Delivery entrega com ritmo; Human & AI define onde humanos autorizam com IA." },
-        { t: "Kaizen vs kaikaku", d: "Kaizen é evolução incremental; kaikaku é ruptura — só funciona com base, dados e patrocínio." },
+        { t: "Kaizen vs kaikaku", d: "Kaizen é evolução incremental; kaikaku é ruptura — só funciona com base, dados, patrocínio." },
         { t: "Revolução por passos", d: "Mudança durável vem de pequenas evoluções organizadas no tempo, não de salto sem chão." }
       ],
       a2Short: ["A3 do problema", "Hipótese e evidência", "Contramedidas sem IA"],
@@ -572,7 +572,7 @@ export function startJornada(cfg = {}) {
         { t: "Pergunta de valor", d: "Trocar \"o que entregamos?\" por \"que resultado movemos?\" alinha o time ao impacto." }
       ],
       a2Short: ["Impacto estratégico", "Outcomes e outputs", "Priorizar 3 itens"],
-      a2:["1 impacto estratégico no topo do board","2–3 outcomes, outputs e tasks ligadas","Priorizar 3 itens reais pela contribuição ao impacto"] },
+      a2:["1 impacto estratégico no topo do board","2–3 outcomes, outputs, tasks ligadas","Priorizar 3 itens reais pela contribuição ao impacto"] },
     4: { metodo:"OKR → backlog (funil e hipótese)",
       a1:[
         { t: "KR com baseline", d: "KR sem baseline medido pelo time não é KR — é slogan." },
@@ -588,7 +588,7 @@ export function startJornada(cfg = {}) {
         { t: "MVP serve o OKR", d: "O MVP serve o OKR — nunca o contrário. Objetivo e KRs claros antes do board; vitrine que não liga ao KR é recusada." }
       ],
       a2Short: ["Porquê e personas", "MVP no mapa", "IN e OUT"],
-      a2:["Porquê, personas e jornada","MVP no mapa de entrega","IN / OUT explícito"] },
+      a2:["Porquê, personas, jornada","MVP no mapa de entrega","IN / OUT explícito"] },
     6: { metodo:"User Story Mapping (Patton) e Scorecard INVEST (Wake)",
       a1:[
         { t: "Backlog como jornada", d: "Patton: atividades → passos → stories; fatia horizontal = MVP com jornada completa, ainda que rasa." },
@@ -604,20 +604,20 @@ export function startJornada(cfg = {}) {
         { t: "Interação entre tipos", d: "Stream consome platform; enabling reduz atrito. Uma interação nomeada vale mais que organograma novo." }
       ],
       a2Short: ["Mapa 4 tipos", "Ajuste de fronteira", "Glossário do time"],
-      a2:["Mapa dos 4 tipos e carga cognitiva","1 ajuste de fronteira (interação, não cargo)","Glossário de 8–12 termos do time"] },
+      a2:["Mapa dos 4 tipos, carga cognitiva","1 ajuste de fronteira (interação, não cargo)","Glossário de 8–12 termos do time"] },
     8: { metodo:"Kanban sistêmico (Anderson) e métricas de fluxo",
       a1:[
-        { t: "Métricas de fluxo", d: "Lead Time (LT): da entrada à entrega. Cycle Time (CT): do início do trabalho à entrega. Throughput (TH): itens por período. WIP: trabalho em progresso. CFD: diagrama de fluxo acumulado." },
+        { t: "Métricas de fluxo", d: "LT: da entrada à entrega; CT: do início do trabalho à entrega; TH: itens por período; WIP: trabalho em progresso; CFD: diagrama de fluxo acumulado." },
         { t: "Lei de Little", d: "LT ≈ WIP ÷ TH. Se o WIP sobe e o throughput não acompanha, o lead time explode — é matemática do fluxo, não opinião." },
-        { t: "Board visível", d: "Políticas de WIP, classes de serviço e puxar explícitas no Kanban. Só se gerencia o que se vê." }
+        { t: "Board visível", d: "Políticas de WIP, classes de serviço, puxar explícitas no Kanban. Só se gerencia o que se vê." }
       ],
       a2Short: ["Dashboard de fluxo", "Segmentar por tipo", "Alavanca Little"],
-      a2:["Dashboard com LT, CT, TH, WIP e CFD","Segmento por tipologia (bug · feature · risco)","1 alavancador via Lei de Little"] },
+      a2:["Dashboard com LT, CT, TH, WIP, CFD","Segmento por tipologia (bug · feature · risco)","1 alavancador via Lei de Little"] },
     9: { metodo:"Auditoria de cadências e métricas em 3 camadas",
       a1:[
         { t: "Rito ≠ ritmo", d: "Reunião sem métrica de ciclo é rito. Ritmo é cadência que o painel de fluxo que você já mede justifica." },
         { t: "Voto do time", d: "Fica / sai / muda é decisão do time. A IA não declara o ritmo vencedor." },
-        { t: "Kill criteria", d: "Adotar framework de escala (SAFe, Flight Levels, Spotify) só com patrocínio e critério de abandono se não funcionar." }
+        { t: "Kill criteria", d: "Adotar framework de escala (SAFe, Flight Levels, Spotify) só com patrocínio, critério de abandono se não funcionar." }
       ],
       a2Short: ["Fica / sai / muda", "Painel 3 camadas", "Ritmo candidato"],
       a2:["Lista fica / sai / muda","Painel em 3 camadas: operacional → tático → estratégico","1 ritmo candidato (voto do time decide)"] },
@@ -628,7 +628,7 @@ export function startJornada(cfg = {}) {
         { t: "ROI com julgamento", d: "ROI (Return on Investment) compara opções, mas não substitui contexto — retorno de curto prazo pode esconder valor estratégico." }
       ],
       a2Short: ["Problema em 1 frase", "Baseline e custos", "Passaporte FinOps"],
-      a2:["Problema em 1 frase — sem mencionar ferramenta","Baseline, custo e benefício com premissas explícitas","Passaporte FinOps: custo unitário, teto, alerta, dono e métrica de valor"] },
+      a2:["Problema em 1 frase — sem mencionar ferramenta","Baseline, custo, benefício com premissas explícitas","Passaporte FinOps: custo unitário, teto, alerta, dono, métrica de valor"] },
     11: { metodo:"Mapa híbrido e Context / Prompt / Steering",
       a1:[
         { t: "Loop com gates", d: "Todo processo é um loop; gate humano é o ponto onde decisão irreversível não pode ser automática." },
@@ -636,15 +636,15 @@ export function startJornada(cfg = {}) {
         { t: "Líder orquestrador", d: "Você desenha onde humanos precisam estar acordados — não executa cada nó no lugar do time." }
       ],
       a2Short: ["Mapa do ecossistema", "Context no nó crítico", "Teste com 1 caso"],
-      a2:["Mapa do ecossistema: humanos, agentes, ferramentas, gates e dados","Context, Prompt e Steering no nó mais crítico do loop","Testar o conjunto com 1 caso real e documentar escala para humano"] },
+      a2:["Mapa do ecossistema: humanos, agentes, ferramentas, gates, dados","Context, Prompt, Steering no nó mais crítico do loop","Testar o conjunto com 1 caso real, documentar escala para humano"] },
     12: { metodo:"Persona, Steering e Skill (1 agente)",
       a1:[
-        { t: "Anatomia do agente", d: "Persona (quem é), Tools (o que chama), Skills (procedimentos) e orquestração (quem decide a próxima ação)." },
+        { t: "Anatomia do agente", d: "Persona (quem é), Tools (o que chama), Skills (procedimentos), orquestração (quem decide a próxima ação)." },
         { t: "Conceito antes da marca", d: "LangChain/LangGraph e IDEs usam nomes diferentes para os mesmos conceitos — aprenda o conceito, não só o rótulo do vendor." },
         { t: "Identidade mínima", d: "Agente sem persona é colaborador sem descrição de cargo — improvisa a cada chamada." }
       ],
       a2Short: ["Persona e steering", "Teste de escalada", "3 arquivos no disco"],
-      a2:["Persona com missão, Steering com limites e Skill com passos","Teste cenário feliz e cenário de escalada para humano","3 blocos versionados no disco (persona / steering / skill)"] },
+      a2:["Persona com missão, Steering com limites, Skill com passos","Teste cenário feliz, cenário de escalada para humano","3 blocos versionados no disco (persona / steering / skill)"] },
     13: { metodo:"Spec de sistema agêntico sustentável",
       a1:[
         { t: "Quatro níveis de agente", d: "Reativo → com tools → multi-step → hierárquico: cada nível soma autonomia com critério." },
@@ -652,7 +652,7 @@ export function startJornada(cfg = {}) {
         { t: "Escalar com base", d: "Subir de agente simples para sistema hierárquico só quando processo e gates já estão claros para humanos." }
       ],
       a2Short: ["Diagrama do maestro", "Contratos e roteamento", "Guia de expansão"],
-      a2:["Diagrama: orquestrador, specialists e gates humanos","Contratos de entrada/saída, regras de roteamento e runbook de falha","Guia de como incluir o próximo agente sem redesenhar o núcleo"] },
+      a2:["Diagrama: orquestrador, specialists, gates humanos","Contratos de entrada/saída, regras de roteamento, runbook de falha","Guia de como incluir o próximo agente sem redesenhar o núcleo"] },
     14: { metodo:"KB viva e critério de subagents",
       a1:[
         { t: "RAG traz verdade", d: "RAG (Retrieval-Augmented Generation) busca na sua base antes de responder — antídoto contra alucinação de fato." },
@@ -660,7 +660,7 @@ export function startJornada(cfg = {}) {
         { t: "Subagents e evals", d: "Subagents dividem missões distintas; evals (avaliações sistemáticas) medem se você pode confiar no sistema." }
       ],
       a2Short: ["KB com casos reais", "Critério subagents", "Limiar de promoção"],
-      a2:["KB viva: 5–10 casos reais versionados com o porquê","Decisão documentada: dividir em subagents só se missão e eval forem distintos","Limiar numérico de promoção — sem limiar, workflow não sobe"] },
+      a2:["KB viva: 5–10 casos reais versionados com o porquê","Decisão documentada: dividir em subagents só se missão, eval forem distintos","Limiar numérico de promoção — sem limiar, workflow não sobe"] },
     15: { metodo:"Linha do tempo experiência → skill → evidência",
       a1:[
         { t: "Meta antes de categorias", d: "Defina o papel que quer exercer em 12–24 meses — categorias nascem da meta, não de framework genérico." },
@@ -671,8 +671,8 @@ export function startJornada(cfg = {}) {
       a2:["Linha do tempo: experiência → skill → evidência (5 marcos)","Gaps nomeados nos SEUS grupos de competência","1 ação SMART da quinzena ligada a um gap com evidência"] },
     16: { metodo:"Pensamento arbóreo e rascunho vs decisão de autoria",
       a1:[
-        { t: "Sinais de dependência", d: "Pedido sem critério, aceitar saída sem questionar e orgulho de \"uso IA para tudo\" são sinais de ferramenta no centro." },
-        { t: "Sobrevivente → transformador", d: "Transformador desenha onde a IA entra, com critério, gate e autoria clara — não reage com medo ou dependência." },
+        { t: "Sinais de dependência", d: "Pedido sem critério, aceitar saída sem questionar, orgulho de \"uso IA para tudo\" — sinais de ferramenta no centro." },
+        { t: "Sobrevivente → transformador", d: "Transformador desenha onde a IA entra, com critério, gate, autoria clara — não reage com medo ou dependência." },
         { t: "IA a serviço", d: "Pergunta-teste: se a ferramenta sumisse hoje, você ainda saberia fazer esse julgamento?" }
       ],
       a2Short: ["Mapa arbóreo", "Rascunho vs decisão", "Artefatos do ano"],
@@ -681,10 +681,10 @@ export function startJornada(cfg = {}) {
       a1:[
         { t: "Fluxo ≠ tamanho", d: "LT/CT/TH dizem quando o card anda. Não dizem o que saiu para a diretoria." },
         { t: "Uma lente", d: "Funcional, técnica ou qualitativa — uma por ciclo. A IA não troca a lente." },
-        { t: "No estimates", d: "Não estimar o card em hora. Ainda assim o time nomeia unidade e o que não conta." }
+        { t: "No estimates", d: "Não estimar o card em hora. Ainda assim o time nomeia unidade, o que não conta." }
       ],
       a2Short: ["Recorte de fluxo", "Lente e unidade", "Frase C-Level"],
-      a2:["Recorte de fluxo que vocês já medem","Uma lente, unidade e o que não conta","1 frase de C-Level e 1 linha de no-estimates"] }
+      a2:["Recorte de fluxo que vocês já medem","Uma lente, unidade, o que não conta","1 frase de C-Level, 1 linha de no-estimates"] }
   };
 
   const CASO = "Banco Nexo · Squad Pix PJ · Squad Leader Marie Peace · Product Leader John Watson · Tech Lead Frida Miller · Designer Lunna · QA Bartolomeu";

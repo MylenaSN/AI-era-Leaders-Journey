@@ -929,17 +929,17 @@
     .stack.cards-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      grid-template-rows: minmax(10.5rem, 1fr);
-      gap: 12px;
+      grid-template-rows: minmax(11rem, 1fr);
+      gap: 14px;
       align-content: center;
       justify-items: center;
-      min-height: min(36vh, 16rem);
-      padding: 6px 0;
+      min-height: min(38vh, 17rem);
+      padding: 8px 4px;
     }
     .stack.cards-3 .piece {
       height: auto;
-      min-height: 10.5rem;
-      max-width: 18rem;
+      min-height: 11rem;
+      max-width: 19rem;
       width: 100%;
       align-self: stretch;
       display: flex;
@@ -949,7 +949,7 @@
       text-align: center;
       min-width: 0;
       overflow: hidden;
-      padding: 16px 14px;
+      padding: 18px 16px;
       background: linear-gradient(165deg, #ffffff 0%, #f9f7fc 100%);
       box-shadow: 0 6px 18px #5B2D8E0f;
       border-color: #e8e2f0;
@@ -957,36 +957,39 @@
     .stack.cards-3 .piece .tag {
       margin-bottom: 10px;
       flex-shrink: 0;
-      font-size: 0.64rem;
+      font-size: 0.66rem;
       letter-spacing: 0.07em;
     }
     .stack.cards-3 .piece .card-d,
     .stack.cards-3 .piece .card-body {
-      font-size: 0.8rem;
-      line-height: 1.52;
+      font-size: 0.94rem;
+      line-height: 1.58;
       white-space: pre-line;
+      overflow-wrap: anywhere;
+      word-break: normal;
       overflow: hidden;
       display: -webkit-box;
-      -webkit-line-clamp: 9;
+      -webkit-line-clamp: 10;
       -webkit-box-orient: vertical;
       flex: 0 1 auto;
       width: 100%;
       max-width: 100%;
       text-align: center;
       margin: 0 auto;
+      padding: 0 2px;
     }
     .stack.cards-3 .piece.on {
       justify-content: center;
       align-items: center;
-      min-height: 10.5rem;
-      padding: 18px 16px;
+      min-height: 11rem;
+      padding: 20px 18px;
     }
     #cards-a1 .piece.on .card-d,
     #slots-a2 .piece.on .card-body {
       opacity: 1;
-      -webkit-line-clamp: 11;
-      line-height: 1.58;
-      font-size: 0.82rem;
+      -webkit-line-clamp: 12;
+      line-height: 1.62;
+      font-size: 0.96rem;
     }
     .rail-foot { margin-top: 8px; flex: 0 0 auto; }
     .rail-foot:empty { margin: 0; min-height: 0; }
@@ -1006,7 +1009,7 @@
       overflow: hidden;
       opacity: 0.72;
     }
-    .piece .card-body { display: block; font-size: 0.84rem; line-height: 1.45; color: var(--ink); white-space: pre-line; }
+    .piece .card-body { display: block; font-size: 0.92rem; line-height: 1.5; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
     .piece:nth-child(1) { animation-delay: 0.08s; }
     .piece:nth-child(2) { animation-delay: 0.14s; }
     .piece:nth-child(3) { animation-delay: 0.2s; }
@@ -1136,7 +1139,7 @@
     }
     @keyframes bar-flow { to { background-position: 200% 0; } }
     .piece .tag { display: block; font-size: 0.68rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; font-family: var(--font-title); }
-    .piece .card-d { display: block; font-size: 0.84rem; line-height: 1.45; color: var(--ink); white-space: pre-line; }
+    .piece .card-d { display: block; font-size: 0.92rem; line-height: 1.5; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
     #stage.map-only #c { display: block; }
     #stage.level-on #c { display: none; }
     #cofre {
@@ -1240,11 +1243,41 @@
       #mesa.has-caso #caso:not(.is-hidden) {
         grid-column: 1;
         grid-row: 3;
-        max-height: 28vh;
+        max-height: min(32vh, 14rem);
       }
       .stack.cards-3 {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(3, auto);
+        min-height: 0;
+        overflow: visible;
+        gap: 10px;
+        padding: 4px 0 8px;
+      }
+      .stack.cards-3 .piece {
+        min-height: auto;
+        max-width: none;
+        overflow: visible;
+        padding: 16px 14px;
+      }
+      .stack.cards-3 .piece .card-d,
+      .stack.cards-3 .piece .card-body {
+        display: block;
+        -webkit-line-clamp: unset;
+        overflow: visible;
+        font-size: 0.92rem;
+      }
+      #cards-a1 .piece.on .card-d,
+      #slots-a2 .piece.on .card-body {
+        -webkit-line-clamp: unset;
+        font-size: 0.94rem;
+      }
+      .rail.is-active {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .rail-main .stack {
+        overflow: visible;
+        flex: 0 0 auto;
       }
       .preview { grid-template-columns: 1fr; }
       #stage.level-on.dock-open {
@@ -1261,4 +1294,15 @@
     @media (max-width: 720px) {
       .rail-split { grid-template-columns: 1fr; }
       .lab-side-panel { min-height: 0; }
+      #mesa { padding: 6px 10px 8px; gap: 6px; }
+      .mesa-tab { font-size: 0.64rem; padding: 7px 8px; }
+      .stack.cards-3 .piece .card-d,
+      .stack.cards-3 .piece .card-body {
+        font-size: 0.9rem;
+        line-height: 1.55;
+        text-align: left;
+      }
+      .stack.cards-3 .piece { text-align: left; align-items: flex-start; }
+      .lab-deliverable p { font-size: 0.78rem; line-height: 1.48; }
+      #caso-body { font-size: 0.76rem; max-height: none; }
     }

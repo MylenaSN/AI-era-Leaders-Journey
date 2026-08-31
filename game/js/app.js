@@ -368,7 +368,48 @@ export function startJornada(cfg = {}) {
 
   function phraseLines(s) {
     if (!s) return "";
-    return String(s).replace(/\. +/g, ".\n").trim();
+    let t = String(s).trim();
+
+    // Parênteses inteiros na mesma linha (espaços não separáveis dentro)
+    t = t.replace(/\(([^)]*)\)/g, (_, inner) => "(" + inner.replace(/ /g, "\u00A0") + ")");
+
+    // Ponto final → nova linha
+    t = t.replace(/\.\s+/g, ".\n");
+
+    // Ponto e vírgula → nova linha
+    t = t.replace(/;\s+/g, ";\n");
+
+    // Dois-pontos antes de cláusula (minúscula) → nova linha
+    t = t.replace(/:\s+(?=[a-záàâãéêíóôõúç])/g, ":\n");
+
+    // Setas: quebra antes de segmentos longos ou com barra
+    if (t.includes(" → ")) {
+      const segs = t.split(/\s→\s/);
+      if (segs.length > 1) {
+        let out = segs[0];
+        for (let i = 1; i < segs.length; i++) {
+          const seg = segs[i];
+          const breakBefore = segs.length > 2 || seg.includes("/") || seg.includes("\n") || seg.length > 26;
+          out += breakBefore ? "\n→ " + seg : " → " + seg;
+        }
+        t = out;
+      }
+    }
+
+    // Listas com barra ou ponto médio
+    t = t.replace(/\s\/\s+/g, "\n");
+    t = t.replace(/\s·\s+/g, "\n· ");
+
+    // Vírgula: quebra se só 1–2 palavras até o próximo pontuador
+    t = t.replace(/,\s+/g, (comma, offset, str) => {
+      const rest = str.slice(offset + comma.length);
+      const m = rest.match(/^(\S+(?:\s+\S+)?)(?=\s*(?:[,;.!?)\]]|\n|$))/);
+      if (!m) return comma;
+      const words = m[1].trim().split(/\s+/).length;
+      return words <= 2 ? ",\n" : comma;
+    });
+
+    return t.replace(/\n{3,}/g, "\n\n").trim();
   }
 
   function applyBrand(cfg) {
@@ -405,7 +446,7 @@ export function startJornada(cfg = {}) {
   const LABS = {
     1: { autor:"Teo · prompt e gate", cap:"Arquivo com trava humana", tool:"ChatGPT free", alt:"Gemini", href:"https://chatgpt.com", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"ChatGPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
-      out:"Mapa as-is dos 3 pilares e GATE HUMANO (rodar em GPT e Gemini)",
+      out:"Mapa as-is dos 3 pilares (Product · Delivery · Human & AI), com dor e fato do seu Gantt, com o bloco GATE HUMANO (GPT e Gemini)",
       casca:"# S01-A3-arena.md\n\n## Time\n(1 linha)\n\n## 3 linhas\n| Pilar | Dor (1 frase) | Fato do time |\n| Product |  |  |\n| Delivery |  |  |\n| Human & AI |  |  |\n\n## GATE HUMANO\n- PARA: (o que a IA está proibida de decidir)\n- QUEM: (cargo que autoriza)\n- SÓ DEPOIS: (o que pode acontecer após o sim)\n- FRASE DE TRAVA: Nenhuma ação deste mapa entra no calendário sem o sim de [QUEM].\n",
       prompt:"Gere o arquivo completo S01-A3-arena.md: time (1 linha), 3 linhas com dor e fato do Gantt, GATE HUMANO (PARA / QUEM / SÓ DEPOIS / frase de trava). Output = markdown pronto para salvar — não resuma em chat.",
       tips:["Dois outputs completos (GPT e Gemini) — compare os gates.","Formato quebrado ou ensaio: volte ao modelo de referência.","Um modelo só: a arena pede os dois para comparar."] },

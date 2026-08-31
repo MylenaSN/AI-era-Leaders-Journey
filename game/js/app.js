@@ -1,4 +1,5 @@
 import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js";
+import { buildLabPrompt } from "../content/lab-prompts.js";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];
@@ -28,7 +29,7 @@ export function startJornada(cfg = {}) {
     { n: 3, w: 2, t: "Valor, não volume" },
     { n: 4, w: 2, t: "OKR com baseline" },
     { n: 5, w: 2, t: "Do problema ao produto" },
-    { n: 6, w: 2, t: "Story Mapping + INVEST" },
+    { n: 6, w: 2, t: "Story Mapping e INVEST" },
     { n: 7, w: 3, t: "Fronteiras" },
     { n: 8, w: 3, t: "Fluxo visível" },
     { n: 9, w: 3, t: "Ritmo, não rito" },
@@ -87,6 +88,19 @@ export function startJornada(cfg = {}) {
     const label = SEMANA_TRILHA[n] || WEEKS[n - 1].t;
     if (isBonus(n)) return "Plus — " + label;
     return "Semana " + String(n).padStart(2, "0") + " — " + label;
+  }
+
+  function weekTitleHtml(n) {
+    const label = SEMANA_TRILHA[n] || WEEKS[n - 1].t;
+    if (isBonus(n)) return '<span class="week-kicker">Plus</span>' + label;
+    return '<span class="week-kicker">Semana ' + String(n).padStart(2, "0") + "</span>" + label;
+  }
+
+  const COPY_BTN_ICON = '<svg class="btn-copy__ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+
+  function copyBtnHtml(label, extraClass, attrs) {
+    const extra = attrs ? " " + attrs : "";
+    return '<button type="button" class="btn-copy' + (extraClass ? " " + extraClass : "") + '"' + extra + ">" + COPY_BTN_ICON + "<span>" + label + "</span></button>";
   }
 
   function labOf() { return LABS[week]; }
@@ -200,10 +214,11 @@ export function startJornada(cfg = {}) {
     if (g.kind === "setup") {
       return { open: true, done: save.setupS01, here: needsSetupPrompt(), color };
     }
+    const nxt = nextHole();
     return {
-      open: unlocked(g.n),
+      open: true,
       done: won.has(g.n),
-      here: unlocked(g.n) && !won.has(g.n),
+      here: g.n === nxt && !won.has(g.n),
       color,
     };
   }
@@ -252,10 +267,6 @@ export function startJornada(cfg = {}) {
       if (!g) return;
       if (g.kind === "setup") {
         openMapSetup();
-        return;
-      }
-      if (!unlocked(g.n)) {
-        toast("Plus bloqueado — conclua FinOps na trilha", true);
         return;
       }
       enterWeek(g.n);
@@ -374,7 +385,6 @@ export function startJornada(cfg = {}) {
       WAVE_COLOR = {};
       Object.keys(cfg.waves).forEach((k) => { WAVE_COLOR[Number(k)] = cfg.waves[k]; });
     }
-    paintWaveLabels();
     const bar = document.getElementById("assinatura");
     if (bar && cfg.assinatura && cfg.assinatura.length) {
       const n = cfg.assinatura.length - 1;
@@ -393,61 +403,61 @@ export function startJornada(cfg = {}) {
     });
   }
   const LABS = {
-    1: { autor:"Teo · prompt + gate", cap:"Arquivo com trava humana", tool:"ChatGPT free", alt:"Gemini", href:"https://chatgpt.com", href2:"https://gemini.google.com",
+    1: { autor:"Teo · prompt e gate", cap:"Arquivo com trava humana", tool:"ChatGPT free", alt:"Gemini", href:"https://chatgpt.com", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"ChatGPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
-      out:"Mapa as-is dos 3 pilares + GATE HUMANO (rodar em GPT e Gemini)",
+      out:"Mapa as-is dos 3 pilares e GATE HUMANO (rodar em GPT e Gemini)",
       casca:"# S01-A3-arena.md\n\n## Time\n(1 linha)\n\n## 3 linhas\n| Pilar | Dor (1 frase) | Fato do time |\n| Product |  |  |\n| Delivery |  |  |\n| Human & AI |  |  |\n\n## GATE HUMANO\n- PARA: (o que a IA está proibida de decidir)\n- QUEM: (cargo que autoriza)\n- SÓ DEPOIS: (o que pode acontecer após o sim)\n- FRASE DE TRAVA: Nenhuma ação deste mapa entra no calendário sem o sim de [QUEM].\n",
-      prompt:"Gere o arquivo completo S01-A3-arena.md: time (1 linha), 3 linhas com dor + fato do Gantt, GATE HUMANO (PARA / QUEM / SÓ DEPOIS / frase de trava). Output = markdown pronto para salvar — não resuma em chat.",
+      prompt:"Gere o arquivo completo S01-A3-arena.md: time (1 linha), 3 linhas com dor e fato do Gantt, GATE HUMANO (PARA / QUEM / SÓ DEPOIS / frase de trava). Output = markdown pronto para salvar — não resuma em chat.",
       tips:["Dois outputs completos (GPT e Gemini) — compare os gates.","Formato quebrado ou ensaio: volte ao modelo de referência.","Um modelo só: a arena pede os dois para comparar."] },
     2: { autor:"Teo · contexto que fica", cap:"A3 vivo no Project", tool:"Claude Project", alt:"GPT Project / Gemini Gem", href:"https://claude.ai", href2:"https://chatgpt.com",
       etapas: [{ tools: [{ label:"Claude", href:"https://claude.ai" }, { label:"GPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
       out:"A3 salvo no Project, não no chat avulso",
       prompt:"Cole o A3 da Aula 2 neste Project. Tarefa: reescreva só as contramedidas em duas colunas — kaizen | kaikaku — sem inventar causa. Cada linha precisa de evidência do A3. Se faltar fato, escreva HIPÓTESE.",
       tips:["Chat avulso esquece amanhã. Crie o Project.","A IA escolheu a contramedida: devolva o gate para você.","Kaikaku no lugar de kaizen: peça para justificar com o A3."] },
-    3: { autor:"Wei · CoT", cap:"Diagrama da hierarquia", tool:"Claude ou GPT + mermaid", alt:"Napkin.ai (free)", href:"https://claude.ai", href2:"https://www.napkin.ai",
+    3: { autor:"Wei · CoT", cap:"Diagrama da hierarquia", tool:"Claude ou GPT e mermaid", alt:"Napkin.ai (free)", href:"https://claude.ai", href2:"https://www.napkin.ai",
       etapas: [
         { tools: [{ label:"Claude", href:"https://claude.ai" }, { label:"GPT", href:"https://chatgpt.com" }] },
         { tools: [{ label:"Napkin", href:"https://www.napkin.ai" }] },
       ],
-      out:"5 linhas Classe + raciocínio + evidência + 1 diagrama",
-      prompt:"Mostre o RACIOCÍNIO da classe ANTES do rótulo.\nItens reais: [cole 5 entregas].\nPara cada: Output / Outcome / Impact + 1 frase de evidência. Recuse se inventar métrica.\nDepois: diagrama mermaid da Hierarquia de Valor da Aula 2.",
+      out:"5 linhas Classe, raciocínio, evidência e 1 diagrama",
+      prompt:"Mostre o RACIOCÍNIO da classe ANTES do rótulo.\nItens reais: [cole 5 entregas].\nPara cada: Output / Outcome / Impact e 1 frase de evidência. Recuse se inventar métrica.\nDepois: diagrama mermaid da Hierarquia de Valor da Aula 2.",
       tips:["Sem CoT visível a classe é chute.","Diagrama bonito sem as 5 linhas não fecha.","Métrica que o time não mediu = alucinação."] },
     4: { autor:"Ng · workflow", cap:"Gráfico / planilha", tool:"Gemini (Sheets)", alt:"GPT", href:"https://gemini.google.com", href2:"https://chatgpt.com",
       etapas: [{ tools: [{ label:"Gemini", href:"https://gemini.google.com" }, { label:"GPT", href:"https://chatgpt.com" }] }],
       out:"Síntese dos KRs com baseline que VOCÊ mediu",
       prompt:"Workflow: 1) li a planilha/baseline que eu colei 2) resumo 3) NÃO mudo o alvo.\nOKR da Aula 2: [cole]. Se KR sem baseline, marque INVÁLIDO. Gere um gráfico simples baseline→hoje→target.",
       tips:["Moonshot sem baseline. Cole o número medido.","A IA mudou o target: isso é gate seu.","Gráfico sem eixo com unidade não serve ao C-Level."] },
-    5: { autor:"intenção → UI", cap:"Protótipo + imagem coesa", tool:"Lovable (free)", alt:"v0 · Designer/Gemini imagem", href:"https://lovable.dev", href2:"https://gemini.google.com",
+    5: { autor:"intenção → UI", cap:"Protótipo e imagem coesa", tool:"Lovable (free)", alt:"v0 · Designer/Gemini imagem", href:"https://lovable.dev", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"Lovable", href:"https://lovable.dev" }, { label:"v0", href:"https://v0.dev" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
-      out:"Link do protótipo da fatia IN + 1 imagem de jornada",
+      out:"Link do protótipo da fatia IN e 1 imagem de jornada",
       prompt:"Gere um protótipo SÓ da fatia IN do PBB: [cole IN/OUT]. Não implemente OUT. Depois (Gemini/Designer): uma imagem da jornada da persona — mesmo traço, sem stock genérico. O MVP serve o OKR da S04 — se a vitrine não liga ao KR, recuse.",
       tips:["Markdown no chat não é protótipo. Precisa do link.","Imagem de banco de foto: peça consistência com a persona.","Tudo IN: volte ao OUT da Aula 2."] },
-    6: { autor:"Husain · eval", cap:"Julgamento INVEST das USs", tool:"Custom GPT / Gem", alt:"Cursor no backlog.md", href:"https://chatgpt.com", href2:"https://cursor.com",
+    6: { autor:"Wake · INVEST", cap:"Scorecard INVEST 1–3", tool:"Custom GPT / Gem", alt:"Cursor no backlog.md", href:"https://chatgpt.com", href2:"https://cursor.com",
       etapas: [{ tools: [{ label:"GPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }, { label:"Cursor", href:"https://cursor.com" }] }],
-      out:"Julgamento INVEST com recusas explícitas (não auto-nota 5/5)",
-      prompt:"Revise 3 user stories da Aula 2 com INVEST (I=Independente · N=Negociável · V=Valiosa · E=Estimável · S=Small · T=Testável). Story fora do padrão precisa ser questionada — aponte o que falta e sugira ajuste. PROIBIDO dar 5/5 em story que você mesmo reescreveu sem um segundo olhar meu.",
-      tips:["A IA se autoavaliou. Peça uma segunda revisão ou você recusa.","Sem story da Aula 2 a IA inventa backlog.","Use o prompt para educar o time — não precisa ser regra letra a letra no fluxo diário."] },
-    7: { autor:"Lewis · RAG", cap:"Caderno + overview (áudio/vídeo)", tool:"NotebookLM (free)", alt:"Gemini com PDFs", href:"https://notebooklm.google.com", href2:"https://gemini.google.com",
+      out:"Scorecard INVEST das 3 stories (máx. 18; nota 1 em qualquer critério reprova)",
+      prompt:"Avalie as 3 user stories da Aula 2 com o Scorecard INVEST.\nPara cada critério (Independent, Negotiable, Valuable, Estimable, Small, Testable) atribua nota 1–3:\n1 = ruim (não atende) · 2 = aceitável (pode melhorar) · 3 = excelente.\nSome o total (máx. 18). Regra de corte: se QUALQUER critério = 1, marque REPROVADA e indique o ajuste mínimo.\nPROIBIDO dar 3 em todos os critérios sem justificativa ancorada no texto da story.\nFormato: tabela por story + total + veredito (aprovada/reprovada) + sugestão só para reprovadas.",
+      tips:["Wake criou checklist Sim/Não — o scorecard 1–3 é adaptação de mercado.","Nota 1 em Independent manda a story de volta ao refinamento.","IA que dá 18/18 em tudo: você recusa e repontua à mão."] },
+    7: { autor:"Lewis · RAG", cap:"Caderno e overview (áudio/vídeo)", tool:"NotebookLM (free)", alt:"Gemini com PDFs", href:"https://notebooklm.google.com", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"NotebookLM", href:"https://notebooklm.google.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
-      out:"Glossário com citação + 1 Audio/Video Overview",
+      out:"Glossário com citação e 1 Audio/Video Overview",
       prompt:"Suba SÓ os artefatos da Aula 2 (mapa de topologia). Pergunte: liste 8–12 termos conflitantes COM citação do arquivo. Depois gere o Overview. Se não citar a fonte, o termo é alucinação.",
       tips:["Chat sem PDF = chute da web, não RAG.","Overview sem glossário citado é teatro.","Termo sem dono: volte ao mapa da Aula 2."] },
-    8: { autor:"Anderson · fluxo", cap:"Dashboard Kanban + diagrama", tool:"Cursor Hobby", alt:"Copilot · mermaid no GPT", href:"https://cursor.com", href2:"https://github.com/features/copilot",
+    8: { autor:"Anderson · fluxo", cap:"Dashboard Kanban e diagrama", tool:"Cursor Hobby", alt:"Copilot · mermaid no GPT", href:"https://cursor.com", href2:"https://github.com/features/copilot",
       etapas: [{ tools: [{ label:"Cursor", href:"https://cursor.com" }, { label:"Copilot", href:"https://github.com/features/copilot" }, { label:"GPT", href:"https://chatgpt.com" }] }],
-      out:"Dashboard LT/CT/TH/WIP/CFD + diagrama mermaid do fluxo",
+      out:"Dashboard LT/CT/TH/WIP/CFD e diagrama mermaid do fluxo",
       prompt:"A partir do dashboard da Aula 2 [cole números que EU medi], monte S08-A3-fluxo.md com:\n1) Lead Time (LT), Cycle Time (CT), Throughput (TH), WIP e CFD explicados em linguagem do time.\n2) Lei de Little: LT ≈ WIP ÷ TH — onde está o alavancador?\n3) Diagrama mermaid do fluxo atual.\n4) (Apoio futuro) Rascunho de prompt agnóstico para 3 agents: Métricas de fluxo · Esteira híbrida · Advisor de liderança — cada um com persona/steering/skill, sem depender de ferramenta.\nUse só números do meu contexto. Não invente target externo.",
       tips:["LT = tempo total até entregar. CT = tempo em trabalho ativo. TH = itens/ período. WIP = em progresso. CFD = diagrama de fluxo acumulado.","Sem números da Aula 2 o dashboard é teatro.","Os 3 agents do curso são apoiadores — esta semana fecha o painel de fluxo."] },
-    9: { autor:"ritmos + voto", cap:"Board + workspace no IDE", tool:"Cursor + Claude Artifact", alt:"Whimsical free → cola no Mural", href:"https://cursor.com", href2:"https://claude.ai",
+    9: { autor:"ritmos e voto", cap:"Board e workspace no IDE", tool:"Cursor e Claude Artifact", alt:"Whimsical free → cola no Mural", href:"https://cursor.com", href2:"https://claude.ai",
       etapas: [
         { tools: [{ label:"Cursor", href:"https://cursor.com" }] },
         { tools: [{ label:"Claude", href:"https://claude.ai" }, { label:"Whimsical", href:"https://whimsical.com" }] },
       ],
-      out:"Antes/depois de 1 ritmo em 03-delivery/S09/ + 1 pergunta de voto",
+      out:"Antes/depois de 1 ritmo em 03-delivery/S09/ e 1 pergunta de voto",
       prompt:"A partir da auditoria fica/sai/muda da Aula 2, desenhe um board (Agora / Proposta / Voto). Uma pergunta para Mentimeter. NÃO declare o ritmo vencedor.\nSalve o board em 03-delivery/S09/S09-A3-board.md — abra sua pasta " + LEADER_DIR + " no Cursor. Ciclo sem pasta no disco é rito.",
       tips:["Sem pergunta de voto a IA 'ganhou' sozinha.","Board sem a lista fica/sai/muda da Aula 2 é layout vazio.","Cola no Mural: o artefato precisa ser colável, não um ensaio."] },
     10: { autor:"Amodei · risco", cap:"Apresentação / PDF de 3 cenários", tool:"Gamma (free)", alt:"Gemini", href:"https://gamma.app", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"Gamma", href:"https://gamma.app" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
-      out:"Deck de 5 slides: conservador / base / agressivo + teto",
+      out:"Deck de 5 slides: conservador / base / agressivo e teto",
       prompt:"Gere apresentação curta com 3 ROIs a partir do Passaporte FinOps: [cole números]. O slide final é TETO ASSINADO POR HUMANO. Não recomende o agressivo. Console de cloud só em leitura.",
       tips:["Um único ROI 'o modelo disse'. Faltam 3.","Agressivo como único slide: esconde o conservador.","Sem teto assinado o C-Level compra teatro."] },
     11: { autor:"papel no loop", cap:"Esteira clássica vs GenAI", tool:"n8n cloud free ou Zapier free", alt:"Cursor numa etapa só", href:"https://n8n.io", href2:"https://cursor.com",
@@ -455,15 +465,15 @@ export function startJornada(cfg = {}) {
         { tools: [{ label:"n8n", href:"https://n8n.io" }, { label:"Zapier", href:"https://zapier.com" }] },
         { tools: [{ label:"Cursor", href:"https://cursor.com" }] },
       ],
-      out:"1 etapa acelerada + 1 etapa PROIBIDA para o agente",
+      out:"1 etapa acelerada e 1 etapa PROIBIDA para o agente",
       prompt:"Do mapa da Aula 2: escolha 1 nó para automação sem LLM (n8n ou Zapier) e 1 nó para Cursor/Copilot. Mostre os dois fluxos. Proibido agente em decisão de valor ou gate humano.",
       tips:["'Vamos usar o Cursor' sem nó: volte ao mapa.","Tudo no agente: falta a etapa sem GenAI.","Zapier no julgamento = gate furado."] },
     12: { autor:"Chase / Moura / Wang", cap:"Arquivos de agent", tool:"Cursor", alt:"Kiro", href:"https://cursor.com", href2:"https://kiro.dev",
       etapas: [{ tools: [{ label:"Cursor", href:"https://cursor.com" }, { label:"Kiro", href:"https://kiro.dev" }] }],
-      out:"persona.md + steering.md + skill.md no disco",
+      out:"persona.md, steering.md e skill.md no disco",
       prompt:"A partir dos 3 blocos da Aula 2, gere os 3 arquivos no repo e um hook (evento→condição→gate). Chatbot Custom GPT sem arquivo NÃO conta. Inclua 3 proibições no steering.",
       tips:["Custom GPT sem pasta no git.","Falta o hook ligado ao gate da S11.","Persona sem proibição: o agent faz tudo."] },
-    13: { autor:"Ng · spec-before-code", cap:"Diagrama + spec", tool:"Kiro", alt:"Cursor + Eraser/mermaid", href:"https://kiro.dev", href2:"https://www.eraser.io",
+    13: { autor:"Ng · spec-before-code", cap:"Diagrama e spec", tool:"Kiro", alt:"Cursor e Eraser/mermaid", href:"https://kiro.dev", href2:"https://www.eraser.io",
       etapas: [
         { tools: [{ label:"Kiro", href:"https://kiro.dev" }] },
         { tools: [{ label:"Cursor", href:"https://cursor.com" }, { label:"Eraser", href:"https://www.eraser.io" }] },
@@ -471,7 +481,7 @@ export function startJornada(cfg = {}) {
       out:"requirements → design (código opcional)",
       prompt:"Spec do maestro da Aula 2. Em Kiro (ou spec MD): requirements, design, gates. NÃO commitar código sem spec. Diagrama hierárquico input→roteamento→specialists→gate humano.",
       tips:["Código no primeiro commit: volte à spec.","Diagrama sem gate final humano.","Sem contratos de entrada/saída o maestro é um chat."] },
-    14: { autor:"Lewis + Husain", cap:"RAG + eval (fine-tune só se RAG falhar)", tool:"Cursor + Sheets ou Promptfoo", alt:"NotebookLM na KB", href:"https://cursor.com", href2:"https://www.promptfoo.dev",
+    14: { autor:"Lewis e Husain", cap:"RAG e eval (fine-tune só se RAG falhar)", tool:"Cursor e Sheets ou Promptfoo", alt:"NotebookLM na KB", href:"https://cursor.com", href2:"https://www.promptfoo.dev",
       etapas: [
         { tools: [{ label:"Cursor", href:"https://cursor.com" }] },
         { tools: [{ label:"Promptfoo", href:"https://www.promptfoo.dev" }, { label:"NotebookLM", href:"https://notebooklm.google.com" }] },
@@ -484,9 +494,9 @@ export function startJornada(cfg = {}) {
       out:"Advisor que recusa CHA genérico",
       prompt:"Alimente o Project com a linha do tempo da Aula 2. Categorias = as MINHAS. Se eu pedir 'faz um PDI CHA', recuse e peça evidência da timeline. 1 gap SMART da quinzena.",
       tips:["Prompt avulso 'me dá um PDI'. Sem Project.","CHA genérico passou: o advisor não está ancorado.","Gap sem SMART: não fecha a quinzena."] },
-    16: { autor:"Amodei · autoria", cap:"Overview do ano + decisão OFFLINE", tool:"NotebookLM", alt:"Gamma PDF do pacote", href:"https://notebooklm.google.com", href2:"https://gamma.app",
+    16: { autor:"Amodei · autoria", cap:"Overview do ano e decisão OFFLINE", tool:"NotebookLM", alt:"Gamma PDF do pacote", href:"https://notebooklm.google.com", href2:"https://gamma.app",
       etapas: [{ tools: [{ label:"NotebookLM", href:"https://notebooklm.google.com" }, { label:"Gamma", href:"https://gamma.app" }] }],
-      out:"Video/Audio Overview + 1 decisão escrita sem LLM",
+      out:"Video/Audio Overview e 1 decisão escrita sem LLM",
       prompt:"Suba o pacote do ano (A3, OKR, métricas de fluxo, PDI). Gere Overview. A ATA: uma decisão do ritual EU escrevo offline — o modelo não escolhe o ritual do time.",
       tips:["O modelo escolheu a decisão: apague e escreva à mão.","Overview sem fontes do pacote.","Sem cláusula de autoria o PI some."] },
     17: { autor:"Albrecht / COSMIC / Anderson (ponte)", cap:"Língua de tamanho para o C-Level", tool:"ChatGPT free", alt:"Gemini", href:"https://chatgpt.com", href2:"https://gemini.google.com",
@@ -498,103 +508,117 @@ export function startJornada(cfg = {}) {
   };
 
   const PLAY = {
-    1: { metodo:"Gantt histórico × 3 pilares + baseline do time",
+    1: { metodo:"Gantt histórico × 3 pilares e baseline do time",
       a1:[
-        { t: "As 5 revoluções", d: "Cada Revolução Industrial reestrutura o papel do líder — o trabalho não desaparece, muda de forma." },
-        { t: "Era agêntica", d: "Na 5ª Revolução Industrial você orquestra sistemas híbridos — pessoas, agentes e ferramentas — em vez de operar a ferramenta sozinho." },
-        { t: "Padrão, não ruptura", d: "Tratar a era atual como exceção ignora o fio histórico: toda revolução reorganiza papéis, não apaga o método." }
+        { t: "As 5 revoluções", d: "Cada revolução industrial reorganiza o trabalho e o papel de quem lidera — o método muda de forma, não desaparece." },
+        { t: "Era agêntica", d: "Liderar hoje inclui orquestrar pessoas, agentes e ferramentas no mesmo fluxo de valor." },
+        { t: "Continuidade histórica", d: "A era atual segue um padrão: novas tecnologias redistribuem papéis; o líder desenha o chão, não opera cada ferramenta." }
       ],
+      a2Short: ["Gantt Revoluções", "Mapa AS-IS 3 pilares", "Momento atual do time"],
       a2:["≥5 autores no Gantt (1 por era), com contribuição em 1 frase","Cruzar cada método → Product / Tech Delivery / Human & AI","Baseline honesto: o que o time já pratica sem nomear"] },
-    2: { metodo:"PDCA modernizado + Documento A3 (1 página)",
+    2: { metodo:"PDCA modernizado e Documento A3 (1 página)",
       a1:[
         { t: "Três pilares", d: "Product define o que vale construir; Tech Delivery entrega com ritmo; Human & AI define onde humanos autorizam com IA." },
         { t: "Kaizen vs kaikaku", d: "Kaizen é evolução incremental; kaikaku é ruptura — só funciona com base, dados e patrocínio." },
         { t: "Revolução por passos", d: "Mudança durável vem de pequenas evoluções organizadas no tempo, não de salto sem chão." }
       ],
+      a2Short: ["A3 do problema", "Hipótese e evidência", "Contramedidas sem IA"],
       a2:["A3 de 1 página com UM problema real do time","Hipótese → experimento → evidência → padronizar ou ajustar","Contramedidas ainda sem IA — você é dono do aprendizado"] },
     3: { metodo:"Hierarquia de Valor (Impacto → Outcome → Output → Task)",
       a1:[
-        { t: "Output, outcome, impact", d: "Output é o que entregamos; outcome é a mudança mensurável no comportamento; impact é o efeito no negócio." },
-        { t: "Volume ≠ valor", d: "Time que só conta entregas celebra atividade — produtividade real mede se algo mudou para cliente ou negócio." },
-        { t: "A pergunta certa", d: "Trocar \"o que entregamos?\" por \"que resultado movemos?\" desloca o time de fábrica de features para time de valor." }
+        { t: "Output, outcome, impact", d: "Output é entrega; outcome é mudança observável; impact é efeito no negócio." },
+        { t: "Volume ≠ valor", d: "Contar entregas sem medir mudança para o cliente confunde atividade com resultado." },
+        { t: "Pergunta de valor", d: "Trocar \"o que entregamos?\" por \"que resultado movemos?\" alinha o time ao impacto." }
       ],
-      a2:["1 impacto estratégico no topo do board","2–3 outcomes + outputs + tasks ligadas","Priorizar 3 itens reais pela contribuição ao impacto"] },
-    4: { metodo:"OKR → backlog (funil + hipótese)",
+      a2Short: ["Impacto estratégico", "Outcomes e outputs", "Priorizar 3 itens"],
+      a2:["1 impacto estratégico no topo do board","2–3 outcomes, outputs e tasks ligadas","Priorizar 3 itens reais pela contribuição ao impacto"] },
+    4: { metodo:"OKR → backlog (funil e hipótese)",
       a1:[
         { t: "KR com baseline", d: "KR sem baseline medido pelo time não é KR — é slogan." },
         { t: "Target assinado", d: "O target é decisão de cargo; o modelo não troca o alvo." },
         { t: "Backlog serve o objetivo", d: "Projeto entra se testa uma hipótese do OKR. O contrário — backlog mandando no objetivo — invalida o funil." }
       ],
-      a2:["1 Objetivo + 2 KRs","Baseline que VOCÊ mediu","4 projetos com hipótese"] },
-    5: { metodo:"Lean Inception + PBB no board",
+      a2Short: ["Objetivo e KRs", "Baseline medido", "Projetos com hipótese"],
+      a2:["1 Objetivo e 2 KRs","Baseline que VOCÊ mediu","4 projetos com hipótese"] },
+    5: { metodo:"Lean Inception e PBB no board",
       a1:[
         { t: "Persona evidenciada", d: "Persona sem identificação, sem rotina, sem ações no produto não é persona." },
         { t: "Core do MVP", d: "A fatia do MVP é o core — o que não pode ficar de fora do primeiro passo. Adjacente e transformacional tendem ao próximo passo. Se o essencial ficar de fora, o MVP não valida o propósito do produto." },
         { t: "MVP serve o OKR", d: "O MVP serve o OKR — nunca o contrário. Objetivo e KRs claros antes do board; vitrine que não liga ao KR é recusada." }
       ],
-      a2:["Porquê + personas + jornada","MVP no mapa de entrega","IN / OUT explícito"] },
-    6: { metodo:"User Story Mapping (Patton) + INVEST",
+      a2Short: ["Porquê e personas", "MVP no mapa", "IN e OUT"],
+      a2:["Porquê, personas e jornada","MVP no mapa de entrega","IN / OUT explícito"] },
+    6: { metodo:"User Story Mapping (Patton) e Scorecard INVEST (Wake)",
       a1:[
-        { t: "Julgamento de valor das USs", d: "Story gerada fora do padrão INVEST precisa ser questionada antes de entrar no backlog." },
-        { t: "INVEST", d: "I = Independente · N = Negociável · V = Valiosa · E = Estimável · S = Small · T = Testável. Use prompt para validar enquanto o time aprende — não é regra letra a letra no fluxo diário." },
-        { t: "Template que aprende", d: "A story questionada ajusta o template. Auto-nota 5/5 do modelo não conta." }
+        { t: "Backlog como jornada", d: "Patton: atividades → passos → stories; fatia horizontal = MVP com jornada completa, ainda que rasa." },
+        { t: "INVEST qualitativo", d: "Wake: checklist nas 6 letras — story que falha em alguma volta ao refinamento antes do sprint." },
+        { t: "Scorecard 1–3", d: "No mercado: nota 1 = ruim, 2 = aceitável, 3 = excelente por critério (máx. 18). Qualquer nota 1 reprova a story." }
       ],
-      a2:["3 stories pontuadas","1 story reescrita","1 ajuste de template"] },
-    7: { metodo:"Team Topologies + linguagem compartilhada (DDD)",
+      a2Short: ["Scorecard 3 stories", "1 story reescrita", "Critério de corte"],
+      a2:["3 stories do fluxo feliz com tabela INVEST (nota 1–3 por critério, total até 18)","1 story reescrita se reprovada (qualquer nota 1)","Registrar qual critério forçou o retorno ao refinamento"] },
+    7: { metodo:"Team Topologies e linguagem compartilhada (DDD)",
       a1:[
         { t: "Quatro tipos de time", d: "Stream-aligned, Platform, Enabling, Complicated-subsystem (Skelton & Pais) — cada um com papel e carga cognitiva." },
         { t: "Bounded context", d: "Termos decisores do bounded context precisam ter significado explícito para toda a equipe." },
         { t: "Interação entre tipos", d: "Stream consome platform; enabling reduz atrito. Uma interação nomeada vale mais que organograma novo." }
       ],
-      a2:["Mapa dos 4 tipos + carga cognitiva","1 ajuste de fronteira (interação, não cargo)","Glossário de 8–12 termos do time"] },
-    8: { metodo:"Kanban sistêmico (Anderson) + métricas de fluxo",
+      a2Short: ["Mapa 4 tipos", "Ajuste de fronteira", "Glossário do time"],
+      a2:["Mapa dos 4 tipos e carga cognitiva","1 ajuste de fronteira (interação, não cargo)","Glossário de 8–12 termos do time"] },
+    8: { metodo:"Kanban sistêmico (Anderson) e métricas de fluxo",
       a1:[
         { t: "Métricas de fluxo", d: "Lead Time (LT): da entrada à entrega. Cycle Time (CT): do início do trabalho à entrega. Throughput (TH): itens por período. WIP: trabalho em progresso. CFD: diagrama de fluxo acumulado." },
         { t: "Lei de Little", d: "LT ≈ WIP ÷ TH. Se o WIP sobe e o throughput não acompanha, o lead time explode — é matemática do fluxo, não opinião." },
         { t: "Board visível", d: "Políticas de WIP, classes de serviço e puxar explícitas no Kanban. Só se gerencia o que se vê." }
       ],
+      a2Short: ["Dashboard de fluxo", "Segmentar por tipo", "Alavanca Little"],
       a2:["Dashboard com LT, CT, TH, WIP e CFD","Segmento por tipologia (bug · feature · risco)","1 alavancador via Lei de Little"] },
-    9: { metodo:"Auditoria de cadências + métricas em 3 camadas",
+    9: { metodo:"Auditoria de cadências e métricas em 3 camadas",
       a1:[
         { t: "Rito ≠ ritmo", d: "Reunião sem métrica de ciclo é rito. Ritmo é cadência que o painel de fluxo que você já mede justifica." },
         { t: "Voto do time", d: "Fica / sai / muda é decisão do time. A IA não declara o ritmo vencedor." },
         { t: "Kill criteria", d: "Adotar framework de escala (SAFe, Flight Levels, Spotify) só com patrocínio e critério de abandono se não funcionar." }
       ],
+      a2Short: ["Fica / sai / muda", "Painel 3 camadas", "Ritmo candidato"],
       a2:["Lista fica / sai / muda","Painel em 3 camadas: operacional → tático → estratégico","1 ritmo candidato (voto do time decide)"] },
-    10: { metodo:"Business case enxuto + Passaporte FinOps",
+    10: { metodo:"Business case enxuto e Passaporte FinOps",
       a1:[
         { t: "Core · adjacente · transformacional", d: "Core melhora o que já funciona; adjacente expande o próximo; transformacional aposta alto — exige kill criteria desde o início." },
         { t: "Teto de budget", d: "Budget de iniciativa é o teto explícito: sem teto, cada gasto parece justificável isoladamente." },
         { t: "ROI com julgamento", d: "ROI (Return on Investment) compara opções, mas não substitui contexto — retorno de curto prazo pode esconder valor estratégico." }
       ],
-      a2:["Problema em 1 frase — sem mencionar ferramenta","Baseline + custo + benefício com premissas explícitas","Passaporte FinOps: custo unitário, teto, alerta, dono e métrica de valor"] },
-    11: { metodo:"Mapa híbrido + Context / Prompt / Steering",
+      a2Short: ["Problema em 1 frase", "Baseline e custos", "Passaporte FinOps"],
+      a2:["Problema em 1 frase — sem mencionar ferramenta","Baseline, custo e benefício com premissas explícitas","Passaporte FinOps: custo unitário, teto, alerta, dono e métrica de valor"] },
+    11: { metodo:"Mapa híbrido e Context / Prompt / Steering",
       a1:[
         { t: "Loop com gates", d: "Todo processo é um loop; gate humano é o ponto onde decisão irreversível não pode ser automática." },
         { t: "Automação vs GenIA", d: "Regra fixa → automação clássica; ambiguidade de linguagem → GenIA (IA generativa); alto risco → gate humano obrigatório." },
         { t: "Líder orquestrador", d: "Você desenha onde humanos precisam estar acordados — não executa cada nó no lugar do time." }
       ],
-      a2:["Mapa do ecossistema: humanos, agentes, ferramentas, gates e dados","Context + Prompt + Steering no nó mais crítico do loop","Testar o conjunto com 1 caso real e documentar escala para humano"] },
-    12: { metodo:"Persona + Steering + Skill (1 agente)",
+      a2Short: ["Mapa do ecossistema", "Context no nó crítico", "Teste com 1 caso"],
+      a2:["Mapa do ecossistema: humanos, agentes, ferramentas, gates e dados","Context, Prompt e Steering no nó mais crítico do loop","Testar o conjunto com 1 caso real e documentar escala para humano"] },
+    12: { metodo:"Persona, Steering e Skill (1 agente)",
       a1:[
         { t: "Anatomia do agente", d: "Persona (quem é), Tools (o que chama), Skills (procedimentos) e orquestração (quem decide a próxima ação)." },
         { t: "Conceito antes da marca", d: "LangChain/LangGraph e IDEs usam nomes diferentes para os mesmos conceitos — aprenda o conceito, não só o rótulo do vendor." },
         { t: "Identidade mínima", d: "Agente sem persona é colaborador sem descrição de cargo — improvisa a cada chamada." }
       ],
-      a2:["Persona com missão + Steering com limites + Skill com passos","Teste cenário feliz e cenário de escalada para humano","3 blocos versionados no disco (persona / steering / skill)"] },
+      a2Short: ["Persona e steering", "Teste de escalada", "3 arquivos no disco"],
+      a2:["Persona com missão, Steering com limites e Skill com passos","Teste cenário feliz e cenário de escalada para humano","3 blocos versionados no disco (persona / steering / skill)"] },
     13: { metodo:"Spec de sistema agêntico sustentável",
       a1:[
         { t: "Quatro níveis de agente", d: "Reativo → com tools → multi-step → hierárquico: cada nível soma autonomia com critério." },
         { t: "Maestro, não gargalo", d: "Orquestrador coordena specialists e gates — se executa tudo, vira ponto único de falha." },
         { t: "Escalar com base", d: "Subir de agente simples para sistema hierárquico só quando processo e gates já estão claros para humanos." }
       ],
-      a2:["Diagrama: orquestrador + specialists + gates humanos","Contratos de entrada/saída + regras de roteamento + runbook de falha","Guia de como incluir o próximo agente sem redesenhar o núcleo"] },
-    14: { metodo:"KB viva + critério de subagents",
+      a2Short: ["Diagrama do maestro", "Contratos e roteamento", "Guia de expansão"],
+      a2:["Diagrama: orquestrador, specialists e gates humanos","Contratos de entrada/saída, regras de roteamento e runbook de falha","Guia de como incluir o próximo agente sem redesenhar o núcleo"] },
+    14: { metodo:"KB viva e critério de subagents",
       a1:[
         { t: "RAG traz verdade", d: "RAG (Retrieval-Augmented Generation) busca na sua base antes de responder — antídoto contra alucinação de fato." },
         { t: "MCP conecta", d: "MCP (Model Context Protocol) liga agentes a ferramentas e dados sem reescrever integração a cada vendor." },
         { t: "Subagents e evals", d: "Subagents dividem missões distintas; evals (avaliações sistemáticas) medem se você pode confiar no sistema." }
       ],
+      a2Short: ["KB com casos reais", "Critério subagents", "Limiar de promoção"],
       a2:["KB viva: 5–10 casos reais versionados com o porquê","Decisão documentada: dividir em subagents só se missão e eval forem distintos","Limiar numérico de promoção — sem limiar, workflow não sobe"] },
     15: { metodo:"Linha do tempo experiência → skill → evidência",
       a1:[
@@ -602,29 +626,32 @@ export function startJornada(cfg = {}) {
         { t: "Evidência, não currículo", d: "Conquista comprova skill; skill sem evidência é autodeclaração." },
         { t: "CHA como apoio", d: "CHA (Conhecimento, Habilidade, Atitude) informa perguntas — não impõe a estrutura do seu plano." }
       ],
+      a2Short: ["Timeline 5 marcos", "Gaps nomeados", "Ação SMART"],
       a2:["Linha do tempo: experiência → skill → evidência (5 marcos)","Gaps nomeados nos SEUS grupos de competência","1 ação SMART da quinzena ligada a um gap com evidência"] },
-    16: { metodo:"Pensamento arbóreo + rascunho vs decisão de autoria",
+    16: { metodo:"Pensamento arbóreo e rascunho vs decisão de autoria",
       a1:[
         { t: "Sinais de dependência", d: "Pedido sem critério, aceitar saída sem questionar e orgulho de \"uso IA para tudo\" são sinais de ferramenta no centro." },
         { t: "Sobrevivente → transformador", d: "Transformador desenha onde a IA entra, com critério, gate e autoria clara — não reage com medo ou dependência." },
         { t: "IA a serviço", d: "Pergunta-teste: se a ferramenta sumisse hoje, você ainda saberia fazer esse julgamento?" }
       ],
+      a2Short: ["Mapa arbóreo", "Rascunho vs decisão", "Artefatos do ano"],
       a2:["Mapa arbóreo: tronco (tese) · galhos (domínios) · folhas (execução)","Declaração: 1 rascunho vs 1 decisão de autoria (PI)","Preservar artefatos do ano como registro do raciocínio"] },
-    17: { metodo:"Uma lente de tamanho + frase para o C-Level (além de LT/CT/TH)",
+    17: { metodo:"Uma lente de tamanho e frase para o C-Level (além de LT/CT/TH)",
       a1:[
         { t: "Fluxo ≠ tamanho", d: "LT/CT/TH dizem quando o card anda. Não dizem o que saiu para a diretoria." },
         { t: "Uma lente", d: "Funcional, técnica ou qualitativa — uma por ciclo. A IA não troca a lente." },
         { t: "No estimates", d: "Não estimar o card em hora. Ainda assim o time nomeia unidade e o que não conta." }
       ],
-      a2:["Recorte de fluxo que vocês já medem","Uma lente + unidade + o que não conta","1 frase de C-Level + 1 linha de no-estimates"] }
+      a2Short: ["Recorte de fluxo", "Lente e unidade", "Frase C-Level"],
+      a2:["Recorte de fluxo que vocês já medem","Uma lente, unidade e o que não conta","1 frase de C-Level e 1 linha de no-estimates"] }
   };
 
   const CASO = "Banco Nexo · Squad Pix PJ · Squad Leader Marie Peace · Product Leader John Watson · Tech Lead Frida Miller · Designer Lunna · QA Bartolomeu";
   const EX = {
     1: {
-      a2: "Squad Leader Marie Peace lidera a Squad Pix PJ no Banco Nexo. Núcleo de liderança: Product Leader John Watson, Tech Lead Frida Miller, três engenheiros, Designer Lunna, QA Bartolomeu.\n\nEscopo: Pix de PMEs no app e na API — folha de funcionários, pagamento a fornecedor, boleto que vira Pix.\n\nO que já fazemos sem nome de método:\n• Product — Product Leader John Watson prioriza o sprint pelo Zendesk. Ticket com SLA estourado entra antes do projeto bonito.\n• Delivery — Tech Lead Frida Miller fecha o board terça e quinta. Card sem DoD não vai para homologação.\n• Human & AI — Squad Leader Marie Peace trava Pix acima de R$ 50 mil: Compliance autoriza na mão. Nenhum modelo altera limite nem libera valor.\n\nCinco autores no Gantt (um por era), com fato do time:\n• Watt — SPI do Banco Central: se o trilho para, a squad para.\n• Ford — onboarding PJ é linha: CNPJ → chave → primeiro Pix. Gargalo: KYC da Compliance (enabling Skelton).\n• Deming — toda quarta Squad Leader Marie Peace, Product Leader John Watson e Tech Lead Frida Miller olham Pix recusado no painel. Variação, não herói de plantão.\n• Gates — produto é app + API. Agência física não está no P&L da squad.\n• Teo — atendimento pediu bot no Zendesk. O modelo pode sugerir texto; Squad Leader Marie Peace e Compliance liberam Pix.\n\nBaseline: planilha de recusas no Drive (Product Leader John Watson mantém) + canal #pix-pj no Teams.",
+      a2: "Squad Leader Marie Peace lidera a Squad Pix PJ no Banco Nexo. Núcleo de liderança: Product Leader John Watson, Tech Lead Frida Miller, três engenheiros, Designer Lunna, QA Bartolomeu.\n\nEscopo: Pix de PMEs no app e na API — folha de funcionários, pagamento a fornecedor, boleto que vira Pix.\n\nO que já fazemos sem nome de método:\n• Product — Product Leader John Watson prioriza o sprint pelo Zendesk. Ticket com SLA estourado entra antes do projeto bonito.\n• Delivery — Tech Lead Frida Miller fecha o board terça e quinta. Card sem DoD não vai para homologação.\n• Human & AI — Squad Leader Marie Peace trava Pix acima de R$ 50 mil: Compliance autoriza na mão. Nenhum modelo altera limite nem libera valor.\n\nCinco autores no Gantt (um por era), com fato do time:\n• Watt — SPI do Banco Central: se o trilho para, a squad para.\n• Ford — onboarding PJ é linha: CNPJ → chave → primeiro Pix. Gargalo: KYC da Compliance (enabling Skelton).\n• Deming — toda quarta Squad Leader Marie Peace, Product Leader John Watson e Tech Lead Frida Miller olham Pix recusado no painel. Variação, não herói de plantão.\n• Gates — produto é app e API. Agência física não está no P&L da squad.\n• Teo — atendimento pediu bot no Zendesk. O modelo pode sugerir texto; Squad Leader Marie Peace e Compliance liberam Pix.\n\nBaseline: planilha de recusas no Drive (Product Leader John Watson mantém) e canal #pix-pj no Teams.",
       pv: [
-        { k: "fato", t: "Fato", d: "Dor + evidência que já está no Gantt da Aula 2. Sem mapa 2, sem ROI." },
+        { k: "fato", t: "Fato", d: "Dor e evidência que já está no Gantt da Aula 2. Sem mapa 2, sem ROI." },
         { k: "hip", t: "Hipótese", d: "Se o Gantt não tem o fato, a célula diz HIPÓTESE — o modelo não completa com a web." },
         { k: "alu", t: "Alucinação", d: "Ensaio, app, chatbot 24h, ou GATE sem cargo (PARA / QUEM / SÓ DEPOIS)." }
       ]
@@ -632,10 +659,10 @@ export function startJornada(cfg = {}) {
     2: {
       chunks: [
         "A3 numa página — formato Ohno. Dona do arquivo: Squad Leader Marie Peace.",
-        "Problema: sexta, 18h20, fila Zendesk Pix PJ com 41 tickets abertos. Product Leader John Watson cronometrou na exportação — não é feeling.\nCausa com fato: três convênios (folha de dois clientes + ERP de contador) sem script de recusa padronizado. Evidência: QA Bartolomeu (QA) + analista do plantão — não dashboard agregado.",
-        "Contramedida sem IA: script de 8 linhas no Confluence + Product Leader John Watson como dono do plantão de sexta. Ticket \"Pix recusado\" → cola o script. \"Dinheiro sumiu\" → escala Tech Lead Frida Miller + Compliance. Squad Leader Marie Peace assina o gate antes de qualquer piloto com LLM. Sem bot."
+        "Problema: sexta, 18h20, fila Zendesk Pix PJ com 41 tickets abertos. Product Leader John Watson cronometrou na exportação — não é feeling.\nCausa com fato: três convênios (folha de dois clientes e ERP de contador) sem script de recusa padronizado. Evidência: QA Bartolomeu (QA) e analista do plantão — não dashboard agregado.",
+        "Contramedida sem IA: script de 8 linhas no Confluence e Product Leader John Watson como dono do plantão de sexta. Ticket \"Pix recusado\" → cola o script. \"Dinheiro sumiu\" → escala Tech Lead Frida Miller e Compliance. Squad Leader Marie Peace assina o gate antes de qualquer piloto com LLM. Sem bot."
       ],
-      a2: "A3 numa página — formato Ohno. Dona do arquivo: Squad Leader Marie Peace.\n\nProblema: sexta, 18h20, fila Zendesk Pix PJ com 41 tickets abertos. Product Leader John Watson cronometrou na exportação — não é feeling.\nCausa com fato: três convênios (folha de dois clientes + ERP de contador) sem script de recusa padronizado. Evidência: QA Bartolomeu (QA) + analista do plantão — não dashboard agregado.\nContramedida sem IA: script de 8 linhas no Confluence + Product Leader John Watson como dono do plantão de sexta. Ticket \"Pix recusado\" → cola o script. \"Dinheiro sumiu\" → escala Tech Lead Frida Miller + Compliance. Squad Leader Marie Peace assina o gate antes de qualquer piloto com LLM. Sem bot.",
+      a2: "A3 numa página — formato Ohno. Dona do arquivo: Squad Leader Marie Peace.\n\nProblema: sexta, 18h20, fila Zendesk Pix PJ com 41 tickets abertos. Product Leader John Watson cronometrou na exportação — não é feeling.\nCausa com fato: três convênios (folha de dois clientes e ERP de contador) sem script de recusa padronizado. Evidência: QA Bartolomeu (QA) e analista do plantão — não dashboard agregado.\nContramedida sem IA: script de 8 linhas no Confluence e Product Leader John Watson como dono do plantão de sexta. Ticket \"Pix recusado\" → cola o script. \"Dinheiro sumiu\" → escala Tech Lead Frida Miller e Compliance. Squad Leader Marie Peace assina o gate antes de qualquer piloto com LLM. Sem bot.",
       pv: [
         { k: "fato", t: "Fato", d: "Causa e número saem do A3 da Aula 2. Contramedida sem evidência não entra." },
         { k: "hip", t: "Hipótese", d: "Kaizen vs kaikaku só com justificativa no A3. Se faltar fato, HIPÓTESE." },
@@ -643,7 +670,7 @@ export function startJornada(cfg = {}) {
       ]
     },
     3: {
-      a2: "Hierarquia fechada no quadro — lente Perri (outcome, Product Leader John Watson) + impacto de negócio (Squad Leader Marie Peace).\n\nImpacto: PME cliente do Nexo não atrasa folha porque o Pix da sexta falhou.\nOutcomes: primeiro Pix do cliente novo em < 1 dia · recusa respondida em 15 min (mediana Zendesk de terça: 40 min — Product Leader John Watson exportou).\nOutputs: script de recusa no Confluence · fila do plantão visível no #pix-pj · card no board da Tech Lead Frida Miller.\nTasks: Product Leader John Watson cronometra três sextas · Designer Lunna valida linguagem do script com dois clientes piloto.\n\nNÃO é outcome: post no LinkedIn do banco · \"referência em open finance\" · velocity da sprint.",
+      a2: "Hierarquia fechada no quadro — lente Perri (outcome, Product Leader John Watson) e impacto de negócio (Squad Leader Marie Peace).\n\nImpacto: PME cliente do Nexo não atrasa folha porque o Pix da sexta falhou.\nOutcomes: primeiro Pix do cliente novo em < 1 dia · recusa respondida em 15 min (mediana Zendesk de terça: 40 min — Product Leader John Watson exportou).\nOutputs: script de recusa no Confluence · fila do plantão visível no #pix-pj · card no board da Tech Lead Frida Miller.\nTasks: Product Leader John Watson cronometra três sextas · Designer Lunna valida linguagem do script com dois clientes piloto.\n\nNÃO é outcome: post no LinkedIn do banco · \"referência em open finance\" · velocity da sprint.",
       pv: [
         { k: "fato", t: "Fato", d: "Cada classe (output / outcome / impact) leva 1 evidência objetiva." },
         { k: "hip", t: "Hipótese", d: "Raciocínio visível (CoT) antes do rótulo. Sem raciocínio a classe é chute." },
@@ -651,7 +678,7 @@ export function startJornada(cfg = {}) {
       ]
     },
     4: {
-      a2: "OKR do trimestre — lente Doerr. Números da planilha do Drive (Product Leader John Watson). Sem alvo bonito.\n\nObjetivo: PME do Nexo não perde folha por Pix recusado.\nKR1: mediana Zendesk 40 → 15 min (baseline: terça passada, 40 tickets, QA Bartolomeu exportou).\nKR2: 70% onboardings PJ com primeiro Pix em 24h (hoje 44% — Tech Lead Frida Miller puxou do Datadog + CRM).\nProjetos: script · plantão · fila KYC. FORA: app novo · Pix internacional · \"experiência wow\".\n\nAlvo de 15 min: gerente de canais assinou com Squad Leader Marie Peace na reunião. \"Omnichannel\" foi sugestão da IA — riscamos.",
+      a2: "OKR do trimestre — lente Doerr. Números da planilha do Drive (Product Leader John Watson). Sem alvo bonito.\n\nObjetivo: PME do Nexo não perde folha por Pix recusado.\nKR1: mediana Zendesk 40 → 15 min (baseline: terça passada, 40 tickets, QA Bartolomeu exportou).\nKR2: 70% onboardings PJ com primeiro Pix em 24h (hoje 44% — Tech Lead Frida Miller puxou do Datadog e CRM).\nProjetos: script · plantão · fila KYC. FORA: app novo · Pix internacional · \"experiência wow\".\n\nAlvo de 15 min: gerente de canais assinou com Squad Leader Marie Peace na reunião. \"Omnichannel\" foi sugestão da IA — riscamos.",
       pv: [
         { k: "fato", t: "Fato", d: "Baseline do KR é número que o time mediu (planilha, board). Sem baseline = INVÁLIDO." },
         { k: "hip", t: "Hipótese", d: "O target é o que um cargo assinou. O modelo resume — não muda o alvo." },
@@ -662,16 +689,16 @@ export function startJornada(cfg = {}) {
       a2: "PBB na parede da sala — post-it amarelo, letra do time. Facilitação: Product Leader John Watson.\n\nPersona cliente (lente Cagan): dono de oficina, 41 anos, Santo André. Folha de 18 funcionários na sexta. Fala com o gerente pelo WhatsApp — não usa internet banking no desktop.\nIN: ver no app por que o Pix da folha foi recusado, em linguagem de oficina, não de BACEN.\nOUT: app novo, open finance, clube de pontos, \"jornada omnichannel\".\nMVP: os 30 clientes PJ que mais abriram ticket em julho (lista do Product Leader John Watson). Duas semanas. Se a persona não entender a tela, Squad Leader Marie Peace não autoriza escala.",
       pv: [
         { k: "fato", t: "Fato", d: "Persona e IN vêm do PBB da Aula 2. Protótipo só da fatia IN." },
-        { k: "hip", t: "Hipótese", d: "O link do protótipo + 1 imagem da jornada (mesmo traço) testam o OKR da S04." },
+        { k: "hip", t: "Hipótese", d: "O link do protótipo e 1 imagem da jornada (mesmo traço) testam o OKR da S04." },
         { k: "alu", t: "Alucinação", d: "Markdown no chat no lugar do link, stock genérico, ou vitrine que implementa o OUT." }
       ]
     },
     6: {
-      a2: "Três stories — julgamento INVEST — Designer Lunna e QA Bartolomeu. Uma falhou. Priorização: Product Leader John Watson.\n\n1. Como dono de oficina (persona Cagan), quero ver em uma frase por que o Pix da folha caiu.\n2. Como atendimento, quero script de recusa no Zendesk (não PDF no Drive).\n3. Como Product Leader John Watson, quero mediana de terça na planilha, sem export manual do QA Bartolomeu.\n\nRevisão: story 2 falhou Independente — depende do macro do QA. IA deu 5/5 nas três. Tech Lead Frida Miller recusou no refinamento.",
+      a2: "Três stories do fluxo feliz — Scorecard INVEST — Designer Lunna e QA Bartolomeu. Priorização: Product Leader John Watson.\n\n1. Como dono de oficina (persona Cagan), quero ver em uma frase por que o Pix da folha caiu.\n2. Como atendimento, quero script de recusa no Zendesk (não PDF no Drive).\n3. Como Product Leader John Watson, quero mediana de terça na planilha, sem export manual do QA Bartolomeu.\n\nScorecard (1–3 por critério):\n• Story 1: I3 N3 V3 E2 S3 T3 = 17 — aprovada.\n• Story 2: I1 N2 V3 E2 S2 T2 = 12 — REPROVADA (Independent: depende do macro do QA).\n• Story 3: I3 N2 V3 E3 S2 T3 = 16 — aprovada.\n\nIA inflou tudo com 18/18. Tech Lead Frida Miller recusou a story 2 e mandou reescrever antes do refinamento.",
       pv: [
-        { k: "fato", t: "Fato", d: "A revisão INVEST apontou falta de Independente na story 2" },
-        { k: "hip", t: "Hipótese", d: "Script no Zendesk > PDF no Drive" },
-        { k: "alu", t: "Alucinação", d: "IA se deu 5/5 nas 3 stories" }
+        { k: "fato", t: "Fato", d: "Story 2 reprovada: nota 1 em Independent (macro do QA)." },
+        { k: "hip", t: "Hipótese", d: "Script no Zendesk > PDF no Drive; story independente não espera macro." },
+        { k: "alu", t: "Alucinação", d: "IA deu 18/18 nas 3 stories sem justificar o vínculo com o macro." }
       ]
     },
     7: {
@@ -683,7 +710,7 @@ export function startJornada(cfg = {}) {
       ]
     },
     8: {
-      a2: "Dashboard Kanban — lente Anderson. Dona dos números: Tech Lead Frida Miller. Fonte: Zendesk + Datadog (export de quarta).\n\nLead Time (LT) primeiro Pix (cliente novo): 3,2 dias.\nCycle Time (CT) ticket de recusa: 40 min (mediana terça).\nThroughput (TH): 38 tickets/semana na semana passada.\nWIP sexta 18h: 27 tickets no plantão.\nCFD: fila de recusa cresceu de terça a sexta.\n\nLei de Little: LT ≈ WIP ÷ TH — com WIP 27 e TH baixo, a fila não fecha. Product Leader John Watson quer a mediana descer; Tech Lead Frida Miller quer menos WIP — não outra reunião de status.",
+      a2: "Dashboard Kanban — lente Anderson. Dona dos números: Tech Lead Frida Miller. Fonte: Zendesk e Datadog (export de quarta).\n\nLead Time (LT) primeiro Pix (cliente novo): 3,2 dias.\nCycle Time (CT) ticket de recusa: 40 min (mediana terça).\nThroughput (TH): 38 tickets/semana na semana passada.\nWIP sexta 18h: 27 tickets no plantão.\nCFD: fila de recusa cresceu de terça a sexta.\n\nLei de Little: LT ≈ WIP ÷ TH — com WIP 27 e TH baixo, a fila não fecha. Product Leader John Watson quer a mediana descer; Tech Lead Frida Miller quer menos WIP — não outra reunião de status.",
       pv: [
         { k: "fato", t: "Fato", d: "27 tickets sexta 18h — QA Bartolomeu contou no Zendesk" },
         { k: "hip", t: "Hipótese", d: "Reduzir WIP para 15 é o alavancador via Lei de Little" },
@@ -699,7 +726,7 @@ export function startJornada(cfg = {}) {
       ]
     },
     10: {
-      a2: "FinOps com a fatura na mesa. Squad Leader Marie Peace apresenta; Product Leader John Watson e Tech Lead Frida Miller validam números. Julho: AWS + Zendesk + API do SPI (custo interno do Core).\n\nZendesk Suite canal PJ: R$ 1.840 no cartão do centro de custo — consta na fatura. Product Leader John Watson conferiu linha a linha.\nConservador: script + planilha. Zero a mais. É o que já fazemos.\nBase: API oficial Zendesk + QA Bartolomeu meio período para manter o script. Cabe no trimestre. Gerente de canais acenou com Squad Leader Marie Peace.\nAgressivo: bot 24h no WhatsApp. Teto que a diretoria NÃO assina: R$ 8 mil/mês + risco de bot \"liberar\" Pix. Squad Leader Marie Peace não leva esse cenário para assinatura.",
+      a2: "FinOps com a fatura na mesa. Squad Leader Marie Peace apresenta; Product Leader John Watson e Tech Lead Frida Miller validam números. Julho: AWS, Zendesk e API do SPI (custo interno do Core).\n\nZendesk Suite canal PJ: R$ 1.840 no cartão do centro de custo — consta na fatura. Product Leader John Watson conferiu linha a linha.\nConservador: script e planilha. Zero a mais. É o que já fazemos.\nBase: API oficial Zendesk e QA Bartolomeu meio período para manter o script. Cabe no trimestre. Gerente de canais acenou com Squad Leader Marie Peace.\nAgressivo: bot 24h no WhatsApp. Teto que a diretoria NÃO assina: R$ 8 mil/mês e risco de bot \"liberar\" Pix. Squad Leader Marie Peace não leva esse cenário para assinatura.",
       pv: [
         { k: "fato", t: "Fato", d: "R$ 1.840 está na fatura de julho do centro de custo" },
         { k: "hip", t: "Hipótese", d: "O cenário base cabe no caixa do trimestre" },
@@ -707,7 +734,7 @@ export function startJornada(cfg = {}) {
       ]
     },
     11: {
-      a2: "Mapa híbrido — lente Teo (gate humano). Dona do gate: Squad Leader Marie Peace.\n\nContext: ticket da persona oficina + 3 últimas recusas no ledger (Tech Lead Frida Miller exportou).\nPrompt: script de 8 linhas (texto aprovado por Product Leader John Watson no Confluence).\nSteering: \"dinheiro saiu e não chegou\" → modelo NÃO sugere resposta final. Escala Tech Lead Frida Miller + Compliance.\nProibido: liberar Pix · alterar limite · encerrar ticket sozinho · prometer prazo de estorno.\n\nModelo escreve rascunho; cargo autoriza publicação.",
+      a2: "Mapa híbrido — lente Teo (gate humano). Dona do gate: Squad Leader Marie Peace.\n\nContext: ticket da persona oficina e 3 últimas recusas no ledger (Tech Lead Frida Miller exportou).\nPrompt: script de 8 linhas (texto aprovado por Product Leader John Watson no Confluence).\nSteering: \"dinheiro saiu e não chegou\" → modelo NÃO sugere resposta final. Escala Tech Lead Frida Miller e Compliance.\nProibido: liberar Pix · alterar limite · encerrar ticket sozinho · prometer prazo de estorno.\n\nModelo escreve rascunho; cargo autoriza publicação.",
       pv: [
         { k: "fato", t: "Fato", d: "\"Dinheiro saiu e não chegou\" — ticket real da persona oficina" },
         { k: "hip", t: "Hipótese", d: "Script no modelo acelera; liberar Pix não" },
@@ -715,7 +742,7 @@ export function startJornada(cfg = {}) {
       ]
     },
     12: {
-      a2: "Três arquivos em agents/pix-pj/ — lente Chase/Moura/Wang. Custom GPT não conta. Owner: Tech Lead Frida Miller no repo.\n\npersona.md: fala curto, trata o cliente PJ por \"você\", nunca diz que o Pix \"já foi\".\nsteering.md: três proibições (liberar Pix · mudar limite · encerrar ticket sozinho) + escala para Squad Leader Marie Peace/Compliance.\nskill.md: classificar ticket → script de recusa OU Tech Lead Frida Miller/Compliance.\nHook: ticket novo tag pix-pj → só se não for \"valor divergente\". Liga no gate da S11.",
+      a2: "Três arquivos em agents/pix-pj/ — lente Chase/Moura/Wang. Custom GPT não conta. Owner: Tech Lead Frida Miller no repo.\n\npersona.md: fala curto, trata o cliente PJ por \"você\", nunca diz que o Pix \"já foi\".\nsteering.md: três proibições (liberar Pix · mudar limite · encerrar ticket sozinho) e escala para Squad Leader Marie Peace/Compliance.\nskill.md: classificar ticket → script de recusa OU Tech Lead Frida Miller/Compliance.\nHook: ticket novo tag pix-pj → só se não for \"valor divergente\". Liga no gate da S11.",
       pv: [
         { k: "fato", t: "Fato", d: "Os 3 arquivos estão em agents/pix-pj/, não num Custom GPT" },
         { k: "hip", t: "Hipótese", d: "Hook no ticket novo basta para o teste" },
@@ -723,7 +750,7 @@ export function startJornada(cfg = {}) {
       ]
     },
     13: {
-      a2: "Spec do maestro — lente Ng (spec antes do código). Review: Squad Leader Marie Peace + Tech Lead Frida Miller.\n\nEntrada: ticket Zendesk tag pix-pj.\nRoteamento: triagem → (script automático | Tech Lead Frida Miller | Compliance).\nSaída: frase publicada no ticket OU escalada com id do ledger.\nGate: valor divergente ou Pix > R$ 50 mil → Compliance confirma; Squad Leader Marie Peace assina exceção.\n\nTrês rotas. Quarta rota (WhatsApp) = spec recusa até ter gate.",
+      a2: "Spec do maestro — lente Ng (spec antes do código). Review: Squad Leader Marie Peace e Tech Lead Frida Miller.\n\nEntrada: ticket Zendesk tag pix-pj.\nRoteamento: triagem → (script automático | Tech Lead Frida Miller | Compliance).\nSaída: frase publicada no ticket OU escalada com id do ledger.\nGate: valor divergente ou Pix > R$ 50 mil → Compliance confirma; Squad Leader Marie Peace assina exceção.\n\nTrês rotas. Quarta rota (WhatsApp) = spec recusa até ter gate.",
       pv: [
         { k: "fato", t: "Fato", d: "Spec escrita ANTES de qualquer PR" },
         { k: "hip", t: "Hipótese", d: "3 rotas cobrem o dia do plantão" },
@@ -747,7 +774,7 @@ export function startJornada(cfg = {}) {
       ]
     },
     16: {
-      a2: "Fechamento do ano — pensamento arbóreo. Facilitação: Squad Leader Marie Peace.\n\nTronco: fila Zendesk na sexta. Galhos: script (Product Leader John Watson) · WIP 15 (Tech Lead Frida Miller) · agent com gate Compliance (Squad Leader Marie Peace). Folhas: 30 clientes MVP + persona oficina.\nPI: Nexo ensina o método (Gantt, A3, métricas de fluxo, limiar). Outro banco copia o tipo, não a fatura.\nAta offline (caderno da Squad Leader Marie Peace): huddle 9h10 FICA. IA não vota. Bot 24h NÃO sobe.",
+      a2: "Fechamento do ano — pensamento arbóreo. Facilitação: Squad Leader Marie Peace.\n\nTronco: fila Zendesk na sexta. Galhos: script (Product Leader John Watson) · WIP 15 (Tech Lead Frida Miller) · agent com gate Compliance (Squad Leader Marie Peace). Folhas: 30 clientes MVP e persona oficina.\nPI: Nexo ensina o método (Gantt, A3, métricas de fluxo, limiar). Outro banco copia o tipo, não a fatura.\nAta offline (caderno da Squad Leader Marie Peace): huddle 9h10 FICA. IA não vota. Bot 24h NÃO sobe.",
       pv: [
         { k: "fato", t: "Fato", d: "Ata no caderno: huddle das 9h10 fica" },
         { k: "hip", t: "Hipótese", d: "O Overview ajuda a contar o ano, não a decidir" },
@@ -784,8 +811,7 @@ export function startJornada(cfg = {}) {
   function wonSet() { return new Set(save.won); }
   function isBonus(n) { return n === 17; }
   function unlocked(n) {
-    if (isBonus(n)) return wonSet().has(10);
-    return n === 1 || wonSet().has(n - 1);
+    return n >= 1 && n <= 17;
   }
   function nextHole() {
     for (let i = 1; i <= 16; i++) { if (unlocked(i) && !wonSet().has(i)) return i; }
@@ -817,7 +843,7 @@ export function startJornada(cfg = {}) {
     return !save.setupS01 && !save.won.includes(1);
   }
   function showSetupNag() {
-    return needsSetup() && needsSetupPrompt();
+    return false;
   }
 
   function closeCofre() {
@@ -832,7 +858,6 @@ export function startJornada(cfg = {}) {
     closeCofre();
     resize();
     renderExplorer();
-    paintWaveLabels();
     renderMapGadgets();
     syncHud();
   }
@@ -927,17 +952,19 @@ export function startJornada(cfg = {}) {
       const ids = IN_WAVE[w];
       const done = ids.filter((n) => won.has(n)).length;
       const expanded = w === activeW;
-      let html = '<div class="ex-wave' + (expanded ? " open" : " collapsed") + '" data-wave="' + w + '" style="--wave-color:' + WAVE_COLOR[w] + ';border-left-color:' + WAVE_COLOR[w] + '">';
+      const waveComplete = done === ids.length;
+      let html = '<div class="ex-wave' + (expanded ? " open" : " collapsed") + (waveComplete ? " wave-done" : "") + '" data-wave="' + w + '" style="--wave-color:' + WAVE_COLOR[w] + ';border-left-color:' + WAVE_COLOR[w] + '">';
       html += '<button type="button" class="ex-wave-head" data-toggle-wave="' + w + '">';
-      html += '<div class="ex-wave-top"><span>W0' + w + "</span><span>" + done + "/" + ids.length + "</span></div>";
-      html += '<span class="ex-wave-pilar">' + meta.pilar + "</span>";
+      html += '<div class="ex-wave-top"><span>Wave ' + String(w).padStart(2, "0") + "</span><span>" + done + "/" + ids.length + "</span></div>";
+      html += '<span class="ex-wave-pilar">' + meta.pilar;
+      if (waveComplete) html += '<span class="ex-wave-check" aria-hidden="true"> ✓</span>';
+      html += "</span>";
       html += '<span class="ex-wave-sub">' + meta.subtitle + "</span>";
       html += "</button><div class='ex-holes'>";
       ids.forEach((n) => {
-        const open = unlocked(n);
         const cls = (won.has(n) ? " on" : "") + (n === nxt && !won.has(n) ? " next" : "");
         const style = won.has(n) ? " style='background:" + WAVE_COLOR[w] + "'" : "";
-        html += '<button type="button" class="ex-week' + cls + '" data-ex="' + n + '" title="' + weekTitle(n).replace(/"/g, "&quot;") + '"' + (open ? "" : " disabled") + style + ">" + n + "</button>";
+        html += '<button type="button" class="ex-week' + cls + '" data-ex="' + n + '" title="' + weekTitle(n).replace(/"/g, "&quot;") + '"' + style + ">" + n + "</button>";
       });
       html += "</div></div>";
       return html;
@@ -955,7 +982,6 @@ export function startJornada(cfg = {}) {
           wave.classList.toggle("open", isTarget);
           wave.classList.toggle("collapsed", !isTarget);
         });
-        requestAnimationFrame(paintWaveLabels);
       };
     });
     tree.querySelectorAll("[data-ex]").forEach((el) => {
@@ -963,15 +989,13 @@ export function startJornada(cfg = {}) {
         ev.stopPropagation();
         ev.preventDefault();
         const n = Number(el.getAttribute("data-ex"));
-        if (!unlocked(n)) { toast("Semana bloqueada", true); return; }
         enterWeek(n);
       };
     });
     const head = document.getElementById("ex-head-title");
-    if (head) head.textContent = mode === "level" ? weekTitle(week) : weekTitle(nxt);
+    if (head) head.innerHTML = mode === "level" ? weekTitleHtml(week) : weekTitleHtml(nxt);
     const tag = document.getElementById("ex-tagline");
     if (tag) tag.hidden = true;
-    requestAnimationFrame(paintWaveLabels);
   }
 
   function depositWeek(n) {
@@ -1120,27 +1144,23 @@ export function startJornada(cfg = {}) {
   }
 
   function formatPromptSixPillars(lab) {
-    const parsed = parseSixPillars(lab.prompt);
-    return [
-      "Persona: " + (parsed.persona || labPersona(week, false)),
-      "Contexto: " + homeworkContextLines(),
-      "Tarefa: " + (parsed.tarefa || lab.prompt),
-      "Tom: " + (parsed.tom || "direto, técnico, orientado a entrega — não consultor que escreve ensaio"),
-      "Formato: " + (parsed.formato || labFormatoBlock(lab)),
-      "Exemplos: Caso Nexo no painel à direita — use o tipo de evidência, não os números. Ruim: ROI sem baseline, app genérico, dado fora do contrato."
-    ].join("\n\n");
+    return buildLabPrompt(week, {
+      reforco: false,
+      homework: homeworkContextLines(),
+      files: filesOf(week),
+      lab,
+      persona: labPersona(week, false),
+    });
   }
 
   function formatPromptReforco(lab) {
-    const parsed = parseSixPillars(lab.prompt);
-    return [
-      "Persona: " + (parsed.persona || labPersona(week, true)),
-      "Contexto: " + homeworkContextLines() + "\nFeche o chat que alucinou. Abra um chat novo antes de colar este prompt.",
-      "Tarefa: " + (parsed.tarefa || "Repita a entrega da Aula 3 usando SÓ o contrato ao lado."),
-      "Tom: direto, auditor — sem consultoria; o output anterior foi invalidado",
-      "Formato: " + labFormatoBlock(lab),
-      "Exemplos: Caso Nexo à direita. Se inventou de novo, pare e pergunte."
-    ].join("\n\n");
+    return buildLabPrompt(week, {
+      reforco: true,
+      homework: homeworkContextLines(),
+      files: filesOf(week),
+      lab,
+      persona: labPersona(week, true),
+    });
   }
 
   function promptLabText() {
@@ -1182,7 +1202,7 @@ export function startJornada(cfg = {}) {
     const n = a2pin.filter(Boolean).length;
     const ex = EX[wk];
     if (!n) {
-      return "Marque os cartões — o contrato monta no painel ao lado.";
+      return "Marque os cartões do homework para montar o exemplo.";
     }
     const lines = [
       "========== CASO NEXO · PIX PJ (copie o TIPO, não os números) ==========",
@@ -1207,13 +1227,13 @@ export function startJornada(cfg = {}) {
     }
     html += labDeliverableHtml(week);
     if (lab.casca) {
-      html += '<p class="lab-chip lab-template">Modelo de referência: <button type="button" class="ghost" id="btn-casca">copiar estrutura</button></p>';
+      html += '<p class="lab-chip lab-template">Modelo de referência: ' + copyBtnHtml("Copiar estrutura", "btn-copy--compact", 'id="btn-casca"') + "</p>";
     }
     html += '<div class="lab-workspace' + manyCls + '">';
     html += '<div class="lab-workspace-main">';
     html += '<section class="lab-frame lab-frame-prompt"><div class="lab-frame-head"><span class="lab-frame-label">'
       + (reforco ? "Prompt reforço" : "Prompt")
-      + '</span><button type="button" class="ghost btn-copy-lab" data-copy="prompt">Copiar</button></div>'
+      + '</span>' + copyBtnHtml("Copiar", "btn-copy--compact btn-copy-lab", 'data-copy="prompt"') + "</div>"
       + '<pre class="lab-frame-body" data-lab-body="prompt"></pre></section>';
     html += "</div>";
     html += '<div class="lab-workspace-side">';
@@ -1256,28 +1276,22 @@ export function startJornada(cfg = {}) {
     const a1ready = p.a1.every((_, i) => a1open[i]);
     const a2ready = p.a2.every((_, i) => a2pin[i]);
     const pinCount = a2pin.filter(Boolean).length;
-    document.getElementById("lead-a1").textContent = phraseLines("Três ideias — sem IA.");
-    document.getElementById("lead-a2").innerHTML = a1ready
-      ? phraseLines(p.metodo) + "<br><code class='file'>" + filesOf(week).a2 + "</code>"
-      : phraseLines("Termine os três cartões do Conceito.");
+    document.getElementById("lead-a1").textContent = "Takeaways";
+    document.getElementById("lead-a2").innerHTML = "";
     document.getElementById("lead-a3").innerHTML = !a2ready
-      ? phraseLines("O Lab IA só abre depois que você entrega o homework.")
+      ? ""
       : (phase === "nota"
-        ? phraseLines("Toque o botão abaixo e escolha 1, 2 ou 3.")
-        : (showSetupNag()
-          ? phraseLines("No mapa: toque Setup. Rode o script de pastas — depois volte ao Lab IA.")
-          : (() => {
-            const meta = LAB_DELIVERABLES[week] || {};
-            return phraseLines((meta.deliverable || lab.out));
-          })()));
+        ? ""
+        : phraseLines((LAB_DELIVERABLES[week] || {}).deliverable || lab.out));
     document.getElementById("rail-a2").className = "rail" + (a1ready ? "" : " locked");
     document.getElementById("rail-a3").className = "rail" + (a2ready ? "" : " locked") + (phase === "lab" && a2ready ? " has-lab" : "");
     document.getElementById("cards-a1").innerHTML = p.a1.map((card, i) =>
       '<button type="button" class="piece' + (a1open[i] ? " on" : "") + '" data-a1="' + i + '"><span class="tag">' + (a1open[i] ? "✓" : card.t) + "</span><span class='card-d'>" + phraseLines(card.d) + "</span></button>"
     ).join("");
-    document.getElementById("slots-a2").innerHTML = p.a2.map((txt, i) =>
-      '<button type="button" class="piece' + (a2pin[i] ? " on" : "") + (a1ready && !a2pin[i] && pinCount === i ? " next" : "") + '" data-a2="' + i + '"' + (a1ready ? "" : " disabled") + '><span class="tag">' + (a2pin[i] ? "✓" : "Homework") + "</span><span class='card-body'>" + phraseLines(txt) + "</span></button>"
-    ).join("");
+    document.getElementById("slots-a2").innerHTML = p.a2.map((txt, i) => {
+      const label = (p.a2Short && p.a2Short[i]) ? p.a2Short[i] : ("Passo " + (i + 1));
+      return '<button type="button" class="piece' + (a2pin[i] ? " on" : "") + (a1ready && !a2pin[i] && pinCount === i ? " next" : "") + '" data-a2="' + i + '"' + (a1ready ? "" : " disabled") + '><span class="tag">' + (a2pin[i] ? "✓" : label) + "</span><span class='card-body'>" + phraseLines(txt) + "</span></button>";
+    }).join("");
     const ex = EX[week];
     const rev = revealedContract(week);
     const casoEl = document.getElementById("caso");
@@ -1296,15 +1310,13 @@ export function startJornada(cfg = {}) {
       const inLab = phase === "lab" || phase === "nota";
       document.getElementById("caso-who").textContent = inLab
         ? "Caso Nexo · Pix PJ"
-        : "Contrato · " + pinCount + "/" + p.a2.length;
+        : "Homework Exemplo · " + pinCount + "/" + p.a2.length;
       casoPre.textContent = inLab && pinCount >= p.a2.length
         ? revealedExemplo(week)
         : rev.text;
       btnCaso.disabled = false;
     }
-    document.getElementById("foot-a2").innerHTML = a1ready && !a2ready
-      ? "<p class='lab-chip' style='margin:0'>Marque o que você já tem no seu cenário. O contrato cresce abaixo.</p>"
-      : "";
+    document.getElementById("foot-a2").innerHTML = "";
     let cards3 = "";
     let foot3 = "";
     if (!a2ready) {
@@ -1318,10 +1330,6 @@ export function startJornada(cfg = {}) {
     } else if (phase === "lab") {
       cards3 = labLabHtml();
       foot3 = "";
-      if (showSetupNag()) {
-        foot3 += "<p class='lab-chip' style='margin:0'>Antes do Lab: rode <b>setup-jornada.bat</b> (Windows) ou <b>setup-jornada.sh</b> (macOS/Linux).</p>";
-        foot3 += '<button type="button" id="btn-goto-map" class="mesa-btn">Ir ao mapa · Setup</button>';
-      }
     } else {
       cards3 = "";
       foot3 = "";
@@ -1492,10 +1500,6 @@ export function startJornada(cfg = {}) {
   }
 
   function startGateFromLab() {
-    if (showSetupNag()) {
-      toast("Faça o Setup no mapa antes de fechar o Lab IA.", true);
-      return;
-    }
     labDone = true;
     phase = "nota";
     renderMesa();
@@ -1536,7 +1540,7 @@ export function startJornada(cfg = {}) {
     } else if (isBonus(week)) {
       toast("Bônus no diretório. A trilha S11–S16 continua no mesmo lugar.");
     } else {
-      toast("Semana " + String(week).padStart(2, "0") + " fechada · " + save.cofre.length + " artefato(s) no portfólio");
+      toast("Semana " + String(week).padStart(2, "0") + " fechada · " + save.cofre.length + " artefato(s) no diretório");
     }
     setTimeout(showMap, week === 16 ? 1600 : 900);
   }
@@ -1549,13 +1553,14 @@ export function startJornada(cfg = {}) {
     toastT = setTimeout(() => { el.className = bad ? "bad" : ""; }, 1800);
   }
 
-  function setHint(title, detail) {
+  function setHint(title) {
     hintB.textContent = title;
-    hintS.textContent = phraseLines(detail);
+    hintS.textContent = "";
+    if (mode !== "map") return;
     const barB = document.querySelector("#bar-status b");
     const barS = document.querySelector("#bar-status span");
-    barB.textContent = title;
-    barS.textContent = phraseLines(detail);
+    if (barB) barB.textContent = title;
+    if (barS) barS.textContent = "";
   }
 
   function syncHud() {
@@ -1583,61 +1588,25 @@ export function startJornada(cfg = {}) {
       const waveLine = WAVE_LINE[WEEKS[nextHole() - 1].w];
       document.getElementById("sub").textContent = waveLine;
       pills.innerHTML = "";
-      const mapHint = needsSetupPrompt()
-        ? "Margem direita · toque Setup · organize " + LEADER_DIR + " antes do Lab IA.\n" + waveLine
-        : waveLine;
-      setHint("Mapa da trilha", mapHint);
+      setHint("Mapa da trilha");
       return;
     }
-    document.getElementById("title").textContent = weekTitle(week);
+    document.getElementById("title").innerHTML = weekTitleHtml(week);
     document.getElementById("sub").textContent = "";
     mantraEl.textContent = "";
     pills.innerHTML = "";
     if (phase === "conceito") {
-      setHint("Conceito", "Três ideias do Conceito");
+      setHint("Conceito");
     } else if (phase === "raiz") {
-      const pins = a2pin.filter(Boolean).length;
-      setHint("Homework Prático", pins ? "Continue marcando — o contrato cresce abaixo" : "Marque o que você já tem no seu cenário");
+      setHint("Homework Prático");
     } else if (phase === "lab") {
-      if (showSetupNag()) {
-        setHint("Lab IA", "Volte ao mapa · ilha Setup · depois abra o laboratório");
-      } else {
-        setHint("Lab IA", "Prompt · ferramenta · caso Nexo ao lado");
-      }
+      setHint("Lab IA");
     } else if (phase === "nota") {
-      setHint("Fechamento", "Escolha 1, 2 ou 3 no painel");
+      setHint("Fechamento");
     } else {
-      setHint("Lab IA", "Prompt → ferramenta → salve em " + COFRE_DIR);
+      setHint("Lab IA");
     }
     if (mode === "level") mantraEl.hidden = true;
-  }
-
-  function paintWaveLabels() {
-    const won = wonSet();
-    document.querySelectorAll("#wave-labels [data-w]").forEach((el) => {
-      const w = Number(el.getAttribute("data-w"));
-      const lit = IN_WAVE[w].some((n) => unlocked(n));
-      el.style.color = WAVE_COLOR[w];
-      el.style.opacity = lit ? "1" : "0.42";
-      el.classList.toggle("wave-done", IN_WAVE[w].every((n) => won.has(n)));
-    });
-    if (mode !== "map") return;
-    const mapField = document.getElementById("map-field");
-    const tree = document.getElementById("ex-tree");
-    if (!mapField || !tree) return;
-    const mfRect = mapField.getBoundingClientRect();
-    const mapH = mfRect.height;
-    if (mapH < 8) return;
-    document.querySelectorAll("#wave-labels [data-w]").forEach((el) => {
-      const w = Number(el.getAttribute("data-w"));
-      const waveEl = tree.querySelector('.ex-wave[data-wave="' + w + '"]');
-      if (!waveEl) return;
-      const wr = waveEl.getBoundingClientRect();
-      const cy = wr.top + wr.height / 2 - mfRect.top;
-      el.style.top = cy + "px";
-      el.style.left = "";
-      el.style.width = "";
-    });
   }
 
   function resize() {
@@ -1648,16 +1617,15 @@ export function startJornada(cfg = {}) {
     canvas.width = Math.floor(w * dpr);
     canvas.height = Math.floor(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    paintWaveLabels();
     renderMapGadgets();
   }
 
   function mapMetrics(w, h) {
     const s = Math.max(0.48, Math.min(1.4, Math.min(w / 560, h / 400)));
-    const padL = Math.max(12, w * 0.05);
-    const padR = Math.max(12, w * 0.05);
-    const padT = Math.max(12, h * 0.045);
-    const padB = Math.max(14, h * 0.05);
+    const padL = Math.max(20, w * 0.09);
+    const padR = Math.max(20, w * 0.09);
+    const padT = Math.max(16, h * 0.08);
+    const padB = Math.max(18, h * 0.08);
     return {
       padL, padR, padT, padB,
       cx: padL + (w - padL - padR) / 2,
@@ -1669,9 +1637,9 @@ export function startJornada(cfg = {}) {
 
   function trailPoint(m, t) {
     const y = m.bot - t * (m.bot - m.top);
-    const amp = (m.w - m.padL - m.padR) * (0.16 + t * 0.22);
+    const amp = (m.w - m.padL - m.padR) * (0.12 + t * 0.18);
     let x = m.cx + Math.sin(t * Math.PI * 2.15 + 0.4) * amp;
-    x = Math.max(m.padL + 18, Math.min(m.w - m.padR - 18, x));
+    x = Math.max(m.padL + 24, Math.min(m.w - m.padR - 24, x));
     return { x, y };
   }
 
@@ -1799,24 +1767,22 @@ export function startJornada(cfg = {}) {
 
     function drawWeekFlag(nd, col, r, breathe) {
       const cr = r * breathe;
-      const side = nd.x >= m.cx ? -1 : 1;
-      const poleX = nd.x + side * Math.max(8, cr * 0.62);
-      const baseY = nd.y - cr * 0.72;
-      const poleH = 14 * m.s;
+      const poleX = nd.x;
+      const baseY = nd.y - cr;
+      const poleH = 10 * m.s;
       const topY = baseY - poleH;
       ctx.strokeStyle = "rgba(51,51,51,0.88)";
-      ctx.lineWidth = Math.max(1.4, 1.8 * m.s);
+      ctx.lineWidth = Math.max(1.2, 1.5 * m.s);
       ctx.lineCap = "round";
       ctx.beginPath();
       ctx.moveTo(poleX, baseY + 1);
       ctx.lineTo(poleX, topY);
       ctx.stroke();
-      const fh = 8 * m.s;
-      const fw = 9 * m.s;
-      const flagDir = side;
+      const fh = 7.5 * m.s;
+      const fw = 8.5 * m.s;
       ctx.beginPath();
       ctx.moveTo(poleX, topY);
-      ctx.lineTo(poleX + fw * flagDir, topY + fh * 0.5);
+      ctx.lineTo(poleX - fw, topY + fh * 0.5);
       ctx.lineTo(poleX, topY + fh);
       ctx.closePath();
       ctx.fillStyle = col;
@@ -1827,7 +1793,6 @@ export function startJornada(cfg = {}) {
     }
 
     nodes.forEach((nd) => {
-      const open = unlocked(nd.n);
       const done = won.has(nd.n);
       const here = nd.n === nxt && !done;
       const col = WAVE_COLOR[nd.wave];
@@ -1841,12 +1806,12 @@ export function startJornada(cfg = {}) {
       }
       ctx.beginPath();
       ctx.arc(nd.x, nd.y, r * breathe, 0, Math.PI * 2);
-      ctx.fillStyle = done || open ? col : "#FFFFFF";
+      ctx.fillStyle = col;
       ctx.fill();
       ctx.lineWidth = 2.6;
-      ctx.strokeStyle = done || open ? "#FFFFFF" : "#CCCCCC";
+      ctx.strokeStyle = "#FFFFFF";
       ctx.stroke();
-      ctx.fillStyle = done || open ? "#FFFFFF" : "#888888";
+      ctx.fillStyle = "#FFFFFF";
       ctx.font = "700 " + Math.max(9, 11 * m.s) + "px Montserrat, sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -1885,7 +1850,6 @@ export function startJornada(cfg = {}) {
     const s = mapMetrics(rect.width, rect.height).s;
     const hitR = Math.max(24, 32 * s);
     const hits = nodes
-      .filter((nd) => unlocked(nd.n))
       .map((nd) => ({ nd, d: Math.hypot(nd.x - x, nd.y - y) }))
       .filter((o) => o.d < hitR)
       .sort((a, b) => a.d - b.d);
@@ -1964,7 +1928,6 @@ export function startJornada(cfg = {}) {
   function bootFromUrl() {
     const w = Number(new URLSearchParams(location.search).get("week"));
     if (!(w >= 1 && w <= 17)) return;
-    if (!unlocked(w)) { toast("Vença a semana anterior", true); return; }
     enterWeek(w);
   }
 
@@ -1973,16 +1936,9 @@ export function startJornada(cfg = {}) {
     new ResizeObserver(function () {
       resize();
     }).observe(canvas);
-    const exTree = document.getElementById("ex-tree");
-    if (exTree) {
-      new ResizeObserver(function () {
-        paintWaveLabels();
-      }).observe(exTree);
-    }
   }
   resize();
   renderExplorer();
-  paintWaveLabels();
   syncHud();
   loadBrand().then(() => {
     resize();

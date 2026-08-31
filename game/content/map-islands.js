@@ -11,7 +11,7 @@ export const MAP_ISLANDS = [
     wave: 1,
     refWeek: 1,
     lane: "right",
-    icon: "📁",
+    icon: "⚙️",
   },
   {
     id: "plus-medida",

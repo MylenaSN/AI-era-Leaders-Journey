@@ -27,13 +27,18 @@
       height: 100dvh;
       overflow: hidden;
     }
+    /* Desktop: semana ocupa o viewport; scroll interno nos painéis */
     body.journey-level {
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
+      height: 100dvh;
+      overflow: hidden;
     }
     #app { min-height: 100dvh; display: flex; flex-direction: column; }
-    body.journey-map #app { height: 100dvh; overflow: hidden; }
+    body.journey-map #app,
+    body.journey-level #app {
+      height: 100dvh;
+      min-height: 0;
+      overflow: hidden;
+    }
     #app.is-level header {
       padding: 6px 14px;
     }
@@ -88,11 +93,6 @@
       .pills { grid-column: 1 / -1; justify-content: flex-start; }
     }
     #stage { flex: 1 1 auto; position: relative; min-height: 0; min-width: 0; }
-    body.journey-level #stage.level-on {
-      flex: 1 1 auto;
-      min-height: min-content;
-      overflow: visible;
-    }
     #stage.map-only { display: grid; grid-template-columns: minmax(15rem, min(32vw, 22rem)) minmax(0, 1fr); }
     #stage.map-only #hint { left: 22rem; }
     #explorer {
@@ -447,9 +447,8 @@
       grid-template-rows: minmax(0, 1fr);
       min-height: 0;
       position: relative;
-      overflow: visible;
+      overflow: hidden;
     }
-    body.journey-map #stage.level-on { overflow: hidden; }
     #stage.level-on #explorer { display: none; }
     #stage.level-on #mesa.show {
       grid-column: 1;
@@ -563,7 +562,7 @@
       flex-direction: column;
       min-height: 0;
       padding: 10px 12px;
-      overflow: visible;
+      overflow: hidden;
     }
     #rail-a3 .lead { flex-shrink: 0; }
     #rail-a3.has-lab .lead { display: none; }
@@ -874,11 +873,11 @@
     .mesa-tab[data-rail="2"].on { background: var(--raiz); border-color: var(--raiz); box-shadow: 0 6px 16px #E88F2B33; }
     .mesa-tab[data-rail="3"].on { background: var(--path); border-color: var(--path); box-shadow: 0 6px 16px #2BC0B433; }
     .mesa-tab:disabled { opacity: 0.42; cursor: default; }
-    #stage.level-on #mesa.show { display: grid; flex: 1 1 auto; min-height: min-content; position: relative; overflow: visible; }
+    #stage.level-on #mesa.show { display: grid; flex: 1; min-height: 0; position: relative; overflow: hidden; }
     .rail {
       display: none; flex-direction: column; grid-row: 2; grid-column: 1;
       background: var(--panel); border: 1px solid var(--line);
-      border-radius: 14px; padding: 10px 12px; min-height: 0; overflow: visible;
+      border-radius: 14px; padding: 10px 12px; min-height: 0; overflow: hidden;
       box-shadow: 0 8px 24px #5B2D8E0a;
       animation: rise 0.45s ease both;
     }
@@ -950,21 +949,21 @@
     .rail.locked .lead { margin-bottom: 0; min-height: 0; flex: 1; display: flex; align-items: center; }
     .stack {
       display: flex; flex-direction: column; gap: 6px;
-      min-height: 0; flex: 0 1 auto; overflow: visible;
+      min-height: 0; flex: 1; overflow: hidden;
     }
     .stack.cards-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      grid-template-rows: auto;
+      grid-template-rows: minmax(11rem, 1fr);
       gap: 14px;
-      align-content: start;
+      align-content: center;
       justify-items: center;
-      min-height: auto;
+      min-height: min(38vh, 17rem);
       padding: 8px 4px;
     }
     .stack.cards-3 .piece {
       height: auto;
-      min-height: 9rem;
+      min-height: 11rem;
       max-width: 19rem;
       width: 100%;
       align-self: stretch;
@@ -974,7 +973,7 @@
       align-items: center;
       text-align: center;
       min-width: 0;
-      overflow: visible;
+      overflow: hidden;
       padding: 18px 16px;
       background: linear-gradient(165deg, #ffffff 0%, #f9f7fc 100%);
       box-shadow: 0 6px 18px #5B2D8E0f;
@@ -993,8 +992,10 @@
       white-space: pre-line;
       overflow-wrap: anywhere;
       word-break: normal;
-      overflow: visible;
-      display: block;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 10;
+      -webkit-box-orient: vertical;
       flex: 0 1 auto;
       width: 100%;
       max-width: 100%;
@@ -1011,6 +1012,10 @@
     #cards-a1 .piece.on .card-d,
     #slots-a2 .piece.on .card-body {
       opacity: 1;
+      -webkit-line-clamp: unset;
+      display: block;
+      overflow-y: auto;
+      max-height: min(30vh, 15rem);
       line-height: 1.62;
       font-size: 0.96rem;
     }
@@ -1026,8 +1031,10 @@
     .piece.on { flex: 0 0 auto; padding: 9px 14px; }
     .piece.on .card-d,
     .piece.on .card-body {
-      display: block;
-      overflow: visible;
+      display: -webkit-box;
+      -webkit-line-clamp: 8;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
       opacity: 0.72;
     }
     .piece .card-body { display: block; font-size: 0.92rem; line-height: 1.5; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
@@ -1257,6 +1264,36 @@
     #caso .who { font: 700 0.68rem/1 var(--font-title); text-transform: uppercase; letter-spacing: 0.05em; color: var(--gate); }
     #caso #btn-caso:disabled { opacity: 0.45; cursor: not-allowed; }
     @media (max-width: 900px) {
+      /* Mobile: scroll na página inteira — painéis podem crescer */
+      body.journey-level {
+        height: auto;
+        min-height: 100dvh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+      }
+      body.journey-level #app {
+        height: auto;
+        min-height: 100dvh;
+        overflow: visible;
+      }
+      body.journey-level #stage.level-on {
+        min-height: min-content;
+        overflow: visible;
+      }
+      #stage.level-on #mesa.show {
+        min-height: min-content;
+        overflow: visible;
+        flex: 1 1 auto;
+      }
+      .rail.is-active {
+        overflow: visible;
+        min-height: auto;
+      }
+      .stack {
+        flex: 0 1 auto;
+        overflow: visible;
+      }
       #mesa.has-caso {
         grid-template-columns: 1fr;
         grid-template-rows: auto minmax(0, 1fr) auto;
@@ -1279,6 +1316,20 @@
         max-width: none;
         overflow: visible;
         padding: 16px 14px;
+      }
+      .stack.cards-3 .piece .card-d,
+      .stack.cards-3 .piece .card-body {
+        display: block;
+        -webkit-line-clamp: unset;
+        overflow: visible;
+        font-size: 0.92rem;
+      }
+      #cards-a1 .piece.on .card-d,
+      #slots-a2 .piece.on .card-body {
+        -webkit-line-clamp: unset;
+        max-height: none;
+        overflow: visible;
+        font-size: 0.94rem;
       }
       .preview { grid-template-columns: 1fr; }
       #stage.level-on.dock-open {

@@ -9,7 +9,7 @@ Spec: [`../spec-mosby.md`](../spec-mosby.md).
 | Elemento | Tipo | Papel | Liga a |
 |----------|------|-------|--------|
 | [`README.md`](./README.md) | hub | Inventário do runtime | [`play.html`](../play.html) · FEAT-JORNADA |
-| [`css/play.css`](./css/play.css) | skin | Layout, mapa, ilhas (`#map-gadgets`), mesa, mobile | `play.html` |
+| [`css/play.css`](./css/play.css) | skin | Layout: desktop = viewport fixo + scroll interno; mobile ≤900px = scroll na página | `play.html` |
 | [`img/logo-agile-school-completo-trim.png`](./img/logo-agile-school-completo-trim.png) | marca | Logo Agile School na barra inferior | [`partners/agile-school/logos`](../../../../../partners/agile-school/logos/) · `play.html` |
 | [`js/boot.js`](./js/boot.js) | bootstrap | Monta engine + pacote de conteúdo | [`app.js`](./js/app.js) · [`map-islands.js`](./content/map-islands.js) |
 | [`js/app.js`](./js/app.js) | engine | Estado, mapa, mesa, portfólio, dock | BC Jornada · `localStorage` |

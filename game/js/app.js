@@ -1569,14 +1569,15 @@ export function startJornada(cfg = {}) {
     winLock = true;
     if (!save.won.includes(week)) save.won.push(week);
     persist();
+    let mapDelay = 150;
     if (week === 16) {
       toast("Campo fechado. Exporte o manifest.");
+      mapDelay = 1600;
     } else if (isBonus(week)) {
       toast("Bônus no diretório. A trilha S11–S16 continua no mesmo lugar.");
-    } else {
-      toast("Semana " + String(week).padStart(2, "0") + " fechada · " + save.cofre.length + " artefato(s) no diretório");
+      mapDelay = 900;
     }
-    setTimeout(showMap, week === 16 ? 1600 : 900);
+    setTimeout(showMap, mapDelay);
   }
 
   function toast(msg, bad) {

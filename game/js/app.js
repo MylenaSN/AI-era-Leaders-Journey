@@ -359,8 +359,8 @@ export function startJornada(cfg = {}) {
     return n;
   }
 
-  const COURSE_NAME = "AI-era Leaders";
-  const LEADER_DIR = "AI-era-Leaders-Jornada";
+  const COURSE_NAME = "AI-first Systems Leadership";
+  const LEADER_DIR = "AI-first-Systems-Leadership-Jornada";
   const COFRE_DIR = LEADER_DIR + "/";
   const IN_WAVE = { 1: [1, 2], 2: [3, 4, 5, 6], 3: [7, 8, 9, 10], 4: [11, 12, 13, 14], 5: [15, 16] };
   const WAVE_DIR = { 1: "01-pre-voo", 2: "02-product", 3: "03-delivery", 4: "04-hibridos", 5: "05-homeostase" };
@@ -1508,7 +1508,7 @@ export function startJornada(cfg = {}) {
       "  chmod +x setup-jornada.sh",
       "  ./setup-jornada.sh",
       "",
-      "Cria: AI-era-Leaders-Jornada/ (16 semanas + plus)",
+      "Cria: AI-first-Systems-Leadership-Jornada/ (16 semanas + plus)",
       "",
       "Em cada semana:",
       "  · Cole o homework da Aula 2 em input-semana-XX.txt",

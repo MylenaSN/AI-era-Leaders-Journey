@@ -867,13 +867,67 @@ export function startJornada(cfg = {}) {
   }
 
   function bindRailTabs() {
-    document.querySelectorAll("#mesa-tabs .mesa-tab").forEach((btn) => {
-      btn.onclick = () => {
-        if (btn.disabled) return;
-        railFocus = Number(btn.getAttribute("data-rail"));
-        applyRailFocus();
-      };
+    const nav = document.getElementById("mesa-tabs");
+    if (!nav || nav.dataset.boundTabs) return;
+    nav.dataset.boundTabs = "1";
+    nav.addEventListener("click", (ev) => {
+      const btn = ev.target.closest(".mesa-tab");
+      if (!btn || btn.disabled) return;
+      railFocus = Number(btn.getAttribute("data-rail"));
+      applyRailFocus();
     });
+  }
+
+  function bindMesaClicksOnce() {
+    const mesa = document.getElementById("mesa");
+    if (!mesa || mesa.dataset.boundClicks) return;
+    mesa.dataset.boundClicks = "1";
+    mesa.addEventListener("click", (ev) => {
+      const a1 = ev.target.closest("[data-a1]");
+      if (a1 && mesa.contains(a1)) {
+        onA1Click(Number(a1.getAttribute("data-a1")), a1);
+        return;
+      }
+      const a2 = ev.target.closest("[data-a2]");
+      if (a2 && mesa.contains(a2) && !a2.disabled) {
+        onA2Click(Number(a2.getAttribute("data-a2")), a2);
+      }
+    });
+  }
+
+  function onA1Click(i, el) {
+    a1open[i] = true;
+    if (el) el.classList.add("on");
+    const ready = playOf().a1.every((_, idx) => a1open[idx]);
+    if (ready && phase === "conceito") phase = "raiz";
+    document.getElementById("rail-a2").classList.toggle("locked", !ready);
+    document.querySelectorAll("[data-a2]").forEach((btn) => {
+      btn.disabled = !ready;
+    });
+    updateMesaTabs();
+    syncHud();
+  }
+
+  function onA2Click(i, el) {
+    if (!playOf().a1.every((_, idx) => a1open[idx])) return;
+    a2pin[i] = true;
+    if (el) el.classList.add("on");
+    const ready = playOf().a2.every((_, idx) => a2pin[idx]);
+    if (ready && (phase === "raiz" || phase === "conceito")) {
+      labDone = false;
+      a3open = [];
+      a3chip = null;
+      phase = "brief";
+      mesaA3Paint = "";
+      paintA3Panel();
+    }
+    const railA3 = document.getElementById("rail-a3");
+    railA3.classList.toggle("locked", !ready);
+    railA3.classList.toggle("has-brief", phase === "brief" && ready);
+    railA3.classList.toggle("has-lab", phase === "lab" && ready);
+    updateCasoPanel();
+    updateMesaTabs();
+    syncHud();
   }
 
   function enterWeek(n) {
@@ -1254,12 +1308,110 @@ export function startJornada(cfg = {}) {
     }
   }
 
+  function updateCasoPanel() {
+    const p = playOf();
+    const a1ready = p.a1.every((_, i) => a1open[i]);
+    const pinCount = a2pin.filter(Boolean).length;
+    const rev = revealedContract(week);
+    const casoEl = document.getElementById("caso");
+    const btnCaso = document.getElementById("btn-caso");
+    const casoPre = document.getElementById("caso-body");
+    const mesaEl = document.getElementById("mesa");
+    if (!a1ready || pinCount === 0) {
+      casoEl.className = "is-hidden";
+      if (mesaEl) mesaEl.classList.remove("has-caso");
+      document.getElementById("caso-who").textContent = "";
+      casoPre.textContent = "";
+      btnCaso.disabled = true;
+      return;
+    }
+    casoEl.className = pinCount < p.a2.length ? "partial" : "";
+    if (mesaEl) mesaEl.classList.add("has-caso");
+    const inLab = phase === "lab" || phase === "nota";
+    document.getElementById("caso-who").textContent = inLab
+      ? casoBanner(week)
+      : "Homework exemplo · " + pinCount + "/" + p.a2.length;
+    casoPre.textContent = inLab && pinCount >= p.a2.length
+      ? revealedExemplo(week)
+      : rev.text;
+    btnCaso.disabled = false;
+  }
+
+  function paintA3Panel() {
+    const a2ready = playOf().a2.every((_, i) => a2pin[i]);
+    let cards3 = "";
+    let foot3 = "";
+    if (!a2ready) {
+      cards3 = "";
+      foot3 = "";
+    } else if (phase === "nota") {
+      cards3 = "<div class='nota-block'>"
+        + "<p class='nota-lead'>" + phraseLines("Toque o botão abaixo para escolher 1, 2 ou 3.") + "</p>"
+        + "</div>";
+      foot3 = '<button type="button" id="btn-open-nota" class="cta-nota">Dar nota 1 · 2 · 3</button>';
+    } else if (phase === "lab") {
+      cards3 = labLabHtml();
+      foot3 = "";
+    } else if (phase === "brief") {
+      cards3 = briefHtml();
+      foot3 = "";
+    }
+    const a3sig = [week, phase, a2ready ? 1 : 0, a3open.map(Boolean).join(""), a3chip || "", reforco ? 1 : 0].join("|");
+    const toolsEl = document.getElementById("caso-tools");
+    if (mesaA3Paint === a3sig) return;
+    mesaA3Paint = a3sig;
+    if (toolsEl) {
+      toolsEl.hidden = true;
+      toolsEl.innerHTML = "";
+    }
+    document.getElementById("cards-a3").innerHTML = cards3;
+    document.getElementById("foot-a3").innerHTML = foot3;
+    if (phase === "lab" && a2ready) fillLabFrames();
+    const gotoMap = document.getElementById("btn-goto-map");
+    if (gotoMap) gotoMap.onclick = () => {
+      showMap();
+      openMapSetup();
+    };
+    const openNota = document.getElementById("btn-open-nota");
+    if (openNota) openNota.onclick = () => openNotaDialog();
+    const labDoneBtn = document.getElementById("btn-lab-done");
+    if (labDoneBtn) labDoneBtn.onclick = () => startGateFromLab();
+    document.querySelectorAll("[data-a3]").forEach((el) => {
+      el.onclick = () => {
+        const i = Number(el.getAttribute("data-a3"));
+        if (i !== seqNext(a3open, aula03BriefOf(week).cards.length)) return;
+        a3open[i] = true;
+        a3chip = null;
+        railFocus = 3;
+        renderMesa();
+        syncHud();
+      };
+    });
+    document.querySelectorAll("[data-a3chip]").forEach((el) => {
+      el.onclick = (ev) => {
+        ev.stopPropagation();
+        const id = el.getAttribute("data-a3chip");
+        a3chip = a3chip === id ? null : id;
+        renderMesa();
+      };
+    });
+    const openLab = document.getElementById("btn-open-lab");
+    if (openLab) {
+      openLab.onclick = () => {
+        if (!a3BriefReady()) return;
+        phase = "lab";
+        railFocus = 3;
+        renderMesa();
+        syncHud();
+      };
+    }
+  }
+
   function renderMesa() {
     const p = playOf();
     const lab = labOf();
     const a1ready = p.a1.every((_, i) => a1open[i]);
     const a2ready = p.a2.every((_, i) => a2pin[i]);
-    const pinCount = a2pin.filter(Boolean).length;
     document.getElementById("lead-a1").textContent = "Conceitos da semana";
     document.getElementById("lead-a2").innerHTML = "";
     document.getElementById("lead-a3").innerHTML = !a2ready
@@ -1302,137 +1454,15 @@ export function startJornada(cfg = {}) {
         el.disabled = !a1ready;
       });
     }
-    const ex = EX[week];
-    const rev = revealedContract(week);
-    const casoEl = document.getElementById("caso");
-    const btnCaso = document.getElementById("btn-caso");
-    const casoPre = document.getElementById("caso-body");
-    const mesaEl = document.getElementById("mesa");
-    if (!a1ready || pinCount === 0) {
-      casoEl.className = "is-hidden";
-      if (mesaEl) mesaEl.classList.remove("has-caso");
-      document.getElementById("caso-who").textContent = "";
-      casoPre.textContent = "";
-      btnCaso.disabled = true;
-    } else {
-      casoEl.className = pinCount < p.a2.length ? "partial" : "";
-      if (mesaEl) mesaEl.classList.add("has-caso");
-      const inLab = phase === "lab" || phase === "nota";
-      document.getElementById("caso-who").textContent = inLab
-        ? casoBanner(week)
-        : "Homework exemplo · " + pinCount + "/" + p.a2.length;
-      casoPre.textContent = inLab && pinCount >= p.a2.length
-        ? revealedExemplo(week)
-        : rev.text;
-      btnCaso.disabled = false;
-    }
+    updateCasoPanel();
     document.getElementById("foot-a2").innerHTML = "";
-    let cards3 = "";
-    let foot3 = "";
-    if (!a2ready) {
-      cards3 = "";
-      foot3 = "";
-    } else if (phase === "nota") {
-      cards3 = "<div class='nota-block'>"
-        + "<p class='nota-lead'>" + phraseLines("Toque o botão abaixo para escolher 1, 2 ou 3.") + "</p>"
-        + "</div>";
-      foot3 = '<button type="button" id="btn-open-nota" class="cta-nota">Dar nota 1 · 2 · 3</button>';
-    } else if (phase === "lab") {
-      cards3 = labLabHtml();
-      foot3 = "";
-    } else if (phase === "brief") {
-      cards3 = briefHtml();
-      foot3 = "";
-    } else {
-      cards3 = "";
-      foot3 = "";
-    }
-    const a3sig = [week, phase, a2ready ? 1 : 0, a3open.map(Boolean).join(""), a3chip || "", reforco ? 1 : 0].join("|");
-    const toolsEl = document.getElementById("caso-tools");
-    if (mesaA3Paint !== a3sig) {
-      mesaA3Paint = a3sig;
-      if (toolsEl) {
-        toolsEl.hidden = true;
-        toolsEl.innerHTML = "";
-      }
-      document.getElementById("cards-a3").innerHTML = cards3;
-      document.getElementById("foot-a3").innerHTML = foot3;
-      if (phase === "lab" && a2ready) fillLabFrames();
-      const gotoMap = document.getElementById("btn-goto-map");
-      if (gotoMap) gotoMap.onclick = () => {
-        showMap();
-        openMapSetup();
-      };
-      const openNota = document.getElementById("btn-open-nota");
-      if (openNota) openNota.onclick = () => openNotaDialog();
-      const labDoneBtn = document.getElementById("btn-lab-done");
-      if (labDoneBtn) labDoneBtn.onclick = () => startGateFromLab();
-      document.querySelectorAll("[data-a3]").forEach((el) => {
-        el.onclick = () => {
-          const i = Number(el.getAttribute("data-a3"));
-          if (i !== seqNext(a3open, aula03BriefOf(week).cards.length)) return;
-          a3open[i] = true;
-          a3chip = null;
-          railFocus = 3;
-          renderMesa();
-          syncHud();
-        };
-      });
-      document.querySelectorAll("[data-a3chip]").forEach((el) => {
-        el.onclick = (ev) => {
-          ev.stopPropagation();
-          const id = el.getAttribute("data-a3chip");
-          a3chip = a3chip === id ? null : id;
-          renderMesa();
-        };
-      });
-      const openLab = document.getElementById("btn-open-lab");
-      if (openLab) {
-        openLab.onclick = () => {
-          if (!a3BriefReady()) return;
-          phase = "lab";
-          railFocus = 3;
-          renderMesa();
-          syncHud();
-        };
-      }
-    }
+    paintA3Panel();
     bindScoreButtons();
-    document.querySelectorAll("[data-a1]").forEach((el) => {
-      el.onclick = () => {
-        const i = Number(el.getAttribute("data-a1"));
-        railFocus = 1;
-        a1open[i] = true;
-        if (playOf().a1.every((_, idx) => a1open[idx]) && phase === "conceito") {
-          phase = "raiz";
-          railFocus = 2;
-        }
-        renderMesa();
-        syncHud();
-      };
-    });
-    document.querySelectorAll("[data-a2]").forEach((el) => {
-      el.onclick = () => {
-        if (!playOf().a1.every((_, idx) => a1open[idx])) return;
-        const i = Number(el.getAttribute("data-a2"));
-        railFocus = 2;
-        a2pin[i] = true;
-        if (playOf().a2.every((_, idx) => a2pin[idx]) && (phase === "raiz" || phase === "conceito")) {
-          labDone = false;
-          a3open = [];
-          a3chip = null;
-          phase = "brief";
-          railFocus = 3;
-        }
-        renderMesa();
-        syncHud();
-      };
-    });
+    bindRailTabs();
+    bindMesaClicksOnce();
     if (phase === "nota") railFocus = 3;
-    else if (phase === "lab" || phase === "brief") railFocus = Math.max(railFocus, 3);
     applyRailFocus();
     updateMesaTabs();
-    bindRailTabs();
     syncHud();
   }
 
@@ -1632,7 +1662,9 @@ export function startJornada(cfg = {}) {
   }
 
   function syncHud() {
-    document.getElementById("app").className = mode === "map" ? "is-map" : "is-level";
+    const app = document.getElementById("app");
+    app.classList.toggle("is-map", mode === "map");
+    app.classList.toggle("is-level", mode !== "map");
     document.body.classList.toggle("journey-map", mode === "map");
     document.body.classList.toggle("journey-level", mode === "level");
     const trailWon = save.won.filter((n) => n <= 16).length;
@@ -1661,10 +1693,12 @@ export function startJornada(cfg = {}) {
       setHint("Mapa da trilha");
       return;
     }
-    document.getElementById("title").innerHTML = weekTitleHtml(week);
+    const titleEl = document.getElementById("title");
+    const wantedTitle = weekTitleHtml(week);
+    if (titleEl.innerHTML !== wantedTitle) titleEl.innerHTML = wantedTitle;
     document.getElementById("sub").textContent = "";
     mantraEl.textContent = "";
-    pills.innerHTML = "";
+    if (pills.innerHTML) pills.innerHTML = "";
     if (phase === "conceito") {
       setHint("Conceito aula 01");
     } else if (phase === "raiz") {

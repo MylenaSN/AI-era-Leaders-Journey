@@ -959,13 +959,14 @@
       gap: 8px;
       align-items: stretch;
       min-height: 0;
+      background: var(--bg);
     }
     #mesa.has-caso {
       grid-template-columns: minmax(0, 1fr) minmax(11rem, 30%);
       grid-template-rows: auto minmax(0, 1fr);
     }
     #mesa.has-caso .mesa-tabs { grid-column: 1 / -1; }
-    #mesa.has-caso .rail.is-active { grid-column: 1; grid-row: 2; }
+    #mesa.has-caso .rail { grid-column: 1; grid-row: 2; }
     #mesa.has-caso #caso:not(.is-hidden) {
       grid-column: 2;
       grid-row: 2;
@@ -991,14 +992,25 @@
     .mesa-tab[data-rail="2"].on { background: var(--raiz); border-color: var(--raiz); box-shadow: 0 6px 16px #E88F2B33; }
     .mesa-tab[data-rail="3"].on { background: var(--path); border-color: var(--path); box-shadow: 0 6px 16px #2BC0B433; }
     .mesa-tab:disabled { opacity: 0.42; cursor: default; }
+    .mesa-tab, .piece, .a3-chip, .a3-pillar {
+      -webkit-tap-highlight-color: transparent;
+    }
     #stage.level-on #mesa.show { display: grid; flex: 1; min-height: 0; position: relative; overflow: hidden; }
     .rail {
-      display: none; flex-direction: column; grid-row: 2; grid-column: 1;
+      display: flex; flex-direction: column; grid-row: 2; grid-column: 1;
+      position: relative; z-index: 1;
       background: var(--panel); border: 1px solid var(--line);
-      border-radius: 14px; padding: 10px 12px; min-height: 0; overflow: hidden;
+      border-radius: 14px; padding: 10px 12px; min-height: 0; min-width: 0; overflow: hidden;
       box-shadow: 0 8px 24px #5B2D8E0a;
     }
-    .rail.is-active { display: flex; }
+    .rail:not(.is-active) {
+      position: absolute;
+      inset: 0;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
     #rail-a1 { border-top: 3px solid var(--conceito); }
     #rail-a2 { border-top: 3px solid var(--raiz); }
     #rail-a3 { border-top: 3px solid var(--path); }
@@ -1155,13 +1167,11 @@
     #cards-a1:not(.is-seq) .piece.on .card-d,
     #slots-a2:not(.is-seq) .piece.on .card-body {
       opacity: 1;
-      -webkit-line-clamp: unset;
-      display: block;
-      overflow-x: hidden;
-      overflow-y: auto;
-      max-height: min(30vh, 15rem);
-      line-height: 1.62;
-      font-size: 0.96rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 10;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      max-height: none;
     }
     #cards-a1.is-seq .piece.on .card-d,
     #slots-a2.is-seq .piece.on .card-body,
@@ -1171,12 +1181,17 @@
     .rail-foot { margin-top: 8px; flex: 0 0 auto; }
     .rail-foot:empty { margin: 0; min-height: 0; }
     .piece {
+      appearance: none;
+      -webkit-appearance: none;
       border: 1px solid var(--line); border-radius: 12px;
       padding: 10px 11px; margin: 0; cursor: pointer;
       background: var(--bg); font-size: 0.82rem; width: 100%; text-align: left;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease, padding 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
       flex: 0 0 auto;
     }
+    .piece:focus { outline: none; }
+    .piece:focus-visible { outline: 2px solid var(--path); outline-offset: 2px; }
+    .piece:active:not(:disabled) { transform: none; }
     .piece.on { flex: 0 0 auto; padding: 9px 14px; }
     .piece.on .card-d,
     .piece.on .card-body {
@@ -1478,6 +1493,7 @@
         max-height: none;
         overflow: visible;
         font-size: 0.94rem;
+        display: block;
       }
       .preview { grid-template-columns: 1fr; }
       #stage.level-on.dock-open {

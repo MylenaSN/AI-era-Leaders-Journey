@@ -1,64 +1,48 @@
 import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js";
 import { buildLabPrompt } from "../content/lab-prompts.js";
+import { aula03BriefOf } from "../content/aula03-brief.js";
+import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js";
+import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];
-  const KEY = "aiel-cofre-v4";
-  const FILES = {
-    1: { a2: "S01-A2-gantt.md", a3: "S01-A3-arena.md" },
-    2: { a2: "S02-A2-a3.md", a3: "S02-A3-project.md" },
-    3: { a2: "S03-A2-hierarquia.md", a3: "S03-A3-hierarquia.md" },
-    4: { a2: "S04-A2-okr.md", a3: "S04-A3-okr.md" },
-    5: { a2: "S05-A2-pbb.md", a3: "S05-A3-prototipo.md" },
-    6: { a2: "S06-A2-invest.md", a3: "S06-A3-invest.md" },
-    7: { a2: "S07-A2-topologia.md", a3: "S07-A3-topologia.md" },
-    8: { a2: "S08-A2-dashboard.md", a3: "S08-A3-fluxo.md" },
-    9: { a2: "S09-A2-ritmos.md", a3: "S09-A3-board.md" },
-    10: { a2: "S10-A2-finops.md", a3: "S10-A3-finops.md" },
-    11: { a2: "S11-A2-mapa-hibrido.md", a3: "S11-A3-esteira.md" },
-    12: { a2: "S12-A2-persona.md", a3: "S12-A3-agent-files.md" },
-    13: { a2: "S13-A2-spec.md", a3: "S13-A3-maestro.md" },
-    14: { a2: "S14-A2-kb.md", a3: "S14-A3-eval.md" },
-    15: { a2: "S15-A2-timeline.md", a3: "S15-A3-pdi.md" },
-    16: { a2: "S16-A2-pi.md", a3: "S16-A3-fechamento.md" },
-    17: { a2: "B04-A2-medida.md", a3: "B04-A3-lingua.md" }
-  };
+  const KEY = "afsl-cofre-v5";
   const WEEKS = [
-    { n: 1, w: 1, t: "Chão do orquestrador" },
-    { n: 2, w: 1, t: "5ª Revolução Industrial" },
-    { n: 3, w: 2, t: "Valor, não volume" },
-    { n: 4, w: 2, t: "OKR com baseline" },
+    { n: 1, w: 1, t: "Habilidades na era da IA" },
+    { n: 2, w: 1, t: "Sobreviver à 5ª Revolução" },
+    { n: 3, w: 2, t: "Outcomes vs. Outputs" },
+    { n: 4, w: 2, t: "OKRs e backlog de valor" },
     { n: 5, w: 2, t: "Do problema ao produto" },
-    { n: 6, w: 2, t: "Story Mapping e INVEST" },
-    { n: 7, w: 3, t: "Fronteiras" },
-    { n: 8, w: 3, t: "Fluxo visível" },
-    { n: 9, w: 3, t: "Ritmo, não rito" },
-    { n: 10, w: 3, t: "Teto assinado" },
-    { n: 11, w: 4, t: "Papel, não marca" },
-    { n: 12, w: 4, t: "Arquivo, não chatbot" },
-    { n: 13, w: 4, t: "Spec antes do código" },
-    { n: 14, w: 4, t: "Sobe com eval" },
-    { n: 15, w: 5, t: "Suas categorias" },
-    { n: 16, w: 5, t: "Decisão offline" },
+    { n: 6, w: 2, t: "Hierarquia de backlog" },
+    { n: 7, w: 3, t: "Modelos mentais" },
+    { n: 8, w: 3, t: "Kanban e fluxo" },
+    { n: 9, w: 3, t: "Engenharia de ciclos" },
+    { n: 10, w: 3, t: "FinOps" },
+    { n: 11, w: 4, t: "Liderança holárquica" },
+    { n: 12, w: 4, t: "Design de agents" },
+    { n: 13, w: 4, t: "Orquestração agêntica" },
+    { n: 14, w: 4, t: "Esteira agêntica" },
+    { n: 15, w: 5, t: "Líder transformador" },
+    { n: 16, w: 5, t: "Potencial humano" },
     { n: 17, w: 4, t: "Bônus · medida da entrega", bonus: true }
   ];
-  const WAVES = { 1: "Pré-Voo", 2: "Produto", 3: "Delivery", 4: "Times Híbridos", 5: "AI-era Homeostase" };
+  const WAVES = { 1: "Pré-voo", 2: "Produto", 3: "Delivery", 4: "Times híbridos", 5: "Homeostase" };
   const WAVE_META = {
-    1: { pilar: "Pré-Voo", subtitle: "O Despertar", artefato: "" },
-    2: { pilar: "Product Management", subtitle: "O Mapa de Valor", artefato: "" },
-    3: { pilar: "Tech Delivery", subtitle: "A Engenharia do Ciclo", artefato: "Métricas de fluxo (apoio)" },
-    4: { pilar: "Times Híbridos", subtitle: "Humano & IA no loop", artefato: "Workflow Agêntico" },
-    5: { pilar: "AI-era Homeostase", subtitle: "Seu potencial humano", artefato: "PDI Advisor" }
+    1: { pilar: "Pré-voo", subtitle: "O Despertar", artefato: "" },
+    2: { pilar: "Produto", subtitle: "O Mapa de Valor", artefato: "" },
+    3: { pilar: "Delivery", subtitle: "A Engenharia do Ciclo", artefato: "Métricas de fluxo (apoio)" },
+    4: { pilar: "Times híbridos", subtitle: "Humano & IA no loop", artefato: "Workflow Agêntico" },
+    5: { pilar: "Homeostase", subtitle: "Seu potencial humano", artefato: "PDI Advisor" }
   };
   const LEADER_CALL = {
-    1: "Você não opera a máquina. Você desenha o chão.",
+    1: "Você não opera a máquina. Você desenha a base.",
     2: "Você não entrega volume. Você entrega valor.",
     3: "Você não reza pelo ciclo. Você engenharia o ritmo.",
     4: "Você não perde o time. Você orquestra humano & IA.",
     5: "Você não some na IA. Você lidera a era."
   };
   const WAVE_LINE = {
-    1: "Antes de voar, identifique seu chão",
+    1: "Antes de voar, identifique sua base",
     2: "O Mapa de Valor",
     3: "A Engenharia do Ciclo",
     4: "Times Híbridos: Humano & IA",
@@ -332,22 +316,23 @@ export function startJornada(cfg = {}) {
   const PILL_STEPS = [
     { id: "conceito", label: "Conceito" },
     { id: "homework", label: "Homework Prático" },
-    { id: "lab_ia", label: "Lab IA" },
+    { id: "lab_ia", label: "Lab aula 03" },
   ];
 
   function pillIndexForPhase(ph) {
     if (ph === "conceito") return 0;
     if (ph === "raiz") return 1;
+    if (ph === "brief") return 2;
     if (ph === "lab" || ph === "setup") return 2;
     if (ph === "nota") return 3;
     return 0;
   }
 
   function lessonStepLabel(ph) {
-    const steps = ["Conceito", "Homework", "Lab IA", "Fechamento"];
+    if (ph === "brief") return "Lab aula 03 · 3/4";
+    const steps = ["Conceito aula 01", "Homework aula 02", "Lab aula 03", "Fechamento"];
     const idx = pillIndexForPhase(ph);
-    const n = Math.min(idx + 1, steps.length);
-    return steps[Math.min(idx, steps.length - 1)] + " · " + n + "/4";
+    return steps[Math.min(idx, steps.length - 1)] + " · " + Math.min(idx + 1, steps.length) + "/4";
   }
 
   function wavesWonCount() {
@@ -363,7 +348,6 @@ export function startJornada(cfg = {}) {
   const LEADER_DIR = "AI-first-Systems-Leadership-Jornada";
   const COFRE_DIR = LEADER_DIR + "/";
   const IN_WAVE = { 1: [1, 2], 2: [3, 4, 5, 6], 3: [7, 8, 9, 10], 4: [11, 12, 13, 14], 5: [15, 16] };
-  const WAVE_DIR = { 1: "01-pre-voo", 2: "02-product", 3: "03-delivery", 4: "04-hibridos", 5: "05-homeostase" };
   let WAVE_COLOR = { 1: "#3B67B0", 2: "#2BC0B4", 3: "#E88F2B", 4: "#5B2D8E", 5: "#C83E74" };
 
   function phraseLines(s) {
@@ -440,8 +424,8 @@ export function startJornada(cfg = {}) {
     1: { autor:"Teo · prompt e gate", cap:"Arquivo com trava humana", tool:"ChatGPT free", alt:"Gemini", href:"https://chatgpt.com", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"ChatGPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
       out:"Mapa as-is dos 3 pilares (Product · Delivery · Human & AI), com dor e fato do seu Gantt e o bloco GATE HUMANO.",
-      casca:"# S01-A3-arena.md\n\n## Time\n(1 linha)\n\n## 3 linhas\n| Pilar | Dor (1 frase) | Fato do time |\n| Product |  |  |\n| Delivery |  |  |\n| Human & AI |  |  |\n\n## GATE HUMANO\n- PARA: (o que a IA está proibida de decidir)\n- QUEM: (cargo que autoriza)\n- SÓ DEPOIS: (o que pode acontecer após o sim)\n- FRASE DE TRAVA: Nenhuma ação deste mapa entra no calendário sem o sim de [QUEM].\n",
-      prompt:"Gere o arquivo completo S01-A3-arena.md: time (1 linha), 3 linhas com dor e fato do Gantt, GATE HUMANO (PARA / QUEM / SÓ DEPOIS / frase de trava). Output = markdown pronto para salvar — não resuma em chat.",
+      casca:"# Lab aula 03 semana 01.md\n\n## Time\n(1 linha)\n\n## 3 linhas\n| Pilar | Dor (1 frase) | Fato do time |\n| Product |  |  |\n| Delivery |  |  |\n| Human & AI |  |  |\n\n## GATE HUMANO\n- PARA: (o que a IA está proibida de decidir)\n- QUEM: (cargo que autoriza)\n- SÓ DEPOIS: (o que pode acontecer após o sim)\n- FRASE DE TRAVA: Nenhuma ação deste mapa entra no calendário sem o sim de [QUEM].\n",
+      prompt:"Gere o arquivo completo Lab aula 03 semana 01.md: time (1 linha), 3 linhas com dor e fato do Gantt, GATE HUMANO (PARA / QUEM / SÓ DEPOIS / frase de trava). Output = markdown pronto para salvar — não resuma em chat.",
       tips:["Dois outputs completos (GPT e Gemini) — compare os gates.","Formato quebrado ou ensaio: volte ao modelo de referência.","Um modelo só: a arena pede os dois para comparar."] },
     2: { autor:"Teo · contexto que fica", cap:"A3 vivo no Project", tool:"Claude Project", alt:"GPT Project / Gemini Gem", href:"https://claude.ai", href2:"https://chatgpt.com",
       etapas: [{ tools: [{ label:"Claude", href:"https://claude.ai" }, { label:"GPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
@@ -464,7 +448,7 @@ export function startJornada(cfg = {}) {
     5: { autor:"intenção → UI", cap:"Protótipo e imagem coesa", tool:"Lovable (free)", alt:"v0 · Designer/Gemini imagem", href:"https://lovable.dev", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"Lovable", href:"https://lovable.dev" }, { label:"v0", href:"https://v0.dev" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
       out:"Link do protótipo da fatia IN e 1 imagem de jornada",
-      prompt:"Gere um protótipo SÓ da fatia IN do PBB: [cole IN/OUT]. Não implemente OUT. Depois (Gemini/Designer): uma imagem da jornada da persona — mesmo traço, sem stock genérico. O MVP serve o OKR da S04 — se a vitrine não liga ao KR, recuse.",
+      prompt:"Gere um protótipo SÓ da fatia IN do PBB: [cole IN/OUT]. Não implemente OUT. Depois (Gemini/Designer): uma imagem da jornada da persona — mesmo traço, sem stock genérico. O MVP serve o OKR da semana 04 — se a vitrine não liga ao KR, recuse.",
       tips:["Markdown no chat não é protótipo. Precisa do link.","Imagem de banco de foto: peça consistência com a persona.","Tudo IN: volte ao OUT da Aula 2."] },
     6: { autor:"Wake · INVEST", cap:"Scorecard INVEST 1–3", tool:"Custom GPT / Gem", alt:"Cursor no backlog.md", href:"https://chatgpt.com", href2:"https://cursor.com",
       etapas: [{ tools: [{ label:"GPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }, { label:"Cursor", href:"https://cursor.com" }] }],
@@ -479,15 +463,15 @@ export function startJornada(cfg = {}) {
     8: { autor:"Anderson · fluxo", cap:"Dashboard Kanban e diagrama", tool:"Cursor Hobby", alt:"Copilot · mermaid no GPT", href:"https://cursor.com", href2:"https://github.com/features/copilot",
       etapas: [{ tools: [{ label:"Cursor", href:"https://cursor.com" }, { label:"Copilot", href:"https://github.com/features/copilot" }, { label:"GPT", href:"https://chatgpt.com" }] }],
       out:"Dashboard LT/CT/TH/WIP/CFD e diagrama mermaid do fluxo",
-      prompt:"A partir do dashboard da Aula 2 [cole números que EU medi], monte S08-A3-fluxo.md com:\n1) Lead Time (LT), Cycle Time (CT), Throughput (TH), WIP e CFD explicados em linguagem do time.\n2) Lei de Little: LT ≈ WIP ÷ TH — onde está o alavancador?\n3) Diagrama mermaid do fluxo atual.\n4) (Apoio futuro) Rascunho de prompt agnóstico para 3 agents: Métricas de fluxo · Esteira híbrida · Advisor de liderança — cada um com persona/steering/skill, sem depender de ferramenta.\nUse só números do meu contexto. Não invente target externo.",
+      prompt:"A partir do dashboard da Aula 2 [cole números que EU medi], monte Lab aula 03 semana 08.md com:\n1) Lead Time (LT), Cycle Time (CT), Throughput (TH), WIP e CFD explicados em linguagem do time.\n2) Lei de Little: LT ≈ WIP ÷ TH — onde está o alavancador?\n3) Diagrama mermaid do fluxo atual.\n4) (Apoio futuro) Rascunho de prompt agnóstico para 3 agents: Métricas de fluxo · Esteira híbrida · Advisor de liderança — cada um com persona/steering/skill, sem depender de ferramenta.\nUse só números do meu contexto. Não invente target externo.",
       tips:["LT = tempo total até entregar. CT = tempo em trabalho ativo. TH = itens/ período. WIP = em progresso. CFD = diagrama de fluxo acumulado.","Sem números da Aula 2 o dashboard é teatro.","Os 3 agents do curso são apoiadores — esta semana fecha o painel de fluxo."] },
     9: { autor:"ritmos e voto", cap:"Board e workspace no IDE", tool:"Cursor e Claude Artifact", alt:"Whimsical free → cola no Mural", href:"https://cursor.com", href2:"https://claude.ai",
       etapas: [
         { tools: [{ label:"Cursor", href:"https://cursor.com" }] },
         { tools: [{ label:"Claude", href:"https://claude.ai" }, { label:"Whimsical", href:"https://whimsical.com" }] },
       ],
-      out:"Antes/depois de 1 ritmo em 03-delivery/S09/ e 1 pergunta de voto",
-      prompt:"A partir da auditoria fica/sai/muda da Aula 2, desenhe um board (Agora / Proposta / Voto). Uma pergunta para Mentimeter. NÃO declare o ritmo vencedor.\nSalve o board em 03-delivery/S09/S09-A3-board.md — abra sua pasta " + LEADER_DIR + " no Cursor. Ciclo sem pasta no disco é rito.",
+      out:"Antes/depois de 1 ritmo em 03 Delivery/semana-09/ e 1 pergunta de voto",
+      prompt:"A partir da auditoria fica/sai/muda da Aula 2, desenhe um board (Agora / Proposta / Voto). Uma pergunta para Mentimeter. NÃO declare o ritmo vencedor.\nSalve o board em 03 Delivery/semana-09/Lab aula 03 semana 09.md — abra sua pasta " + LEADER_DIR + " no Cursor. Ciclo sem pasta no disco é rito.",
       tips:["Sem pergunta de voto a IA 'ganhou' sozinha.","Board sem a lista fica/sai/muda da Aula 2 é layout vazio.","Cola no Mural: o artefato precisa ser colável, não um ensaio."] },
     10: { autor:"Amodei · risco", cap:"Apresentação / PDF de 3 cenários", tool:"Gamma (free)", alt:"Gemini", href:"https://gamma.app", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"Gamma", href:"https://gamma.app" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
@@ -506,7 +490,7 @@ export function startJornada(cfg = {}) {
       etapas: [{ tools: [{ label:"Cursor", href:"https://cursor.com" }, { label:"Kiro", href:"https://kiro.dev" }] }],
       out:"persona.md, steering.md e skill.md no disco",
       prompt:"A partir dos 3 blocos da Aula 2, gere os 3 arquivos no repo e um hook (evento→condição→gate). Chatbot Custom GPT sem arquivo NÃO conta. Inclua 3 proibições no steering.",
-      tips:["Custom GPT sem pasta no git.","Falta o hook ligado ao gate da S11.","Persona sem proibição: o agent faz tudo."] },
+      tips:["Custom GPT sem pasta no git.","Falta o hook ligado ao gate da semana 11.","Persona sem proibição: o agent faz tudo."] },
     13: { autor:"Ng · spec-before-code", cap:"Diagrama e spec", tool:"Kiro", alt:"Cursor e Eraser/mermaid", href:"https://kiro.dev", href2:"https://www.eraser.io",
       etapas: [
         { tools: [{ label:"Kiro", href:"https://kiro.dev" }] },
@@ -535,9 +519,9 @@ export function startJornada(cfg = {}) {
       tips:["O modelo escolheu a decisão: apague e escreva à mão.","Overview sem fontes do pacote.","Sem cláusula de autoria o PI some."] },
     17: { autor:"Albrecht / COSMIC / Anderson (ponte)", cap:"Língua de tamanho para o C-Level", tool:"ChatGPT free", alt:"Gemini", href:"https://chatgpt.com", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"ChatGPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
-      out:"B04-A3-lingua.md — a IA estressa a unidade; não inventa PF",
-      casca:"# B04-A2-medida.md\n\n## Time\n(1 linha)\n\n## O que o fluxo já diz\n- Lead time:\n- Cycle time:\n- Throughput:\n- WIP:\n\n## Lente deste ciclo (UMA)\nfuncional | técnica | qualitativa\n\n## Unidade\n\n## O que NÃO conta\n\n## Frase para o C-Level\n\n## Por que isso deixa o time puxar sem estimar o card\n",
-      prompt:"Preencher B04-A3-lingua.md estressando a unidade que o time já escreveu na Aula 2 — sem inventar pontos de função, COSMIC ou LOC fora do bloco.\nFormato:\n# B04-A3-lingua.md\n## Lente (copiada da Aula 2)\n## O que inflaria esta unidade (3 tentações)\n## O que a diretoria entenderia errado\n## GATE HUMANO\n- PARA: a IA não troca a lente nem inventa contagem\n- QUEM: cargo que assina a língua do trimestre\n- SÓ DEPOIS:\n- FRASE DE TRAVA: Nenhuma contagem entra no comitê sem o sim de [QUEM].\nRegra: se o bloco da Aula 2 estiver vazio, PERGUNTE. Recuse velocity como tamanho.",
+      out:"Lab aula 03 semana bonus.md — a IA estressa a unidade; não inventa PF",
+      casca:"# Homework aula 02 semana bonus.md\n\n## Time\n(1 linha)\n\n## O que o fluxo já diz\n- Lead time:\n- Cycle time:\n- Throughput:\n- WIP:\n\n## Lente deste ciclo (UMA)\nfuncional | técnica | qualitativa\n\n## Unidade\n\n## O que NÃO conta\n\n## Frase para o C-Level\n\n## Por que isso deixa o time puxar sem estimar o card\n",
+      prompt:"Preencher Lab aula 03 semana bonus.md estressando a unidade que o time já escreveu na Aula 2 — sem inventar pontos de função, COSMIC ou LOC fora do bloco.\nFormato:\n# Lab aula 03 semana bonus.md\n## Lente (copiada da Aula 2)\n## O que inflaria esta unidade (3 tentações)\n## O que a diretoria entenderia errado\n## GATE HUMANO\n- PARA: a IA não troca a lente nem inventa contagem\n- QUEM: cargo que assina a língua do trimestre\n- SÓ DEPOIS:\n- FRASE DE TRAVA: Nenhuma contagem entra no comitê sem o sim de [QUEM].\nRegra: se o bloco da Aula 2 estiver vazio, PERGUNTE. Recuse velocity como tamanho.",
       tips:["A IA escolheu APF sozinha. Volte à lente do A2.","Número de PF sem inventário = alucinação.","Velocity no slide do C-Level: recuse."] }
   };
 
@@ -546,7 +530,7 @@ export function startJornada(cfg = {}) {
       a1:[
         { t: "As 5 revoluções", d: "Cada revolução industrial reorganiza o trabalho e o papel de quem lidera — o método muda de forma, não desaparece." },
         { t: "Era agêntica", d: "Liderar hoje inclui orquestrar pessoas, agentes e ferramentas no mesmo fluxo de valor." },
-        { t: "Continuidade histórica", d: "A era atual segue um padrão: novas tecnologias redistribuem papéis; o líder desenha o chão, não opera cada ferramenta." }
+        { t: "Continuidade histórica", d: "A era atual segue um padrão: novas tecnologias redistribuem papéis; o líder desenha a base, não opera cada ferramenta." }
       ],
       a2Short: ["Gantt Revoluções", "Mapa AS-IS 3 pilares", "Momento atual do time"],
       a2:["≥5 autores no Gantt (1 por era), com contribuição em 1 frase","Cruzar cada método → Product · Delivery · Human & AI","Baseline honesto: o que o time já pratica sem nomear"] },
@@ -554,7 +538,7 @@ export function startJornada(cfg = {}) {
       a1:[
         { t: "Três pilares", d: "Product define o que vale construir; Tech Delivery entrega com ritmo; Human & AI define onde humanos autorizam com IA." },
         { t: "Kaizen vs kaikaku", d: "Kaizen é evolução incremental; kaikaku é ruptura — só funciona com base, dados e patrocínio." },
-        { t: "Revolução por passos", d: "Mudança durável vem de pequenas evoluções organizadas no tempo, não de salto sem chão." }
+        { t: "Revolução por passos", d: "Mudança durável vem de pequenas evoluções organizadas no tempo, não de salto sem base." }
       ],
       a2Short: ["A3 do problema", "Hipótese e evidência", "Contramedidas sem IA"],
       a2:["A3 de 1 página com UM problema real do time","Hipótese → experimento → evidência → padronizar ou ajustar","Contramedidas ainda sem IA — você é dono do aprendizado"] },
@@ -680,150 +664,7 @@ export function startJornada(cfg = {}) {
       a2:["Recorte de fluxo que vocês já medem","Uma lente, unidade e o que não conta","1 frase de C-Level e 1 linha de no-estimates"] }
   };
 
-  const CASO = "Banco Nexo · Squad Pix PJ · Squad Leader Marie Peace · Product Leader John Watson · Tech Lead Frida Miller · Designer Lunna · QA Bartolomeu";
-  const EX = {
-    1: {
-      a2: "Squad Leader Marie Peace lidera a Squad Pix PJ no Banco Nexo. Núcleo de liderança: Product Leader John Watson, Tech Lead Frida Miller, três engenheiros, Designer Lunna, QA Bartolomeu.\n\nEscopo: Pix de PMEs no app e na API — folha de funcionários, pagamento a fornecedor, boleto que vira Pix.\n\nO que já fazemos sem nome de método:\n• Product — Product Leader John Watson prioriza o sprint pelo Zendesk. Ticket com SLA estourado entra antes do projeto bonito.\n• Delivery — Tech Lead Frida Miller fecha o board terça e quinta. Card sem DoD não vai para homologação.\n• Human & AI — Squad Leader Marie Peace trava Pix acima de R$ 50 mil: Compliance autoriza na mão. Nenhum modelo altera limite nem libera valor.\n\nCinco autores no Gantt (um por era), com fato do time:\n• Watt — SPI do Banco Central: se o trilho para, a squad para.\n• Ford — onboarding PJ é linha: CNPJ → chave → primeiro Pix. Gargalo: KYC da Compliance (enabling Skelton).\n• Deming — toda quarta Squad Leader Marie Peace, Product Leader John Watson e Tech Lead Frida Miller olham Pix recusado no painel. Variação, não herói de plantão.\n• Gates — produto é app e API. Agência física não está no P&L da squad.\n• Teo — atendimento pediu bot no Zendesk. O modelo pode sugerir texto; Squad Leader Marie Peace e Compliance liberam Pix.\n\nBaseline: planilha de recusas no Drive (Product Leader John Watson mantém) e canal #pix-pj no Teams.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Dor e evidência que já está no Gantt da Aula 2. Sem mapa 2, sem ROI." },
-        { k: "hip", t: "Hipótese", d: "Se o Gantt não tem o fato, a célula diz HIPÓTESE — o modelo não completa com a web." },
-        { k: "alu", t: "Alucinação", d: "Ensaio, app, chatbot 24h, ou GATE sem cargo (PARA / QUEM / SÓ DEPOIS)." }
-      ]
-    },
-    2: {
-      chunks: [
-        "A3 numa página — formato Ohno. Dona do arquivo: Squad Leader Marie Peace.",
-        "Problema: sexta, 18h20, fila Zendesk Pix PJ com 41 tickets abertos. Product Leader John Watson cronometrou na exportação — não é feeling.\nCausa com fato: três convênios (folha de dois clientes e ERP de contador) sem script de recusa padronizado. Evidência: QA Bartolomeu (QA) e analista do plantão — não dashboard agregado.",
-        "Contramedida sem IA: script de 8 linhas no Confluence e Product Leader John Watson como dono do plantão de sexta. Ticket \"Pix recusado\" → cola o script. \"Dinheiro sumiu\" → escala Tech Lead Frida Miller e Compliance. Squad Leader Marie Peace assina o gate antes de qualquer piloto com LLM. Sem bot."
-      ],
-      a2: "A3 numa página — formato Ohno. Dona do arquivo: Squad Leader Marie Peace.\n\nProblema: sexta, 18h20, fila Zendesk Pix PJ com 41 tickets abertos. Product Leader John Watson cronometrou na exportação — não é feeling.\nCausa com fato: três convênios (folha de dois clientes e ERP de contador) sem script de recusa padronizado. Evidência: QA Bartolomeu (QA) e analista do plantão — não dashboard agregado.\nContramedida sem IA: script de 8 linhas no Confluence e Product Leader John Watson como dono do plantão de sexta. Ticket \"Pix recusado\" → cola o script. \"Dinheiro sumiu\" → escala Tech Lead Frida Miller e Compliance. Squad Leader Marie Peace assina o gate antes de qualquer piloto com LLM. Sem bot.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Causa e número saem do A3 da Aula 2. Contramedida sem evidência não entra." },
-        { k: "hip", t: "Hipótese", d: "Kaizen vs kaikaku só com justificativa no A3. Se faltar fato, HIPÓTESE." },
-        { k: "alu", t: "Alucinação", d: "Métrica que o A3 não tem (NPS, ROI) ou a IA escolhendo a contramedida." }
-      ]
-    },
-    3: {
-      a2: "Hierarquia fechada no quadro — lente Perri (outcome, Product Leader John Watson) e impacto de negócio (Squad Leader Marie Peace).\n\nImpacto: PME cliente do Nexo não atrasa folha porque o Pix da sexta falhou.\nOutcomes: primeiro Pix do cliente novo em < 1 dia · recusa respondida em 15 min (mediana Zendesk de terça: 40 min — Product Leader John Watson exportou).\nOutputs: script de recusa no Confluence · fila do plantão visível no #pix-pj · card no board da Tech Lead Frida Miller.\nTasks: Product Leader John Watson cronometra três sextas · Designer Lunna valida linguagem do script com dois clientes piloto.\n\nNÃO é outcome: post no LinkedIn do banco · \"referência em open finance\" · velocity da sprint.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Cada classe (output / outcome / impact) leva 1 evidência objetiva." },
-        { k: "hip", t: "Hipótese", d: "Raciocínio visível (CoT) antes do rótulo. Sem raciocínio a classe é chute." },
-        { k: "alu", t: "Alucinação", d: "Métrica que o time não mediu, ou vanity (post, prêmio) classificado como outcome." }
-      ]
-    },
-    4: {
-      a2: "OKR do trimestre — lente Doerr. Números da planilha do Drive (Product Leader John Watson). Sem alvo bonito.\n\nObjetivo: PME do Nexo não perde folha por Pix recusado.\nKR1: mediana Zendesk 40 → 15 min (baseline: terça passada, 40 tickets, QA Bartolomeu exportou).\nKR2: 70% onboardings PJ com primeiro Pix em 24h (hoje 44% — Tech Lead Frida Miller puxou do Datadog e CRM).\nProjetos: script · plantão · fila KYC. FORA: app novo · Pix internacional · \"experiência wow\".\n\nAlvo de 15 min: gerente de canais assinou com Squad Leader Marie Peace na reunião. \"Omnichannel\" foi sugestão da IA — riscamos.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Baseline do KR é número que o time mediu (planilha, board). Sem baseline = INVÁLIDO." },
-        { k: "hip", t: "Hipótese", d: "O target é o que um cargo assinou. O modelo resume — não muda o alvo." },
-        { k: "alu", t: "Alucinação", d: "Moonshot sem baseline, ou KR trocado por slogan (omnichannel, referência)." }
-      ]
-    },
-    5: {
-      a2: "PBB na parede da sala — post-it amarelo, letra do time. Facilitação: Product Leader John Watson.\n\nPersona cliente (lente Cagan): dono de oficina, 41 anos, Santo André. Folha de 18 funcionários na sexta. Fala com o gerente pelo WhatsApp — não usa internet banking no desktop.\nIN: ver no app por que o Pix da folha foi recusado, em linguagem de oficina, não de BACEN.\nOUT: app novo, open finance, clube de pontos, \"jornada omnichannel\".\nMVP: os 30 clientes PJ que mais abriram ticket em julho (lista do Product Leader John Watson). Duas semanas. Se a persona não entender a tela, Squad Leader Marie Peace não autoriza escala.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Persona e IN vêm do PBB da Aula 2. Protótipo só da fatia IN." },
-        { k: "hip", t: "Hipótese", d: "O link do protótipo e 1 imagem da jornada (mesmo traço) testam o OKR da S04." },
-        { k: "alu", t: "Alucinação", d: "Markdown no chat no lugar do link, stock genérico, ou vitrine que implementa o OUT." }
-      ]
-    },
-    6: {
-      a2: "Três stories do fluxo feliz — Scorecard INVEST — Designer Lunna e QA Bartolomeu. Priorização: Product Leader John Watson.\n\n1. Como dono de oficina (persona Cagan), quero ver em uma frase por que o Pix da folha caiu.\n2. Como atendimento, quero script de recusa no Zendesk (não PDF no Drive).\n3. Como Product Leader John Watson, quero mediana de terça na planilha, sem export manual do QA Bartolomeu.\n\nScorecard (1–3 por critério):\n• Story 1: I3 N3 V3 E2 S3 T3 = 17 — aprovada.\n• Story 2: I1 N2 V3 E2 S2 T2 = 12 — REPROVADA (Independent: depende do macro do QA).\n• Story 3: I3 N2 V3 E3 S2 T3 = 16 — aprovada.\n\nIA inflou tudo com 18/18. Tech Lead Frida Miller recusou a story 2 e mandou reescrever antes do refinamento.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Story 2 reprovada: nota 1 em Independent (macro do QA)." },
-        { k: "hip", t: "Hipótese", d: "Script no Zendesk > PDF no Drive; story independente não espera macro." },
-        { k: "alu", t: "Alucinação", d: "IA deu 18/18 nas 3 stories sem justificar o vínculo com o macro." }
-      ]
-    },
-    7: {
-      a2: "Topologia — lente Skelton & Pais. Facilitação: Squad Leader Marie Peace. Não é organograma de RH.\n\nStream: Squad Pix PJ (Squad Leader Marie Peace). Onboarding, recusa, primeiro Pix. Uma fila, um dono de prioridade (Product Leader John Watson).\nPlataforma: Core Bancário segura SPI e ledger. Tech Lead Frida Miller consome APIs — não edita o core.\nEnabling: jurídico libera convênio ERP — gargalo Skelton (uma pessoa, todo o banco).\nAjuste: Compliance não edita texto da tela de recusa sem pedido formal da squad. Fronteira nos dois sentidos — Squad Leader Marie Peace documentou no Confluence.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Enabling jurídico: uma pessoa libera convênio ERP para todo o banco" },
-        { k: "hip", t: "Hipótese", d: "Fronteira 'Compliance não edita a tela' baixa o ruído" },
-        { k: "alu", t: "Alucinação", d: "IA sugeriu 'squad de plataforma com 8 pessoas'" }
-      ]
-    },
-    8: {
-      a2: "Dashboard Kanban — lente Anderson. Dona dos números: Tech Lead Frida Miller. Fonte: Zendesk e Datadog (export de quarta).\n\nLead Time (LT) primeiro Pix (cliente novo): 3,2 dias.\nCycle Time (CT) ticket de recusa: 40 min (mediana terça).\nThroughput (TH): 38 tickets/semana na semana passada.\nWIP sexta 18h: 27 tickets no plantão.\nCFD: fila de recusa cresceu de terça a sexta.\n\nLei de Little: LT ≈ WIP ÷ TH — com WIP 27 e TH baixo, a fila não fecha. Product Leader John Watson quer a mediana descer; Tech Lead Frida Miller quer menos WIP — não outra reunião de status.",
-      pv: [
-        { k: "fato", t: "Fato", d: "27 tickets sexta 18h — QA Bartolomeu contou no Zendesk" },
-        { k: "hip", t: "Hipótese", d: "Reduzir WIP para 15 é o alavancador via Lei de Little" },
-        { k: "alu", t: "Alucinação", d: "IA colou lead time de mercado sem fonte do time" }
-      ]
-    },
-    9: {
-      a2: "Ritmos — votamos na terça, Squad Leader Marie Peace anotou no caderno. O canvas não votou.\n\nFica: huddle 9h10 (Squad Leader Marie Peace facilita). Quinze minutos. Quem falta no plantão de sexta sai dali decidido — Product Leader John Watson confirma capacidade, Tech Lead Frida Miller confirma WIP.\nSai: o \"alinhamento\" de sexta, 50 min, que em quatro semanas não gerou uma ata.\nMuda: review mensal com gerente de canais vira quinzenal e entra com UM número (mediana Zendesk). Sem número, Squad Leader Marie Peace cancela a reunião.\nVoto: seis a favor, QA Bartolomeu absteve. A IA tinha \"aprovado\" ritual de 1h com icebreaker. Riscamos.",
-      pv: [
-        { k: "fato", t: "Fato", d: "A sexta de 50 min não gerou ata em 4 semanas" },
-        { k: "hip", t: "Hipótese", d: "Quinzena com 1 número vale mais que a sexta" },
-        { k: "alu", t: "Alucinação", d: "IA 'aprovou' o ritmo novo sozinha" }
-      ]
-    },
-    10: {
-      a2: "FinOps com a fatura na mesa. Squad Leader Marie Peace apresenta; Product Leader John Watson e Tech Lead Frida Miller validam números. Julho: AWS, Zendesk e API do SPI (custo interno do Core).\n\nZendesk Suite canal PJ: R$ 1.840 no cartão do centro de custo — consta na fatura. Product Leader John Watson conferiu linha a linha.\nConservador: script e planilha. Zero a mais. É o que já fazemos.\nBase: API oficial Zendesk e QA Bartolomeu meio período para manter o script. Cabe no trimestre. Gerente de canais acenou com Squad Leader Marie Peace.\nAgressivo: bot 24h no WhatsApp. Teto que a diretoria NÃO assina: R$ 8 mil/mês e risco de bot \"liberar\" Pix. Squad Leader Marie Peace não leva esse cenário para assinatura.",
-      pv: [
-        { k: "fato", t: "Fato", d: "R$ 1.840 está na fatura de julho do centro de custo" },
-        { k: "hip", t: "Hipótese", d: "O cenário base cabe no caixa do trimestre" },
-        { k: "alu", t: "Alucinação", d: "IA vendeu só o agressivo com ROI de 400%" }
-      ]
-    },
-    11: {
-      a2: "Mapa híbrido — lente Teo (gate humano). Dona do gate: Squad Leader Marie Peace.\n\nContext: ticket da persona oficina e 3 últimas recusas no ledger (Tech Lead Frida Miller exportou).\nPrompt: script de 8 linhas (texto aprovado por Product Leader John Watson no Confluence).\nSteering: \"dinheiro saiu e não chegou\" → modelo NÃO sugere resposta final. Escala Tech Lead Frida Miller e Compliance.\nProibido: liberar Pix · alterar limite · encerrar ticket sozinho · prometer prazo de estorno.\n\nModelo escreve rascunho; cargo autoriza publicação.",
-      pv: [
-        { k: "fato", t: "Fato", d: "\"Dinheiro saiu e não chegou\" — ticket real da persona oficina" },
-        { k: "hip", t: "Hipótese", d: "Script no modelo acelera; liberar Pix não" },
-        { k: "alu", t: "Alucinação", d: "IA quis 'automatizar a liberação do limite'" }
-      ]
-    },
-    12: {
-      a2: "Três arquivos em agents/pix-pj/ — lente Chase/Moura/Wang. Custom GPT não conta. Owner: Tech Lead Frida Miller no repo.\n\npersona.md: fala curto, trata o cliente PJ por \"você\", nunca diz que o Pix \"já foi\".\nsteering.md: três proibições (liberar Pix · mudar limite · encerrar ticket sozinho) e escala para Squad Leader Marie Peace/Compliance.\nskill.md: classificar ticket → script de recusa OU Tech Lead Frida Miller/Compliance.\nHook: ticket novo tag pix-pj → só se não for \"valor divergente\". Liga no gate da S11.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Os 3 arquivos estão em agents/pix-pj/, não num Custom GPT" },
-        { k: "hip", t: "Hipótese", d: "Hook no ticket novo basta para o teste" },
-        { k: "alu", t: "Alucinação", d: "Chatbot sem arquivo 'já era o agent'" }
-      ]
-    },
-    13: {
-      a2: "Spec do maestro — lente Ng (spec antes do código). Review: Squad Leader Marie Peace e Tech Lead Frida Miller.\n\nEntrada: ticket Zendesk tag pix-pj.\nRoteamento: triagem → (script automático | Tech Lead Frida Miller | Compliance).\nSaída: frase publicada no ticket OU escalada com id do ledger.\nGate: valor divergente ou Pix > R$ 50 mil → Compliance confirma; Squad Leader Marie Peace assina exceção.\n\nTrês rotas. Quarta rota (WhatsApp) = spec recusa até ter gate.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Spec escrita ANTES de qualquer PR" },
-        { k: "hip", t: "Hipótese", d: "3 rotas cobrem o dia do plantão" },
-        { k: "alu", t: "Alucinação", d: "Código no primeiro commit, spec depois" }
-      ]
-    },
-    14: {
-      a2: "KB viva — owner Product Leader John Watson, validação QA Bartolomeu. Dez casos escritos por atendimento e QA, com linguagem real (não tom de modelo).\n\n1 recusa de limite  2 chave inexistente  3 CNPJ divergente  4 horário SPI  5 TED chamada de Pix  6 folha em lote  7 ERP do contador  8 valor divergente  9 estorno  10 \"sumiu o dinheiro\".\nLimiar: 8/10 com citação da KB. Quinta deu 7/10. Tech Lead Frida Miller não promove para produção.\nFine-tune: não. A KB resolve. Quem pediu fine-tune foi a IA no primeiro parágrafo.",
-      pv: [
-        { k: "fato", t: "Fato", d: "7/10 no teste de quinta — abaixo do limiar" },
-        { k: "hip", t: "Hipótese", d: "Mais 3 casos de ERP sobem para 8" },
-        { k: "alu", t: "Alucinação", d: "IA pediu fine-tune sem tentar a KB" }
-      ]
-    },
-    15: {
-      a2: "PDI da Squad Leader Marie Peace — categorias SUAS, não CHA genérico. Advisor no Project alimentado com timeline real.\n\nTimeline: 2016 atendimento PJ · 2019 coordenação de squad cartões · 2022 squad leader Pix PJ · 2024 orquestra humano & IA com Product Leader John Watson e Tech Lead Frida Miller.\nCategorias: pulso Zendesk na sexta com o time · Compliance quando enabling Skelton some · número único para gerente de canais (com Product Leader John Watson).\nGap SMART (2 semanas): assistir huddle do Core (SPI) sem falar — mapear onde nasce a fila que Tech Lead Frida Miller mede no dashboard.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Timeline da Squad Leader Marie Peace — não CHA de catálogo" },
-        { k: "hip", t: "Hipótese", d: "Observar o Core muda o pulso da fila" },
-        { k: "alu", t: "Alucinação", d: "Advisor devolveu 'desenvolver liderança 4.0'" }
-      ]
-    },
-    16: {
-      a2: "Fechamento do ano — pensamento arbóreo. Facilitação: Squad Leader Marie Peace.\n\nTronco: fila Zendesk na sexta. Galhos: script (Product Leader John Watson) · WIP 15 (Tech Lead Frida Miller) · agent com gate Compliance (Squad Leader Marie Peace). Folhas: 30 clientes MVP e persona oficina.\nPI: Nexo ensina o método (Gantt, A3, métricas de fluxo, limiar). Outro banco copia o tipo, não a fatura.\nAta offline (caderno da Squad Leader Marie Peace): huddle 9h10 FICA. IA não vota. Bot 24h NÃO sobe.",
-      pv: [
-        { k: "fato", t: "Fato", d: "Ata no caderno: huddle das 9h10 fica" },
-        { k: "hip", t: "Hipótese", d: "O Overview ajuda a contar o ano, não a decidir" },
-        { k: "alu", t: "Alucinação", d: "O modelo escolheu 'acabar o huddle'" }
-      ]
-    },
-    17: {
-      a2: "Comitê. Gerente de canais: \"quanto software a Pix PJ entregou?\" Dashboard S08 na mesa: CT 40 min · TH 38 · WIP 27. Tech Lead Frida Miller responde: \"Isso é fila. Perguntei o que saiu.\"\n\nLente funcional (Albrecht/COSMIC no recorte) — não APF de consultoria. Unidade: movimento que o dono de oficina reconhece (recusa explicada · chave criada · lote de folha). FORA: \"cadê minha senha\" · story point · linha do bot.\n\nFrase C-Level (Squad Leader Marie Peace assina com Product Leader John Watson): squad explica recusa e conclui primeiro Pix PJ em < 1 dia nos 30 clientes do recorte — função nova, não cartão andando.\n\nNo estimates: puxa pelo WIP 15. Comitê ouve função, não velocity.",
-      pv: [
-        { k: "fato", t: "Lente", d: "Uma. A do time. Não a que a IA preferir." },
-        { k: "hip", t: "Arquivo", d: "B04-A2-medida.md na mesa. Sem isso a A3 inventa PF." },
-        { k: "alu", t: "GATE", d: "A IA não troca a lente nem conta ponto de função no escuro." }
-      ]
-    }
-  };
+
 
   const canvas = document.getElementById("c");
   const ctx = canvas.getContext("2d");
@@ -862,6 +703,8 @@ export function startJornada(cfg = {}) {
   let phase = "conceito";
   let a1open = [];
   let a2pin = [];
+  let a3open = [];
+  let a3chip = null;
   let stamps = { fato: false, hipotese: false, alucinacao: false };
   let winLock, labDone, scoreLock, reforco;
   let toastT = 0;
@@ -904,6 +747,101 @@ export function startJornada(cfg = {}) {
     return 3;
   }
 
+  function escapeHtml(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function seqNext(flags, len) {
+    for (let i = 0; i < len; i++) {
+      if (!flags[i]) return i;
+    }
+    return len;
+  }
+
+  function a3BriefReady() {
+    const brief = aula03BriefOf(week);
+    return brief.cards.every((_, i) => a3open[i]);
+  }
+
+  function briefHtml() {
+    const brief = aula03BriefOf(week);
+    const meta = LAB_DELIVERABLES[week] || {};
+    const ready = a3BriefReady();
+    const a3Next = seqNext(a3open, brief.cards.length);
+    const focus = ready ? brief.cards.length - 1 : a3Next;
+    const why = brief.porque || meta.why || brief.tese || "";
+    let html = '<div class="a3-brief' + (ready ? " is-ready" : "") + '">';
+    html += '<p class="a3-brief-kicker">' + escapeHtml(brief.autor || "Aula 3") + "</p>";
+    html += '<p class="a3-brief-label">Por que este lab</p>';
+    html += '<p class="a3-brief-why">' + escapeHtml(why) + "</p>";
+    if (!ready) {
+      html += '<p class="a3-brief-label">Passo ' + (focus + 1) + " de " + brief.cards.length + "</p>";
+      html += '<div class="a3-brief-los is-seq">';
+      brief.cards.forEach((card, i) => {
+        if (i > a3Next) return;
+        const open = !!a3open[i];
+        html += '<button type="button" class="piece a3-lo' + (open ? " on" : " next") + '" data-a3="' + i + '">';
+        if (open) html += '<span class="tag">✓ ' + escapeHtml(card.t) + "</span>";
+        else html += '<span class="card-d">' + phraseLines(card.d) + "</span>";
+        html += "</button>";
+      });
+      html += "</div>";
+      if (focus === 0 && brief.track && brief.track.length) {
+        html += '<p class="a3-brief-label">Do motor ao sistema</p>';
+        html += '<div class="a3-track" role="list">';
+        brief.track.forEach((item, i) => {
+          const on = a3chip === "t" + i;
+          html += '<button type="button" class="a3-chip' + (on ? " on" : "") + '" data-a3chip="t' + i + '" role="listitem">';
+          html += '<b>' + (i + 1) + "</b><span>" + escapeHtml(item.k) + "</span><small>" + escapeHtml(item.role) + "</small>";
+          html += "</button>";
+        });
+        html += "</div>";
+        if (a3chip && a3chip.charAt(0) === "t") {
+          const item = brief.track[Number(a3chip.slice(1))];
+          if (item) html += '<p class="a3-chip-def"><strong>' + escapeHtml(item.k) + "</strong> — " + escapeHtml(item.d) + "</p>";
+        }
+      }
+      if (focus === 1 && brief.grid && brief.grid.length) {
+        html += '<p class="a3-brief-label">Contrato do prompt</p>';
+        html += '<div class="a3-grid">';
+        brief.grid.forEach((item, i) => {
+          const on = a3chip === "g" + i;
+          html += '<button type="button" class="a3-pillar' + (on ? " on" : "") + '" data-a3chip="g' + i + '">';
+          html += '<b>' + escapeHtml(item.n) + "</b><span>" + escapeHtml(item.t) + "</span><small>" + escapeHtml(item.q) + "</small>";
+          html += "</button>";
+        });
+        html += "</div>";
+        if (a3chip && a3chip.charAt(0) === "g") {
+          const item = brief.grid[Number(a3chip.slice(1))];
+          if (item) html += '<p class="a3-chip-def"><strong>' + escapeHtml(item.t) + "</strong> — " + escapeHtml(item.d) + "</p>";
+        }
+      }
+    } else {
+      html += '<ul class="a3-brief-done">';
+      brief.cards.forEach((card) => {
+        html += "<li>✓ " + escapeHtml(card.t) + "</li>";
+      });
+      html += "</ul>";
+      if (meta.deliverable) {
+        html += '<p class="a3-brief-label">No lab você gera</p>';
+        html += '<p class="a3-brief-do">' + escapeHtml(meta.deliverable) + "</p>";
+      }
+      const briefFiles = meta.files && meta.files.length ? meta.files : [filesOf(week).a3];
+      if (briefFiles.length) {
+        html += '<p class="a3-brief-label">Nesta pasta</p>';
+        html += '<p class="a3-brief-do">' + briefFiles.map((name) => escapeHtml(name)).join(" · ") + "</p>";
+      }
+      html += '<p class="a3-brief-take">' + escapeHtml(brief.takeaway) + "</p>";
+      html += '<button type="button" id="btn-open-lab" class="btn-feito a3-open-lab">Abrir o Lab aula 03</button>';
+    }
+    html += "</div>";
+    return html;
+  }
+
   function applyRailFocus() {
     [1, 2, 3].forEach((n) => {
       document.getElementById("rail-a" + n).classList.toggle("is-active", railFocus === n);
@@ -943,6 +881,8 @@ export function startJornada(cfg = {}) {
     railFocus = 1;
     a1open = [];
     a2pin = [];
+    a3open = [];
+    a3chip = null;
     stamps = { fato: false, hipotese: false, alucinacao: false };
     labDone = false;
     scoreLock = false;
@@ -961,9 +901,8 @@ export function startJornada(cfg = {}) {
   function waveOfWeek(n) { return WEEKS[n - 1].w; }
 
   function cofreRelPath(n, file) {
-    const pad = String(n).padStart(2, "0");
-    if (isBonus(n)) return COFRE_DIR + "04-hibridos/bonus-medida/" + file;
-    return COFRE_DIR + WAVE_DIR[WEEKS[n - 1].w] + "/semana-" + pad + "/" + file;
+    if (isBonus(n)) return COFRE_DIR + pastaBonus() + "/" + file;
+    return COFRE_DIR + WAVE_DIR[WEEKS[n - 1].w] + "/" + pastaSemana(n) + "/" + file;
   }
 
   function nextCofreHole() {
@@ -1040,10 +979,10 @@ export function startJornada(cfg = {}) {
         save.cofre.push({
           id: id,
           semana: n,
-          aula: id.indexOf("-A2-") > 0 ? 2 : 3,
+          aula: id.indexOf("Homework") === 0 ? 2 : 3,
           path: isBonus(n)
-            ? "04-hibridos/bonus-medida/" + id
-            : WAVE_DIR[WEEKS[n - 1].w] + "/S" + String(n).padStart(2, "0") + "/" + id
+            ? pastaBonus() + "/" + id
+            : WAVE_DIR[WEEKS[n - 1].w] + "/" + pastaSemana(n) + "/" + id
         });
       }
     });
@@ -1053,7 +992,7 @@ export function startJornada(cfg = {}) {
   function manifestOut() {
     return {
       slug_parceiro: "agile-school",
-      oferta: "INI-AIEL-AS",
+      oferta: "INI-AFSL-AS",
       artefatos: save.cofre.slice(),
     };
   }
@@ -1096,14 +1035,18 @@ export function startJornada(cfg = {}) {
     const f = filesOf(week);
     const pad = String(week).padStart(2, "0");
     const inputFile = "input-semana-" + pad + ".txt";
+    const a3hint = week === 2
+      ? " A entrega do homework é o A3 Report aula 02 semana 02.md — cole o mesmo texto aqui, no Homework e no " + inputFile + "."
+      : "";
     if (!pins.length) {
-      return "Leia o contrato da Aula 2 no painel ao lado. No disco: " + inputFile + " na pasta semana-" + pad + ". Lacuna = pergunte — não invente.";
+      return "Leia o contrato da Aula 2 no painel ao lado. No disco: " + inputFile + " na pasta semana-" + pad + "." + a3hint + " Lacuna = pergunte — não invente.";
     }
     return [
       "Insumo da Aula 2 (painel ao lado + " + inputFile + " na pasta da semana):",
       pins.map((x, i) => (i + 1) + ". " + x).join("\n"),
+      week === 2 ? "Arquivo-fonte: A3 Report aula 02 semana 02.md (mesmo texto no Homework e no input)." : "",
       "Use só fatos que aparecem no contrato. Não complete com web nem com 'todo time faz'."
-    ].join("\n");
+    ].filter(Boolean).join("\n");
   }
 
   function parseSixPillars(text) {
@@ -1141,6 +1084,9 @@ export function startJornada(cfg = {}) {
     lines.push("Comando: entregue o conteúdo completo pronto para colar no arquivo — não resuma só no chat.");
     if (week === 1) {
       lines.push("Semana 01: rode o mesmo prompt em ChatGPT e Gemini; salve os dois outputs e compare o GATE.");
+    } else if (week === 2) {
+      lines.push("Aula 2 (insumo): A3 Report aula 02 semana 02.md — cole o mesmo texto em " + f.a2 + " e input-semana-02.txt.");
+      lines.push("Aula 3 (entrega): " + f.a3 + " · Link Project aula 03 semana 02.txt");
     } else {
       lines.push("Aula 2 (insumo): " + f.a2 + " · Aula 3 (entrega): " + f.a3);
     }
@@ -1239,8 +1185,8 @@ export function startJornada(cfg = {}) {
       return "Marque os cartões do homework para montar o exemplo.";
     }
     const lines = [
-      "========== CASO NEXO · PIX PJ (copie o TIPO, não os números) ==========",
-      CASO,
+      casoCabecalho(wk),
+      casoLinha(wk),
       "",
       chunks.slice(0, n).join("\n\n"),
     ];
@@ -1310,21 +1256,31 @@ export function startJornada(cfg = {}) {
     const a1ready = p.a1.every((_, i) => a1open[i]);
     const a2ready = p.a2.every((_, i) => a2pin[i]);
     const pinCount = a2pin.filter(Boolean).length;
-    document.getElementById("lead-a1").textContent = "Takeaways";
+    document.getElementById("lead-a1").textContent = "Conceitos da semana";
     document.getElementById("lead-a2").innerHTML = "";
     document.getElementById("lead-a3").innerHTML = !a2ready
       ? ""
-      : (phase === "nota"
+      : (phase === "nota" || phase === "brief"
         ? ""
         : phraseLines((LAB_DELIVERABLES[week] || {}).deliverable || lab.out));
+    const a3Head = document.querySelector("#rail-a3 h2");
+    if (a3Head) {
+      a3Head.textContent = phase === "brief"
+        ? "Lab aula 03 · Por que o lab"
+        : "Lab · aula 03";
+    }
     document.getElementById("rail-a2").className = "rail" + (a1ready ? "" : " locked");
-    document.getElementById("rail-a3").className = "rail" + (a2ready ? "" : " locked") + (phase === "lab" && a2ready ? " has-lab" : "");
-    document.getElementById("cards-a1").innerHTML = p.a1.map((card, i) =>
-      '<button type="button" class="piece' + (a1open[i] ? " on" : "") + '" data-a1="' + i + '"><span class="tag">' + (a1open[i] ? "✓" : card.t) + "</span><span class='card-d'>" + phraseLines(card.d) + "</span></button>"
-    ).join("");
+    document.getElementById("rail-a3").className = "rail" + (a2ready ? "" : " locked")
+      + (phase === "lab" && a2ready ? " has-lab" : "")
+      + (phase === "brief" && a2ready ? " has-brief" : "");
+    document.getElementById("cards-a1").innerHTML = p.a1.map((card, i) => {
+      const open = !!a1open[i];
+      return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a1="' + i + '"><span class="tag">' + card.t + "</span><span class='card-d'>" + phraseLines(card.d) + "</span></button>";
+    }).join("");
     document.getElementById("slots-a2").innerHTML = p.a2.map((txt, i) => {
       const label = (p.a2Short && p.a2Short[i]) ? p.a2Short[i] : ("Passo " + (i + 1));
-      return '<button type="button" class="piece' + (a2pin[i] ? " on" : "") + (a1ready && !a2pin[i] && pinCount === i ? " next" : "") + '" data-a2="' + i + '"' + (a1ready ? "" : " disabled") + '><span class="tag">' + (a2pin[i] ? "✓" : label) + "</span><span class='card-body'>" + phraseLines(txt) + "</span></button>";
+      const open = !!a2pin[i];
+      return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a2="' + i + '"' + (a1ready ? "" : " disabled") + '><span class="tag">' + label + "</span><span class='card-body'>" + phraseLines(txt) + "</span></button>";
     }).join("");
     const ex = EX[week];
     const rev = revealedContract(week);
@@ -1343,8 +1299,8 @@ export function startJornada(cfg = {}) {
       if (mesaEl) mesaEl.classList.add("has-caso");
       const inLab = phase === "lab" || phase === "nota";
       document.getElementById("caso-who").textContent = inLab
-        ? "Caso Nexo · Pix PJ"
-        : "Homework Exemplo · " + pinCount + "/" + p.a2.length;
+        ? casoBanner(week)
+        : "Homework exemplo · " + pinCount + "/" + p.a2.length;
       casoPre.textContent = inLab && pinCount >= p.a2.length
         ? revealedExemplo(week)
         : rev.text;
@@ -1363,6 +1319,9 @@ export function startJornada(cfg = {}) {
       foot3 = '<button type="button" id="btn-open-nota" class="cta-nota">Dar nota 1 · 2 · 3</button>';
     } else if (phase === "lab") {
       cards3 = labLabHtml();
+      foot3 = "";
+    } else if (phase === "brief") {
+      cards3 = briefHtml();
       foot3 = "";
     } else {
       cards3 = "";
@@ -1385,12 +1344,42 @@ export function startJornada(cfg = {}) {
     if (openNota) openNota.onclick = () => openNotaDialog();
     const labDoneBtn = document.getElementById("btn-lab-done");
     if (labDoneBtn) labDoneBtn.onclick = () => startGateFromLab();
+    document.querySelectorAll("[data-a3]").forEach((el) => {
+      el.onclick = () => {
+        const i = Number(el.getAttribute("data-a3"));
+        if (i !== seqNext(a3open, aula03BriefOf(week).cards.length)) return;
+        a3open[i] = true;
+        a3chip = null;
+        railFocus = 3;
+        renderMesa();
+        syncHud();
+      };
+    });
+    document.querySelectorAll("[data-a3chip]").forEach((el) => {
+      el.onclick = (ev) => {
+        ev.stopPropagation();
+        const id = el.getAttribute("data-a3chip");
+        a3chip = a3chip === id ? null : id;
+        renderMesa();
+      };
+    });
+    const openLab = document.getElementById("btn-open-lab");
+    if (openLab) {
+      openLab.onclick = () => {
+        if (!a3BriefReady()) return;
+        phase = "lab";
+        railFocus = 3;
+        renderMesa();
+        syncHud();
+      };
+    }
     bindScoreButtons();
     document.querySelectorAll("[data-a1]").forEach((el) => {
       el.onclick = () => {
+        const i = Number(el.getAttribute("data-a1"));
         railFocus = 1;
-        a1open[Number(el.getAttribute("data-a1"))] = true;
-        if (playOf().a1.every((_, i) => a1open[i]) && phase === "conceito") {
+        a1open[i] = true;
+        if (playOf().a1.every((_, idx) => a1open[idx]) && phase === "conceito") {
           phase = "raiz";
           railFocus = 2;
         }
@@ -1400,12 +1389,15 @@ export function startJornada(cfg = {}) {
     });
     document.querySelectorAll("[data-a2]").forEach((el) => {
       el.onclick = () => {
-        if (!playOf().a1.every((_, i) => a1open[i])) return;
+        if (!playOf().a1.every((_, idx) => a1open[idx])) return;
+        const i = Number(el.getAttribute("data-a2"));
         railFocus = 2;
-        a2pin[Number(el.getAttribute("data-a2"))] = true;
-        if (playOf().a2.every((_, i) => a2pin[i]) && (phase === "raiz" || phase === "conceito")) {
+        a2pin[i] = true;
+        if (playOf().a2.every((_, idx) => a2pin[idx]) && (phase === "raiz" || phase === "conceito")) {
           labDone = false;
-          phase = "lab";
+          a3open = [];
+          a3chip = null;
+          phase = "brief";
           railFocus = 3;
         }
         renderMesa();
@@ -1413,7 +1405,7 @@ export function startJornada(cfg = {}) {
       };
     });
     if (phase === "nota") railFocus = 3;
-    else if (phase === "lab") railFocus = Math.max(railFocus, 3);
+    else if (phase === "lab" || phase === "brief") railFocus = Math.max(railFocus, 3);
     applyRailFocus();
     updateMesaTabs();
     bindRailTabs();
@@ -1439,8 +1431,8 @@ export function startJornada(cfg = {}) {
     const ex = EX[week];
     const pv = ex.pv.map((row) => row.t + ": " + row.d).join("\n");
     return [
-      "========== CASO NEXO · PIX PJ (copie o TIPO, não os números) ==========",
-      CASO,
+      casoCabecalho(week),
+      casoLinha(week),
       "",
       ex.a2,
       "",
@@ -1453,14 +1445,17 @@ export function startJornada(cfg = {}) {
   function muralCardText() {
     const lab = labOf();
     const W = WEEKS[week - 1];
-    const id = "S" + String(week).padStart(2, "0");
+    const id = "Semana " + String(week).padStart(2, "0");
     return [
       id + " · Wave 0" + W.w + " · " + W.t,
       "Lab: " + lab.cap,
       "Ferramenta: " + labToolsSummary(lab),
       "Entrega: " + lab.out,
-      "Drive A2: " + filesOf(week).a2,
-      "Drive A3: " + filesOf(week).a3,
+      "Homework aula 02: " + filesOf(week).a2,
+      "Lab aula 03: " + filesOf(week).a3,
+      ...(filesOf(week).extras && filesOf(week).extras.length
+        ? ["Tambem nesta pasta: " + filesOf(week).extras.join(" · ")]
+        : []),
       "",
       "Caso da turma (Aula 2):",
       EX[week].a2,
@@ -1501,6 +1496,8 @@ export function startJornada(cfg = {}) {
     return [
       "PASTAS DA JORNADA — Desktop",
       "",
+      "Na pasta do jogo (domain/game):",
+      "",
       "Windows (Prompt de Comando):",
       "  setup-jornada.bat",
       "",
@@ -1508,11 +1505,23 @@ export function startJornada(cfg = {}) {
       "  chmod +x setup-jornada.sh",
       "  ./setup-jornada.sh",
       "",
-      "Cria: AI-first-Systems-Leadership-Jornada/ (16 semanas + plus)",
+      "Cria no Desktop: AI-first-Systems-Leadership-Jornada/",
+      "16 semanas + plus, com os arquivos prontos para preencher.",
       "",
       "Em cada semana:",
-      "  · Cole o homework da Aula 2 em input-semana-XX.txt",
-      "  · Salve o output do Lab IA na mesma pasta",
+      "  · Cole o Homework aula 02 em input-semana-XX.txt",
+      "    e em Homework aula 02 semana XX.md",
+      "  · Semana 02: a entrega e o A3 Report aula 02 semana 02.md",
+      "    (mesmo texto no Homework e no input-semana-02.txt)",
+      "  · Salve o Lab aula 03 em Lab aula 03 semana XX.md",
+      "  · Use Prompt lab e Prompt exemplo desta pasta",
+      "    (o exemplo muda a cada wave — copie o TIPO, nao a empresa)",
+      "  · Se a pasta ja tiver outros arquivos do Lab",
+      "    (diagrama, link, grafico, deck), preencha esses — nao crie outro nome",
+      "",
+      "Os scripts (bat, sh, py) estao em Setup jornada.md",
+      "",
+      "Nao renomeie pastas nem arquivos. O jogo aponta para estes nomes.",
     ].join("\n");
   }
 
@@ -1521,13 +1530,13 @@ export function startJornada(cfg = {}) {
     persist();
     if (mode === "map") {
       closeDock();
-      toast("Setup ok — entre na S01 quando quiser o Lab IA.");
+      toast("Setup ok — entre na semana 01 quando quiser o Lab aula 03.");
       renderMapGadgets();
       syncHud();
       return;
     }
     phase = "lab";
-    toast("Diretório " + COFRE_DIR + " pronto. Aba Lab IA.");
+    toast("Diretório " + COFRE_DIR + " pronto. Aba Lab aula 03.");
     railFocus = 3;
     renderMesa();
     syncHud();
@@ -1574,7 +1583,7 @@ export function startJornada(cfg = {}) {
       toast("Campo fechado. Exporte o manifest.");
       mapDelay = 1600;
     } else if (isBonus(week)) {
-      toast("Bônus no diretório. A trilha S11–S16 continua no mesmo lugar.");
+      toast("Bônus no diretório. A trilha das semanas 11 a 16 continua no mesmo lugar.");
       mapDelay = 900;
     }
     setTimeout(showMap, mapDelay);
@@ -1633,15 +1642,17 @@ export function startJornada(cfg = {}) {
     mantraEl.textContent = "";
     pills.innerHTML = "";
     if (phase === "conceito") {
-      setHint("Conceito");
+      setHint("Conceito aula 01");
     } else if (phase === "raiz") {
-      setHint("Homework Prático");
+      setHint("Homework aula 02");
+    } else if (phase === "brief") {
+      setHint("Lab aula 03");
     } else if (phase === "lab") {
-      setHint("Lab IA");
+      setHint("Lab aula 03");
     } else if (phase === "nota") {
       setHint("Fechamento");
     } else {
-      setHint("Lab IA");
+      setHint("Lab aula 03");
     }
     if (mode === "level") mantraEl.hidden = true;
   }
@@ -1899,7 +1910,7 @@ export function startJornada(cfg = {}) {
   document.getElementById("btn-caso").onclick = () => {
     const t = document.getElementById("caso-body").textContent;
     if (!t) return;
-    navigator.clipboard.writeText(CASO + "\n\n" + t).then(() => toast("Caso copiado")).catch(() => toast("Copie o texto de baixo", true));
+    navigator.clipboard.writeText(casoLinha(week) + "\n\n" + t).then(() => toast("Exemplo copiado")).catch(() => toast("Copie o texto de baixo", true));
   };
   document.getElementById("btn-cofre").onclick = () => {
     const el = document.getElementById("cofre");

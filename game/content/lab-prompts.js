@@ -1,3 +1,5 @@
+import { arquivoLab } from "./arquivos-jornada.js";
+
 /**
  * Prompts estruturados do Lab IA — seções 1–6 (Persona · Contexto · Tarefa · Exemplo · Formato · Tom).
  */
@@ -12,7 +14,7 @@ const TOM =
   + "Vá direto ao bloco de código Markdown.";
 
 const EXEMPLO_PADRAO =
-  "Siga a lógica do Caso Nexo (painel lateral): use o tipo de evidência factual e a dor real constatada — nunca métricas inventadas ou deduções sem lastro.\n"
+  "Siga a lógica do exemplo no painel lateral (um time por wave): use o tipo de evidência factual e a dor real constatada — nunca métricas inventadas ou deduções sem lastro.\n"
   + "- Exemplo ruim: ROI sem baseline, app genérico, dado fora do cenário fornecido.\n"
   + "- Exemplo bom: apontar a dor exata relatada pelo time com evidência do homework da Aula 2.";
 
@@ -41,7 +43,7 @@ const WEEK_SPECS = {
       + "- Preencha cada lacuna com base estritamente nos dados extraídos do cenário atual.",
     formato: () =>
       "Forneça o bloco de código Markdown pronto para copiar e salvar, seguindo rigorosamente:\n\n"
-      + "```markdown\n# S01-A3-arena.md\n\n## 1. Identificação do Time\n[Nome do time em 1 linha]\n\n"
+      + "```markdown\n# " + arquivoLab(1) + "\n\n## 1. Identificação do Time\n[Nome do time em 1 linha]\n\n"
       + "## 2. Mapa As-Is dos 3 Pilares\n\n### Pilar: Product\n- **Dor Identificada:**\n- **Fato do Gantt (Evidência):**\n- **Baseline Praticado:**\n\n"
       + "### Pilar: Tech Delivery\n- **Dor Identificada:**\n- **Fato do Gantt (Evidência):**\n- **Baseline Praticado:**\n\n"
       + "### Pilar: Human & AI\n- **Dor Identificada:**\n- **Fato do Gantt (Evidência):**\n- **Baseline Praticado:**\n\n"
@@ -51,7 +53,7 @@ const WEEK_SPECS = {
     tarefa: (f) =>
       "No Project, reescreva só as contramedidas do A3 da Aula 2 em duas colunas — kaizen | kaikaku — sem inventar causa. "
       + "Cada linha precisa de evidência do A3. Se faltar fato, marque HIPÓTESE. Salve como `" + f.a3 + "`.",
-    formato: (lab) => "Exporte markdown completo pronto para `" + (lab.casca ? "S02-A3-project.md" : "arquivo da semana") + "`.",
+    formato: () => "Exporte markdown completo pronto para `" + arquivoLab(2) + "`.",
   },
   3: {
     tarefa: () =>
@@ -68,7 +70,7 @@ const WEEK_SPECS = {
   5: {
     tarefa: () =>
       "Gere protótipo SÓ da fatia IN do PBB. Não implemente OUT. "
-      + "Inclua link do protótipo e 1 imagem da jornada da persona. O MVP deve ligar ao KR da S04.",
+      + "Inclua link do protótipo e 1 imagem da jornada da persona. O MVP deve ligar ao KR da semana 04.",
     formato: () => "URL do protótipo, referência da imagem e nota de ligação ao OKR em markdown.",
   },
   6: {

@@ -1,3 +1,9 @@
+import { arquivoLab, arquivosLabExtras } from "./arquivos-jornada.js";
+
+function labFiles(n) {
+  return [arquivoLab(n)].concat(arquivosLabExtras(n));
+}
+
 /** Metadados de entrega do Lab IA — título da sessão, o quê gerar e por quê. */
 export const LAB_DELIVERABLES = {
   1: {
@@ -5,7 +11,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Mapa as-is dos 3 pilares (Product · Delivery · Human & AI), com dor e fato do seu Gantt e o bloco GATE HUMANO.",
     why: "Rodar o mesmo pedido em dois modelos (GPT e Gemini) e comparar só o gate — você vê onde cada um inventa ou respeita a trava humana.",
     outputs: ["1 arquivo Markdown"],
-    files: ["S01-A3-arena.md"],
+    files: labFiles(1),
     artefato: null,
   },
   2: {
@@ -13,7 +19,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "A3 de uma página no Project (Claude, GPT ou Gemini) — contramedidas em kaizen vs kaikaku, ancoradas no problema da Aula 2.",
     why: "Contexto que fica: a semana seguinte lê este arquivo, não um chat avulso.",
     outputs: ["1 arquivo no Project e export .md"],
-    files: ["S02-A3-project.md"],
+    files: labFiles(2),
     artefato: null,
   },
   3: {
@@ -21,7 +27,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "5 linhas classificadas (Output / Outcome / Impact) com raciocínio visível e diagrama da hierarquia de valor.",
     why: "CoT antes do rótulo — sem raciocínio, a classe vira chute da IA.",
     outputs: ["Texto estruturado e diagrama (mermaid ou imagem)"],
-    files: ["S03-A3-hierarquia.md"],
+    files: labFiles(3),
     artefato: null,
   },
   4: {
@@ -29,7 +35,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Síntese dos KRs com baseline medido e gráfico simples baseline → hoje → target.",
     why: "A IA resume; você assina o alvo. Sem baseline do seu time, o KR é inválido.",
     outputs: ["Planilha ou gráfico e nota de validação"],
-    files: ["S04-A3-okr.md"],
+    files: labFiles(4),
     artefato: null,
   },
   5: {
@@ -37,7 +43,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Link de protótipo só da fatia core (IN) do PBB e 1 imagem da jornada da persona.",
     why: "O MVP serve o OKR — nunca o contrário. Vitrine que implementa o OUT da Aula 2 não fecha o lab.",
     outputs: ["URL do protótipo e 1 imagem"],
-    files: ["S05-A3-prototipo.md"],
+    files: labFiles(5),
     artefato: null,
   },
   6: {
@@ -45,7 +51,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Scorecard INVEST (nota 1–3 por critério) de 3 user stories, com total, veredito e reescrita das reprovadas.",
     why: "Wake propôs checklist qualitativo; o scorecard de mercado usa corte em nota 1 — você vê onde a IA infla a pontuação.",
     outputs: ["Tabela scorecard por story", "1 reescrita se houver reprovação"],
-    files: ["S06-A3-invest.md"],
+    files: labFiles(6),
     artefato: null,
   },
   7: {
@@ -53,15 +59,15 @@ export const LAB_DELIVERABLES = {
     deliverable: "Mapa dos 4 tipos de time (Stream / Platform / Enabling / Complicated-subsystem) e glossário com citação dos PDFs da Aula 2.",
     why: "Termos decisores do bounded context precisam de significado explícito — RAG real, não chute da web.",
     outputs: ["Mapa e glossário", "1 Audio ou Video Overview (NotebookLM)"],
-    files: ["S07-A3-topologia.md"],
+    files: labFiles(7),
     artefato: "Glossário do time (apoio à esteira)",
   },
   8: {
     session: "Fluxo Kanban",
     deliverable: "Dashboard com LT, CT, TH, WIP e CFD, diagrama mermaid do fluxo e rascunho de prompt para 3 agents (apoio futuro).",
     why: "Kanban sistêmico (Anderson): só se gerencia o que se vê. Métricas do seu contexto — não target externo.",
-    outputs: ["S08-A3-fluxo.md", "diagrama de fluxo"],
-    files: ["S08-A3-fluxo.md"],
+    outputs: [arquivoLab(8), "diagrama de fluxo"],
+    files: labFiles(8),
     artefato: "Métricas de fluxo (apoio aos 3 agents do curso)",
   },
   9: {
@@ -69,7 +75,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Board antes/depois de 1 ritmo (fica / sai / muda) e 1 pergunta de voto.",
     why: "Ritmo sem voto humano é teatro — a IA não escolhe o calendário do time.",
     outputs: ["Board (md ou Mural)", "pergunta Mentimeter"],
-    files: ["S09-A3-board.md"],
+    files: labFiles(9),
     artefato: null,
   },
   10: {
@@ -77,7 +83,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Apresentação curta (5 slides) com 3 cenários de ROI: conservador, base, agressivo e slide de teto assinado.",
     why: "C-Level precisa ver o conservador — não só o ROI que a IA gosta de vender.",
     outputs: ["Deck (Gamma/PDF)"],
-    files: ["S10-A3-finops.md"],
+    files: labFiles(10),
     artefato: null,
   },
   11: {
@@ -85,7 +91,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Mapa com 1 etapa em automação clássica (n8n ou Zapier), 1 etapa com GenAI e 1 etapa proibida ao agente.",
     why: "Nem tudo precisa de LLM — gate humano em decisão de valor é obrigatório.",
     outputs: ["Diagrama ou export do fluxo"],
-    files: ["S11-A3-esteira.md"],
+    files: labFiles(11),
     artefato: "Workflow Agêntico (Wave 04)",
   },
   12: {
@@ -93,7 +99,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Três arquivos no disco: persona.md, steering.md, skill.md e hook (evento → gate).",
     why: "Agent sem arquivo no repo é chatbot — não entra no pacote do ano.",
     outputs: ["3 arquivos .md no repositório"],
-    files: ["persona.md", "steering.md", "skill.md"],
+    files: labFiles(12),
     artefato: "Workflow Agêntico (Wave 04)",
   },
   13: {
@@ -101,7 +107,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Spec do maestro: requirements → design → gates (sem código antes da spec).",
     why: "Orquestração agêntica sustentável começa em spec, não em PR no primeiro dia.",
     outputs: ["Spec .md e diagrama hierárquico"],
-    files: ["S13-A3-maestro.md"],
+    files: labFiles(13),
     artefato: "Workflow Agêntico (Wave 04)",
   },
   14: {
@@ -109,7 +115,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "3 casos de eval com limiar numérico e prova de que a KB responde antes de pedir fine-tune.",
     why: "RAG primeiro, fine-tune só se a KB falhar — limiar sem número não promove workflow.",
     outputs: ["Casos de teste e relatório eval"],
-    files: ["S14-A3-eval.md"],
+    files: labFiles(14),
     artefato: "Workflow Agêntico (Wave 04)",
   },
   15: {
@@ -117,7 +123,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Project do advisor com timeline real, categorias suas e 1 gap SMART de duas semanas.",
     why: "Advisor que devolve CHA genérico não fecha a quinzena — categorias vêm da sua trajetória.",
     outputs: ["Project configurado e 1 gap SMART"],
-    files: ["S15-A3-pdi.md"],
+    files: labFiles(15),
     artefato: "Agent: PDI Advisor (Wave 05)",
   },
   16: {
@@ -125,7 +131,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Overview do pacote do ano (áudio ou vídeo) e 1 decisão escrita offline (sem LLM).",
     why: "O modelo conta a história; você assina a decisão do ritual.",
     outputs: ["Overview NotebookLM/Gamma", "ata em texto seu"],
-    files: ["S16-A3-fechamento.md"],
+    files: labFiles(16),
     artefato: "Agent: PDI Advisor (Wave 05)",
   },
   17: {
@@ -133,7 +139,7 @@ export const LAB_DELIVERABLES = {
     deliverable: "Língua de tamanho para o C-Level: lente escolhida, unidade, o que não conta, frase de comitê.",
     why: "Comitê ouve função entregue — não velocity nem PF inventado.",
     outputs: ["1 arquivo de medida"],
-    files: ["B04-A3-lingua.md"],
+    files: labFiles(17),
     artefato: null,
   },
 };
@@ -144,7 +150,7 @@ export const LAB_PERSONAS = {
     persona:
       "Facilitador de transformação organizacional com prática em mapas as-is e design de gates humanos. Hard: documentação executável em Markdown, tabela de capacidades, RACI implícito. Soft: confronta ambiguidade, recusa slide sem dono e sem frase de trava assinável.",
     reforco:
-      "Auditor de gates humanos — mesmo perfil da S01, modo reforço. Hard: compara dois outputs lado a lado e aponta onde o gate foi enfraquecido. Soft: zero tolerância a ensaio consultivo; só markdown pronto para salvar.",
+      "Auditor de gates humanos — mesmo perfil da semana 01, modo reforço. Hard: compara dois outputs lado a lado e aponta onde o gate foi enfraquecido. Soft: zero tolerância a ensaio consultivo; só markdown pronto para salvar.",
   },
   2: {
     persona:
@@ -168,7 +174,7 @@ export const LAB_PERSONAS = {
     persona:
       "Product designer de discovery com Lean Inception e PBB (Cagan). Hard: prototipação da fatia IN, jornada da persona, coerência com OKR. Soft: recusa OUT no protótipo; exige link clicável, não markdown de tela.",
     reforco:
-      "Revisor de escopo de MVP — valida ligação explícita IN → KR da S04. Hard: PBB, prototipação. Soft: corta feature fora do IN com justificativa de uma linha.",
+      "Revisor de escopo de MVP — valida ligação explícita IN → KR da semana 04. Hard: PBB, prototipação. Soft: corta feature fora do IN com justificativa de uma linha.",
   },
   6: {
     persona:
@@ -186,13 +192,13 @@ export const LAB_PERSONAS = {
     persona:
       "Kanban coach e analista de métricas de fluxo (Anderson). Hard: LT, CT, TH, WIP, CFD, Lei de Little, diagrama mermaid do fluxo. Soft: traduz número para alavanca do time — não inventa benchmark externo.",
     reforco:
-      "Analista de fluxo em modo auditoria — recalcula LT ≈ WIP ÷ TH com os números colados. Hard: métricas Kanban, S08-A3-fluxo.md. Soft: pergunta antes de preencher lacuna.",
+      "Analista de fluxo em modo auditoria — recalcula LT ≈ WIP ÷ TH com os números colados. Hard: métricas Kanban, Lab aula 03 semana 08.md. Soft: pergunta antes de preencher lacuna.",
   },
   9: {
     persona:
       "Agile coach de cadências e facilitador de decisão coletiva. Hard: board Agora/Proposta/Voto, auditoria fica-sai-muda, artefato no IDE. Soft: neutralidade — não declara ritmo vencedor; prepara pergunta de voto.",
     reforco:
-      "Facilitador de workshop remoto — reconstrói o board só com itens da Aula 2. Hard: engenharia de ciclos, S09-A3-board.md. Soft: recusa layout sem lista fica/sai/muda.",
+      "Facilitador de workshop remoto — reconstrói o board só com itens da Aula 2. Hard: engenharia de ciclos, Lab aula 03 semana 09.md. Soft: recusa layout sem lista fica/sai/muda.",
   },
   10: {
     persona:
@@ -210,7 +216,7 @@ export const LAB_PERSONAS = {
     persona:
       "Engenheiro de agentes (persona · steering · skill em disco). Hard: arquivos versionados, hooks evento→condição→gate, 3 proibições no steering. Soft: agente com limite de cargo — persona sem proibição é rascunho inválido.",
     reforco:
-      "Arquiteto de agent files — valida hook ligado ao gate da S11. Hard: Cursor/Kiro, persona.md/steering.md/skill.md. Soft: recusa Custom GPT sem pasta no git.",
+      "Arquiteto de agent files — valida hook ligado ao gate da semana 11. Hard: Cursor/Kiro, persona.md/steering.md/skill.md. Soft: recusa Custom GPT sem pasta no git.",
   },
   13: {
     persona:

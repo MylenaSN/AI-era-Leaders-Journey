@@ -7,7 +7,7 @@ export const MAP_ISLANDS = [
     kind: "setup",
     shortLabel: "Setup",
     title: "Organize o Drive",
-    sub: "setup no Desktop · antes do Lab IA",
+    sub: "setup no Desktop · antes do Lab aula 03",
     wave: 1,
     refWeek: 1,
     lane: "right",

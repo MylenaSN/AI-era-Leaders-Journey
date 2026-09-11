@@ -1,10 +1,10 @@
 # Semente de prompt — 3 agents (agnóstico de ferramenta)
 
-Use na Semana 08+ como apoio. Cole o contexto do **seu** time — não o caso Nexo literal.
+Use na Semana 08+ como apoio. Cole o contexto do **seu** time — não o exemplo da wave literal.
 
 ```
 Contexto da squad:
-[cole CASO + input-semana-XX.txt da Aula 2]
+[cole o exemplo da semana (painel lateral) + input-semana-XX.txt da Aula 2]
 
 Tarefa: esboçar 3 agents para minha operação. Para cada um, gere:
 - persona.md (papel, tom, o que NÃO faz)

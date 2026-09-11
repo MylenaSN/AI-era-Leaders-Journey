@@ -740,6 +740,8 @@ export function startJornada(cfg = {}) {
   }
 
   let railFocus = 1;
+  let mesaWeekPaint = 0;
+  let mesaA3Paint = "";
 
   function railForPhase(ph) {
     if (ph === "conceito") return 1;
@@ -888,6 +890,8 @@ export function startJornada(cfg = {}) {
     scoreLock = false;
     winLock = false;
     reforco = false;
+    mesaWeekPaint = 0;
+    mesaA3Paint = "";
     mode = "level";
     document.getElementById("stage").className = "level-on";
     document.getElementById("mesa").classList.add("show");
@@ -1269,19 +1273,35 @@ export function startJornada(cfg = {}) {
         ? "Lab aula 03 · Por que o lab"
         : "Lab · aula 03";
     }
-    document.getElementById("rail-a2").className = "rail" + (a1ready ? "" : " locked");
-    document.getElementById("rail-a3").className = "rail" + (a2ready ? "" : " locked")
-      + (phase === "lab" && a2ready ? " has-lab" : "")
-      + (phase === "brief" && a2ready ? " has-brief" : "");
-    document.getElementById("cards-a1").innerHTML = p.a1.map((card, i) => {
-      const open = !!a1open[i];
-      return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a1="' + i + '"><span class="tag">' + card.t + "</span><span class='card-d'>" + phraseLines(card.d) + "</span></button>";
-    }).join("");
-    document.getElementById("slots-a2").innerHTML = p.a2.map((txt, i) => {
-      const label = (p.a2Short && p.a2Short[i]) ? p.a2Short[i] : ("Passo " + (i + 1));
-      const open = !!a2pin[i];
-      return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a2="' + i + '"' + (a1ready ? "" : " disabled") + '><span class="tag">' + label + "</span><span class='card-body'>" + phraseLines(txt) + "</span></button>";
-    }).join("");
+    const railA2 = document.getElementById("rail-a2");
+    const railA3 = document.getElementById("rail-a3");
+    railA2.classList.toggle("locked", !a1ready);
+    railA3.classList.toggle("locked", !a2ready);
+    railA3.classList.toggle("has-lab", phase === "lab" && a2ready);
+    railA3.classList.toggle("has-brief", phase === "brief" && a2ready);
+    const a1box = document.getElementById("cards-a1");
+    const a2box = document.getElementById("slots-a2");
+    if (mesaWeekPaint !== week || a1box.children.length !== p.a1.length) {
+      a1box.innerHTML = p.a1.map((card, i) => {
+        const open = !!a1open[i];
+        return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a1="' + i + '"><span class="tag">' + card.t + "</span><span class='card-d'>" + phraseLines(card.d) + "</span></button>";
+      }).join("");
+      a2box.innerHTML = p.a2.map((txt, i) => {
+        const label = (p.a2Short && p.a2Short[i]) ? p.a2Short[i] : ("Passo " + (i + 1));
+        const open = !!a2pin[i];
+        return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a2="' + i + '"' + (a1ready ? "" : " disabled") + '><span class="tag">' + label + "</span><span class='card-body'>" + phraseLines(txt) + "</span></button>";
+      }).join("");
+      mesaWeekPaint = week;
+    } else {
+      a1box.querySelectorAll("[data-a1]").forEach((el) => {
+        el.classList.toggle("on", !!a1open[Number(el.getAttribute("data-a1"))]);
+      });
+      a2box.querySelectorAll("[data-a2]").forEach((el) => {
+        const i = Number(el.getAttribute("data-a2"));
+        el.classList.toggle("on", !!a2pin[i]);
+        el.disabled = !a1ready;
+      });
+    }
     const ex = EX[week];
     const rev = revealedContract(week);
     const casoEl = document.getElementById("caso");
@@ -1327,51 +1347,55 @@ export function startJornada(cfg = {}) {
       cards3 = "";
       foot3 = "";
     }
+    const a3sig = [week, phase, a2ready ? 1 : 0, a3open.map(Boolean).join(""), a3chip || "", reforco ? 1 : 0].join("|");
     const toolsEl = document.getElementById("caso-tools");
-    if (toolsEl) {
-      toolsEl.hidden = true;
-      toolsEl.innerHTML = "";
-    }
-    document.getElementById("cards-a3").innerHTML = cards3;
-    document.getElementById("foot-a3").innerHTML = foot3;
-    if (phase === "lab" && a2ready) fillLabFrames();
-    const gotoMap = document.getElementById("btn-goto-map");
-    if (gotoMap) gotoMap.onclick = () => {
-      showMap();
-      openMapSetup();
-    };
-    const openNota = document.getElementById("btn-open-nota");
-    if (openNota) openNota.onclick = () => openNotaDialog();
-    const labDoneBtn = document.getElementById("btn-lab-done");
-    if (labDoneBtn) labDoneBtn.onclick = () => startGateFromLab();
-    document.querySelectorAll("[data-a3]").forEach((el) => {
-      el.onclick = () => {
-        const i = Number(el.getAttribute("data-a3"));
-        if (i !== seqNext(a3open, aula03BriefOf(week).cards.length)) return;
-        a3open[i] = true;
-        a3chip = null;
-        railFocus = 3;
-        renderMesa();
-        syncHud();
+    if (mesaA3Paint !== a3sig) {
+      mesaA3Paint = a3sig;
+      if (toolsEl) {
+        toolsEl.hidden = true;
+        toolsEl.innerHTML = "";
+      }
+      document.getElementById("cards-a3").innerHTML = cards3;
+      document.getElementById("foot-a3").innerHTML = foot3;
+      if (phase === "lab" && a2ready) fillLabFrames();
+      const gotoMap = document.getElementById("btn-goto-map");
+      if (gotoMap) gotoMap.onclick = () => {
+        showMap();
+        openMapSetup();
       };
-    });
-    document.querySelectorAll("[data-a3chip]").forEach((el) => {
-      el.onclick = (ev) => {
-        ev.stopPropagation();
-        const id = el.getAttribute("data-a3chip");
-        a3chip = a3chip === id ? null : id;
-        renderMesa();
-      };
-    });
-    const openLab = document.getElementById("btn-open-lab");
-    if (openLab) {
-      openLab.onclick = () => {
-        if (!a3BriefReady()) return;
-        phase = "lab";
-        railFocus = 3;
-        renderMesa();
-        syncHud();
-      };
+      const openNota = document.getElementById("btn-open-nota");
+      if (openNota) openNota.onclick = () => openNotaDialog();
+      const labDoneBtn = document.getElementById("btn-lab-done");
+      if (labDoneBtn) labDoneBtn.onclick = () => startGateFromLab();
+      document.querySelectorAll("[data-a3]").forEach((el) => {
+        el.onclick = () => {
+          const i = Number(el.getAttribute("data-a3"));
+          if (i !== seqNext(a3open, aula03BriefOf(week).cards.length)) return;
+          a3open[i] = true;
+          a3chip = null;
+          railFocus = 3;
+          renderMesa();
+          syncHud();
+        };
+      });
+      document.querySelectorAll("[data-a3chip]").forEach((el) => {
+        el.onclick = (ev) => {
+          ev.stopPropagation();
+          const id = el.getAttribute("data-a3chip");
+          a3chip = a3chip === id ? null : id;
+          renderMesa();
+        };
+      });
+      const openLab = document.getElementById("btn-open-lab");
+      if (openLab) {
+        openLab.onclick = () => {
+          if (!a3BriefReady()) return;
+          phase = "lab";
+          railFocus = 3;
+          renderMesa();
+          syncHud();
+        };
+      }
     }
     bindScoreButtons();
     document.querySelectorAll("[data-a1]").forEach((el) => {

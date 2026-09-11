@@ -997,12 +997,11 @@
       background: var(--panel); border: 1px solid var(--line);
       border-radius: 14px; padding: 10px 12px; min-height: 0; overflow: hidden;
       box-shadow: 0 8px 24px #5B2D8E0a;
-      animation: rise 0.45s ease both;
     }
     .rail.is-active { display: flex; }
-    #rail-a1 { border-top: 3px solid var(--conceito); animation-delay: 0.04s; }
-    #rail-a2 { border-top: 3px solid var(--raiz); animation-delay: 0.1s; }
-    #rail-a3 { border-top: 3px solid var(--path); animation-delay: 0.16s; }
+    #rail-a1 { border-top: 3px solid var(--conceito); }
+    #rail-a2 { border-top: 3px solid var(--raiz); }
+    #rail-a3 { border-top: 3px solid var(--path); }
     #rail-a1 h2 { color: var(--conceito); }
     #rail-a2 h2 { color: var(--raiz); }
     #rail-a3 h2 { color: var(--path); }
@@ -1048,7 +1047,6 @@
       color: var(--ink);
       font-weight: 500;
     }
-    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
     #app.is-level .rail h2 { display: none; }
     .rail h2 { margin: 0 0 6px; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--font-title); }
     .rail .lead {
@@ -1176,8 +1174,8 @@
       border: 1px solid var(--line); border-radius: 12px;
       padding: 10px 11px; margin: 0; cursor: pointer;
       background: var(--bg); font-size: 0.82rem; width: 100%; text-align: left;
-      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s, padding 0.2s;
-      animation: rise 0.4s ease both; flex: 0 0 auto;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease, padding 0.18s ease;
+      flex: 0 0 auto;
     }
     .piece.on { flex: 0 0 auto; padding: 9px 14px; }
     .piece.on .card-d,
@@ -1189,9 +1187,6 @@
       opacity: 0.72;
     }
     .piece .card-body { display: block; font-size: 0.92rem; line-height: 1.5; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
-    .piece:nth-child(1) { animation-delay: 0.08s; }
-    .piece:nth-child(2) { animation-delay: 0.14s; }
-    .piece:nth-child(3) { animation-delay: 0.2s; }
     .piece:hover:not(:disabled):not(.static) { border-color: var(--conceito); transform: translateY(-2px); box-shadow: 0 8px 20px #5B2D8E12; }
     .piece.on { border-color: var(--path); background: #2BC0B418; }
     .piece.on .tag {

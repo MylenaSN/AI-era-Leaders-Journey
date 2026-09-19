@@ -32,10 +32,12 @@ const WEEK_SPECS = {
       + "- Suas Hard Skills são: Documentação executável em Markdown, mapeamento de tabelas de capacidades e matriz RACI implícita.\n"
       + "- Suas Soft Skills são: Você confronta a ambiguidade de forma direta. Recusa veementemente entregáveis sem um dono claro (\"ownership\") e sem uma frase de trava vinculada ao nome do responsável.",
     contextoExtra:
-      "Você deve extrair rigorosamente:\n"
-      + "- Pelo menos 5 autores no Gantt (exatamente 1 por era histórica/marco), com contribuição em 1 frase curta.\n"
-      + "- O cruzamento exato de cada método mapeado com os três pilares: Product / Tech Delivery / Human & AI.\n"
-      + "- Um baseline honesto: descreva apenas o que o time já pratica no dia a dia, sem romantizar ou nomear frameworks acadêmicos.",
+      "O insumo obrigatório é o arquivo da Aula 2 (`Homework aula 02 semana 01.md`). Sem ele, PERGUNTE. Não invente o time.\n"
+      + "Extraia rigorosamente:\n"
+      + "- Pelo menos 5 autores no Gantt (exatamente 1 por era), com contribuição em 1 frase curta.\n"
+      + "- O cruzamento de cada método com os três pilares: Product / Tech Delivery / Human & AI.\n"
+      + "- Um baseline honesto: só o que o time já pratica no dia a dia, mesmo sem nome de método.\n"
+      + "- O gargalo visível no ciclo de entrega descrito. É ali que a aceleração com IA pode entrar — depois do gate.",
     tarefa: (f) =>
       "Gere o conteúdo completo e integral para o arquivo `" + f.a3 + "`.\n"
       + "- NÃO resuma o conteúdo no chat.\n"

@@ -6,12 +6,12 @@ export const AULA03_BRIEF = {
   1: {
     titulo: "Vocabulário mínimo para orquestrar",
     autor: "Teo · 6 pilares",
-    porque: "No lab você cola o mesmo pedido em dois modelos. Sem língua compartilhada, cada um inventa o gate — e o time não sabe o que autorizou.",
-    takeaway: "O vocábulo é o primeiro instrumento. A decisão de autorizar continua sua.",
+    porque: "Você trouxe o arquivo da Aula 2. Antes de beber da ferramenta, a gente trava o método. No lab você cola o mesmo pedido em dois modelos. Sem língua compartilhada, cada um inventa o gate — e você não sabe o que está assinando.",
+    takeaway: "A IA acelera a execução. O gargalo continua sendo liderança e cultura. A decisão de autorizar continua sua.",
     cards: [
-      { t: "Os 10 termos", d: "Os 10 termos que precisamos dominar antes de operar qualquer IA." },
-      { t: "6 pilares", d: "Os 6 pilares que precisamos montar antes de colar o mesmo pedido em dois modelos." },
-      { t: "Gate humano", d: "O gate humano que precisamos comparar quando os dois modelos respondem." },
+      { t: "Língua compartilhada", d: "Dez termos, do motor ao sistema. Sem isso, cada modelo inventa o que o time autorizou." },
+      { t: "Contrato do prompt", d: "Teo. Seis pilares. Prompt é contrato com cláusulas, não frase esperta." },
+      { t: "Gate humano", d: "Autonomia até o gate. Compare os dois outputs só na trava. Onde inventou dono, recusa." },
     ],
     track: [
       { k: "LLM", role: "Motor", d: "Gera e completa texto a partir do que recebe." },

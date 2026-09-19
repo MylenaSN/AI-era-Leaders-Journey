@@ -344,8 +344,8 @@ export function startJornada(cfg = {}) {
     return n;
   }
 
-  const COURSE_NAME = "AI-first Systems Leadership";
-  const LEADER_DIR = "AI-first-Systems-Leadership-Jornada";
+  const COURSE_NAME = "AI-First Operations Leadership";
+  const LEADER_DIR = "AI-First-Operations-Leadership-Jornada";
   const COFRE_DIR = LEADER_DIR + "/";
   const IN_WAVE = { 1: [1, 2], 2: [3, 4, 5, 6], 3: [7, 8, 9, 10], 4: [11, 12, 13, 14], 5: [15, 16] };
   let WAVE_COLOR = { 1: "#3B67B0", 2: "#2BC0B4", 3: "#E88F2B", 4: "#5B2D8E", 5: "#C83E74" };
@@ -425,8 +425,8 @@ export function startJornada(cfg = {}) {
       etapas: [{ tools: [{ label:"ChatGPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
       out:"Mapa as-is dos 3 pilares (Product · Delivery · Human & AI), com dor e fato do seu Gantt e o bloco GATE HUMANO.",
       casca:"# Lab aula 03 semana 01.md\n\n## Time\n(1 linha)\n\n## 3 linhas\n| Pilar | Dor (1 frase) | Fato do time |\n| Product |  |  |\n| Delivery |  |  |\n| Human & AI |  |  |\n\n## GATE HUMANO\n- PARA: (o que a IA está proibida de decidir)\n- QUEM: (cargo que autoriza)\n- SÓ DEPOIS: (o que pode acontecer após o sim)\n- FRASE DE TRAVA: Nenhuma ação deste mapa entra no calendário sem o sim de [QUEM].\n",
-      prompt:"Gere o arquivo completo Lab aula 03 semana 01.md: time (1 linha), 3 linhas com dor e fato do Gantt, GATE HUMANO (PARA / QUEM / SÓ DEPOIS / frase de trava). Output = markdown pronto para salvar — não resuma em chat.",
-      tips:["Dois outputs completos (GPT e Gemini) — compare os gates.","Formato quebrado ou ensaio: volte ao modelo de referência.","Um modelo só: a arena pede os dois para comparar."] },
+      prompt:"Cole o Homework aula 02 semana 01.md. Gere o arquivo completo Lab aula 03 semana 01.md: time (1 linha), 3 linhas com dor e fato do Gantt, GATE HUMANO (PARA / QUEM / SÓ DEPOIS / frase de trava). Output = markdown pronto para salvar — não resuma em chat.",
+      tips:["Sem o arquivo da Aula 2 o lab não tem base. Cole o homework.","Dois outputs completos (GPT e Gemini) — compare só o GATE.","Formato quebrado ou ensaio: volte ao modelo de referência."] },
     2: { autor:"Teo · contexto que fica", cap:"A3 vivo no Project", tool:"Claude Project", alt:"GPT Project / Gemini Gem", href:"https://claude.ai", href2:"https://chatgpt.com",
       etapas: [{ tools: [{ label:"Claude", href:"https://claude.ai" }, { label:"GPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
       out:"A3 salvo no Project, não no chat avulso",
@@ -1559,7 +1559,7 @@ export function startJornada(cfg = {}) {
       "  chmod +x setup-jornada.sh",
       "  ./setup-jornada.sh",
       "",
-      "Cria no Desktop: AI-first-Systems-Leadership-Jornada/",
+      "Cria no Desktop: AI-First-Operations-Leadership-Jornada/",
       "16 semanas + plus, com os arquivos prontos para preencher.",
       "",
       "Em cada semana:",

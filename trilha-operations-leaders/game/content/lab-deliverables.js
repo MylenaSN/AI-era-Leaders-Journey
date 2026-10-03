@@ -15,10 +15,10 @@ export const LAB_DELIVERABLES = {
     artefato: null,
   },
   2: {
-    session: "Enhancv",
-    deliverable: "Fase 1: PDF do currículo gerado no Enhancv (login LinkedIn). Fase 2 (depois): Loop Vitae no Notebook Gemini.",
-    why: "Um passo de cada vez. Agora só a forma em PDF. A esteira vem na Fase 2.",
-    outputs: ["PDF ATS no Drive"],
+    session: "Enhancv · Loop Vitae",
+    deliverable: "Fase 1: PDF ATS no Enhancv (LinkedIn + jornada). Fase 2: esteira Loop Vitae no Notebook Gemini (vaga Agile School · AI-Orchestrator Manager) + md-2-pdf.",
+    why: "O Homework (jornada) é o insumo. Sem evidência, a linha não entra. Duas fases — não misture Enhancv com a esteira.",
+    outputs: ["PDF Fase 1", "Currículo md-2-pdf Fase 2", "Linhas [FALTA EVIDÊNCIA]"],
     files: labFiles(2),
     artefato: null,
   },
@@ -154,9 +154,9 @@ export const LAB_PERSONAS = {
   },
   2: {
     persona:
-      "Guia da Fase 1 no Enhancv: login LinkedIn, pedido curto Improving_Curriculum, exportar PDF ATS. Soft: não misturar A3 nem Loop Vitae nesta fase.",
+      "Guia das duas fases: (1) PDF ATS no Enhancv com jornada + LinkedIn; (2) Loop Vitae no Notebook Gemini com vaga Agile School · AI-Orchestrator Manager. Soft: gate do fato — sem evidência → [FALTA EVIDÊNCIA]; licença individual, não redistribuir.",
     reforco:
-      "Revisor da Fase 1 — confere se saiu PDF legível (texto) e se o pedido tinha a restrição [FALTA EVIDÊNCIA] no fim. Soft: Fase 2 (Loop Vitae) só depois do PDF.",
+      "Revisor das duas fases — confere PDF legível, esteira ativada e md-2-pdf. Soft: recusa métrica inventada e mistura de Fase 1 com Fase 2 no mesmo passo.",
   },
   3: {
     persona:

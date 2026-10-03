@@ -32,7 +32,7 @@ export function arquivoLab(n) {
 
 /** Arquivos extras do Homework — o envelope .md pode apontar para outro formulário. */
 const HOMEWORK_EXTRAS = {
-  2: ["Mapa de cargos aula 02 semana 02.md", "A3 Report aula 02 semana 02.md"],
+  2: ["Mapa de cargos aula 02 semana 02.md"],
 };
 
 export function arquivosHomeworkExtras(n) {

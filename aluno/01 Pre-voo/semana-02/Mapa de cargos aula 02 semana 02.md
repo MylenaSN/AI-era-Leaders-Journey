@@ -1,9 +1,9 @@
 # Mapa de cargos aula 02 semana 02.md
 
-Seu time em três colunas. Pelo **trabalho da semana**, não pelo título no crachá.
+**Apoio opcional.** A entrega principal da Aula 2 é `Homework aula 02 semana 02.md` (jornada profissional).  
+Use este arquivo se quiser detalhar o time além da tabela de 3 colunas do Homework.
 
-Aula 2: você preenche este arquivo.
-Aula 3: o gap #1 daqui vira a vaga-alvo do currículo.
+Pelo **trabalho da semana**, não pelo título no crachá. O gap #1 alimenta a vaga-alvo do Lab aula 03.
 
 ---
 

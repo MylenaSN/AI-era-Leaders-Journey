@@ -1,12 +1,27 @@
 # Lab aula 03 semana 02.md
 
-**Fase 1 (agora):** PDF do currículo gerado no Enhancv (login LinkedIn).
-Salve o PDF no Drive. Não resuma no chat: o arquivo/PDF é a entrega.
+## Fase 1 — Enhancv
+- PDF gerado: [ ] sim
+- Login LinkedIn: [ ] sim
+- Onde salvei no Drive:
 
-**Fase 2 (depois):** ativar Loop Vitae no Notebook Gemini — só quando a formação pedir.
+## Fase 2 — Loop Vitae
+- ZIP / pasta no Drive: [ ] sim (licença individual — não redistribuir)
+- Notebook Gemini ativado: [ ] sim
+- Vaga hipotética Agile School · AI-Orchestrator Manager: [ ] gerada
+- Loop Curriculum-advisor: [ ] rodado
+- md-2-pdf da vaga: [ ] gerado
 
-Quando a auditoria for pedida, use também:
-- `Curriculo aula 03 semana 02.md`
-- `Link Project aula 03 semana 02.txt`
+## Linhas recusadas ([FALTA EVIDÊNCIA])
 
-Não crie outro nome.
+| Linha | Por quê |
+|-------|---------|
+|       |         |
+
+## Nota Jobscan (se rodou)
+
+-
+
+## Observações
+
+-

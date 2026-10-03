@@ -35,14 +35,14 @@ export const AULA03_BRIEF = {
     ],
   },
   2: {
-    titulo: "Fase 1 — currículo em PDF no Enhancv",
+    titulo: "Duas fases — Enhancv e Loop Vitae",
     autor: "Liu · lost in the middle",
-    porque: "Prompt comprido enterra o pedido. Nesta fase você só gera o PDF no Enhancv, logando com o LinkedIn. Loop Vitae (Notebook Gemini) é a Fase 2 — depois do PDF.",
-    takeaway: "A IA reescreve a forma. O fato é seu. Fase 1 fecha com o PDF; Fase 2 ativa a esteira.",
+    porque: "O Homework é a sua jornada profissional — esse MD enriquece o prompt. Fase 1 gera o PDF no Enhancv. Fase 2 ativa a esteira Loop Vitae (GitHub → Drive → Notebook Gemini) com vaga hipotética na Agile School.",
+    takeaway: "A IA reescreve a forma. O fato é seu. Sem evidência no Homework/LinkedIn → [FALTA EVIDÊNCIA].",
     cards: [
-      { t: "Pedido curto", d: "Cinco campos + restrição do fato no fim. Sem Persona, sem Tom, sem A3." },
-      { t: "Enhancv + LinkedIn", d: "Entre no app.enhancv.com com o LinkedIn, cole o prompt e exporte o PDF." },
-      { t: "Fase 2 depois", d: "Loop Vitae no Notebook Gemini só depois do PDF pronto — não misture os dois passos." },
+      { t: "Jornada no Homework", d: "Marcos, evidências e vaga-alvo. O exemplo da lateral não é a sua história." },
+      { t: "Fase 1 · Enhancv", d: "Login LinkedIn → cole o bloco → PDF legível no Drive." },
+      { t: "Fase 2 · Loop Vitae", d: "ZIP do repo (licença individual) → Gemini → Curriculum-advisor → md-2-pdf." },
     ],
   },
   3: {

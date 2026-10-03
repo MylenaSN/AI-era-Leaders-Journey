@@ -1,8 +1,8 @@
-import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js?v=20261003a";
-import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003a";
-import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003a";
-import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003a";
-import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261003a";
+import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js?v=20261003b";
+import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003b";
+import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003b";
+import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003b";
+import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261003b";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];
@@ -427,11 +427,14 @@ export function startJornada(cfg = {}) {
       casca:"# Lab aula 03 semana 01.md\n\n## Time\n(1 linha)\n\n## Product Management\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Tech Delivery\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Human & AI Teams\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Três oportunidades\n1.\n2.\n3.\n\n## GATE HUMANO\n- PARA: a IA não escolhe o que entra no calendário do time\n- QUEM:\n- SÓ DEPOIS:\n- FRASE DE TRAVA: Nenhuma oportunidade deste arquivo entra no calendário sem o sim de [QUEM].\n",
       prompt:"Anexe o Homework aula 02 semana 01.md preenchido. Persona: gestor sênior de times de tecnologia. Tarefa: consolidar AS IS em Product Management, Tech Delivery e Human & AI Teams, e apontar no máximo 3 oportunidades com autor da Aula 2 só quando o fato sustentar. Exemplo A e Exemplo B não são o meu time. Seção vazia = SEM FATO. Output = Lab aula 03 semana 01.md. Não resuma no chat.",
       tips:["Você sobe o seu arquivo. O modelo não completa com time genérico.","Dois chats, o mesmo pedido. Compare onde cada um inventou autor ou número.","Na semana que vem o arquivo será o currículo. A regra é a mesma: sem fato, a linha não entra."] },
-    2: { autor:"Liu · lost in the middle", cap:"Fase 1 — PDF no Enhancv", tool:"Enhancv", alt:"Kickresume", href:"https://app.enhancv.com", href2:"https://app.enhancv.com",
-      etapas: [{ tools: [{ label:"Enhancv", href:"https://app.enhancv.com" }] }],
-      out:"PDF do currículo (ATS) gerado no Enhancv com login LinkedIn",
-      prompt:"FASE 1 — só Enhancv. Entre com LinkedIn, cole o pedido curto Improving_Curriculum e exporte o PDF. Loop Vitae é a Fase 2.",
-      tips:["Fase 1 = PDF no Enhancv. Não cole A3 nem input-semana neste pedido.","Login com LinkedIn → cole o prompt → exporte PDF legível (texto, não imagem).","Fase 2 (Loop Vitae no Notebook Gemini) vem depois do PDF."] },
+    2: { autor:"Liu · lost in the middle", cap:"Fase 1 Enhancv · Fase 2 Loop Vitae", tool:"Enhancv", alt:"Gemini", href:"https://app.enhancv.com", href2:"https://gemini.google.com",
+      etapas: [
+        { tools: [{ label:"Enhancv", href:"https://app.enhancv.com" }] },
+        { tools: [{ label:"Loop Vitae", href:"https://github.com/MylenaSN/Loop_Vitae" }, { label:"Gemini", href:"https://gemini.google.com" }] },
+      ],
+      out:"PDF no Enhancv + esteira Loop Vitae (vaga Agile School · AI-Orchestrator Manager)",
+      prompt:"Duas fases: (1) PDF no Enhancv com jornada + LinkedIn; (2) ZIP Loop_Vitae no Drive, Notebook Gemini, Curriculum-advisor, md-2-pdf.",
+      tips:["Homework = jornada profissional — é o insumo do prompt.","Fase 1 = PDF ATS no Enhancv. Fase 2 = Loop Vitae (licença individual, não redistribuir).","Vaga hipotética: Agile School · AI-Orchestrator Manager. Sem evidência → [FALTA EVIDÊNCIA]."] },
     3: { autor:"Wei · CoT", cap:"Diagrama da hierarquia", tool:"Claude ou GPT e mermaid", alt:"Napkin.ai (free)", href:"https://claude.ai", href2:"https://www.napkin.ai",
       etapas: [
         { tools: [{ label:"Claude", href:"https://claude.ai" }, { label:"GPT", href:"https://chatgpt.com" }] },
@@ -534,14 +537,14 @@ export function startJornada(cfg = {}) {
       ],
       a2Short: ["Gantt de autores", "Homework STATIK", "Sua resposta"],
       a2:["Gantt da sala: reconhecer métodos nas eras (âncora, não lista decorativa)","Homework aula 02 semana 01.md — 5 seções STATIK; digite só em Sua resposta","Exemplos A e B são de outros times; a Aula 3 só lê o que você escreveu"] },
-    2: { metodo:"Mapa de cargos em 3 colunas e Documento A3 (1 página)",
+    2: { metodo:"Jornada profissional (MD) → currículo da vaga-alvo",
       a1:[
         { t: "Quem a empresa de IA contrata", d: "Olhe a página de vagas, não o organograma do PowerPoint. Exemplo real: Receita 74 · Engenharia/Produto 51 · Growth 21 · Operações 18 · Pesquisa 5. Pesquisa é ~3%. O modelo não é o produto — colocar o modelo em uso é." },
         { t: "Cargo que nasce × cargo que some", d: "Nasce: Enterprise Deployment (25 vagas — metade da engenharia) = fazer a IA funcionar no cliente. Some/encolhe: Customer Support (1 vaga). O trabalho não sumiu: foi para produto, agente e deployment." },
         { t: "Ler o quadro com os 3 pilares", d: "Use Product · Tech Delivery · Human & AI (Semana 01) como lente: Product → Core Experience e Growth; Tech Delivery → Deployment e Platform; Human & AI → Agents, Safety e o buraco do suporte." }
       ],
-      a2Short: ["3 colunas do meu time", "Gap #1", "A3 de 1 página"],
-      a2:["Liste as pessoas do SEU time pelo trabalho real (não pelo título). Coloque cada uma em: encolhe · nasce · muda de natureza.","A coluna 'muda de natureza' costuma ser a maior — e a que ninguém nomeia. Escolha o gap #1 ali.","A3 de 1 página desse gap: situação, alvo, causas, contramedidas. Ainda sem IA — a caneta é sua."] },
+      a2Short: ["Jornada profissional", "Evidências e gap", "Vaga-alvo"],
+      a2:["Preencha Homework aula 02 semana 02.md — sua jornada: marcos, o que faz de fato, time em 3 colunas.","Liste só o que você prova (número, cargo ou data). Sem prova = [FALTA EVIDÊNCIA]. Nomeie o gap #1.","Escolha a vaga-alvo (cargo que não existia há ~3 anos). Esse MD + LinkedIn alimentam o Lab aula 03."] },
     3: { metodo:"Hierarquia de Valor (Impacto → Outcome → Output → Task)",
       a1:[
         { t: "Output, outcome, impact", d: "Output é entrega; outcome é mudança observável; impact é efeito no negócio." },
@@ -1287,9 +1290,36 @@ export function startJornada(cfg = {}) {
     return { prompt: promptLabText() };
   }
 
-  function copyLabText(text) {
+  function copyToClipboard(text, okMsg) {
     if (!text) return;
-    navigator.clipboard.writeText(text).then(() => toast("Copiado")).catch(() => toast("Copie o quadro", true));
+    const ok = () => toast(okMsg || "Copiado");
+    const legacy = () => {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;left:-9999px;top:0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        const worked = document.execCommand("copy");
+        document.body.removeChild(ta);
+        if (worked) ok();
+        else toast("Selecione o texto e copie (Ctrl+C)", true);
+      } catch (_) {
+        toast("Selecione o texto e copie (Ctrl+C)", true);
+      }
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(ok).catch(legacy);
+    } else {
+      legacy();
+    }
+  }
+
+  function copyLabText(text) {
+    copyToClipboard(text, "Copiado");
   }
 
   function fillLabFrames() {
@@ -1300,11 +1330,18 @@ export function startJornada(cfg = {}) {
     });
     document.querySelectorAll(".btn-copy-lab[data-copy]").forEach((btn) => {
       const key = btn.getAttribute("data-copy");
-      btn.onclick = () => copyLabText(map[key]);
+      btn.onclick = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        copyLabText(labCopyMap()[key] || map[key]);
+      };
     });
     const casca = document.getElementById("btn-casca");
     if (casca) {
-      casca.onclick = () => copyLabText(labOf().casca);
+      casca.onclick = (ev) => {
+        ev.preventDefault();
+        copyLabText(labOf().casca);
+      };
     }
   }
 
@@ -1987,10 +2024,11 @@ export function startJornada(cfg = {}) {
 
   document.getElementById("btn-dock-close").onclick = closeDock;
   document.getElementById("btn-cofre-close").onclick = closeCofre;
-  document.getElementById("btn-caso").onclick = () => {
+  document.getElementById("btn-caso").onclick = (ev) => {
+    ev.preventDefault();
     const t = document.getElementById("caso-body").textContent;
     if (!t) return;
-    navigator.clipboard.writeText(casoLinha(week) + "\n\n" + t).then(() => toast("Exemplo copiado")).catch(() => toast("Copie o texto de baixo", true));
+    copyToClipboard(casoLinha(week) + "\n\n" + t, "Exemplo copiado");
   };
   document.getElementById("btn-cofre").onclick = () => {
     const el = document.getElementById("cofre");

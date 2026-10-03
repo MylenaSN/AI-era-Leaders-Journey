@@ -1,11 +1,11 @@
 # Prompt exemplo aula 03 semana 02.md
 
-Exemplo · Orion Varejo · Marina Alves, Squad Leader → vaga de Enterprise Deployment Lead.
+Exemplo · Orion Varejo · Lunna, Squad Leader → vaga de Enterprise Deployment Lead.
 É só para ver o tipo de recusa que se espera. Não copie o conteúdo no lugar do seu Lab.
 
 ```
 LINHA QUE A IA ESCREVEU: "Liderei a transformação digital da logística reversa, reduzindo em 40% o ciclo de devolução."
-POR QUE EU RECUSEI: o número 40% não existe em lugar nenhum. O que eu tenho é a medição da Renata: 11 de 14 lotes ainda carimbados em papel na terça, 10h15. Isso é o oposto do que a frase sugere.
+POR QUE EU RECUSEI: o número 40% não existe em lugar nenhum. O que eu tenho é a medição da Maggie: 11 de 14 lotes ainda carimbados em papel na terça, 10h15. Isso é o oposto do que a frase sugere.
 O QUE EU ESCREVI NO LUGAR: "Instrumentei a medição de uso no CD (lotes digitais / lotes da semana), expondo que ~79% das triagens de 'não conforme' seguiam em papel — número que a Review não olhava."
 
 LINHA QUE A IA ESCREVEU: "Experiência em IA aplicada a supply chain."

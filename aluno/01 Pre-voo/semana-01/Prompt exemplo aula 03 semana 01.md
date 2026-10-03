@@ -11,7 +11,7 @@ Reclamação: a operação não usa o fluxo que a squad mostrou como pronto — 
 Autor reconhecido: Deming — a review olha o card, não o uso.
 
 ## 2. Demanda
-Quem pede: CX, marketplace ops e Product Leader Bruno Teixeira.
+Quem pede: CX, marketplace ops e Product Leader Bartolomeu.
 Canal: roadmap de épicos do PMO. O pedido do CD Extrema não tem fila.
 Planejado × não planejado: não medi.
 Autor reconhecido: Ford — a linha existe; o pedido de fora fura.
@@ -27,5 +27,5 @@ O diretor de Supply pediu copiloto para classificar motivo de devolução.
 O que já está combinado: o modelo pode rascunhar a classificação; operação e a squad leader autorizam o que vira regra no WMS.
 Autor reconhecido: Ng — humano autoriza. Teo — o pedido de IA ainda não é o sistema.
 
-Time: Squad Logística Reversa, Orion Varejo. Squad Leader Marina Alves.
+Time: Squad Logística Reversa, Orion Varejo. Squad Leader Lunna.
 ```

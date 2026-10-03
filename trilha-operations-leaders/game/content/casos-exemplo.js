@@ -2,7 +2,11 @@
  * Exemplos da turma — um time por wave.
  * O aluno copia o TIPO de evidência, não os números nem a empresa.
  *
+ * Nomes do elenco (só primeiro nome): Bartolomeu, Frederico, Yoshi, Pops,
+ * Lunna, Shipp, Dexter, Maggie, Lisa. Sem sobrenome.
+ *
  * Wave 01 · Orion Varejo (logística reversa) — STATIK + jornada / currículo
+ *   Lunna (Squad Leader) · Bartolomeu (Product) · Yoshi (Tech Lead) · Pops (Design) · Maggie (QA)
  * Wave 02 · Atlas Logística (janela de entrega)
  * Wave 03 · Lumen Educação (publicação de aula)
  * Wave 04 · Harbor Seguros (sinistro auto)
@@ -15,7 +19,7 @@ export const CASOS = {
     id: "orion",
     marca: "ORION VAREJO · LOGÍSTICA REVERSA",
     banner: "Exemplo · Orion Varejo · Logística Reversa",
-    linha: "Orion Varejo · Squad Logística Reversa · Squad Leader Marina Alves · Product Leader Bruno Teixeira · Tech Lead Carla Mendes · Designer Felipe Costa · QA Renata Dias",
+    linha: "Orion Varejo · Squad Logística Reversa · Squad Leader Lunna · Product Leader Bartolomeu · Tech Lead Yoshi · Designer Pops · QA Maggie",
   },
   atlas: {
     id: "atlas",
@@ -70,7 +74,7 @@ export function casoCabecalho(n) {
 
 export const EX = {
   1: {
-    a2: "Squad Leader Marina Alves lidera a Squad Logística Reversa na Orion Varejo (big tech do varejo). Núcleo: Product Leader Bruno Teixeira, Tech Lead Carla Mendes, dois engenheiros, Designer Felipe Costa, QA Renata Dias. Escopo: app e torre de devoluções — solicitação do cliente, triagem no CD, reestoque ou descarte. WMS legado no ar.\n\n## 1. Propósito e demanda (Sua resposta)\n- Objetivo e como mede: reduzir o ciclo devolução → crédito; medimos stories Done no prazo — mas o CD Extrema ainda carimba \"não conforme\" no papel.\n- O que tira o sono: Review premia demo da tela; % de devoluções fechadas no SLA não entra na pauta.\n- Reclamação: operação do CD e CX pedem previsibilidade do crédito e fila que não explode no pós-Black Friday.\n- Autor: Perri / Deming.\n\n## 2. Fontes de demanda\n- Quem pede: marketplace ops e CX furam a fila no Slack; canal oficial é o board do Bruno.\n- Planejado × não planejado: ~55% planejado / 45% urgências de devolução — Renata anotou na última sprint.\n- Autor: Ford / Anderson.\n\n## 3. Capacidade\n- Especialista: só Carla mexe no conector do WMS de RMA; o resto puxa front da jornada do cliente.\n- Tarefas ao mesmo tempo: 3–4 por pessoa quando o CD trava a homologação.\n- Autor: Taylor / Skelton e Pais.\n\n## 4. Fluxo\n- Etapas: Análise → Dev → Review → Homologação no CD → Deploy.\n- Onde mais para: Homologação no CD Extrema (uma pessoa de operações libera o lote).\n- Autor: Ford / Ohno.\n\n## 5. Urgência\n- Pico de devolução ou pedido do diretor de Supply para tudo; card anterior fica parado.\n- Próximo item: topo do board — nem sempre seguido.\n- Autor: Ohno / Ng.\n\n(Exemplos A e B do Homework NÃO são este time.)",
+    a2: "Squad Leader Lunna lidera a Squad Logística Reversa na Orion Varejo (big tech do varejo). Núcleo: Product Leader Bartolomeu, Tech Lead Yoshi, dois engenheiros, Designer Pops, QA Maggie. Escopo: app e torre de devoluções — solicitação do cliente, triagem no CD, reestoque ou descarte. WMS legado no ar.\n\n## 1. Propósito e demanda (Sua resposta)\n- Objetivo e como mede: reduzir o ciclo devolução → crédito; medimos stories Done no prazo — mas o CD Extrema ainda carimba \"não conforme\" no papel.\n- O que tira o sono: Review premia demo da tela; % de devoluções fechadas no SLA não entra na pauta.\n- Reclamação: operação do CD e CX pedem previsibilidade do crédito e fila que não explode no pós-Black Friday.\n- Autor: Perri / Deming.\n\n## 2. Fontes de demanda\n- Quem pede: marketplace ops e CX furam a fila no Slack; canal oficial é o board do Bartolomeu.\n- Planejado × não planejado: ~55% planejado / 45% urgências de devolução — Maggie anotou na última sprint.\n- Autor: Ford / Anderson.\n\n## 3. Capacidade\n- Especialista: só Yoshi mexe no conector do WMS de RMA; o resto puxa front da jornada do cliente.\n- Tarefas ao mesmo tempo: 3–4 por pessoa quando o CD trava a homologação.\n- Autor: Taylor / Skelton e Pais.\n\n## 4. Fluxo\n- Etapas: Análise → Dev → Review → Homologação no CD → Deploy.\n- Onde mais para: Homologação no CD Extrema (uma pessoa de operações libera o lote).\n- Autor: Ford / Ohno.\n\n## 5. Urgência\n- Pico de devolução ou pedido do diretor de Supply para tudo; card anterior fica parado.\n- Próximo item: topo do board — nem sempre seguido.\n- Autor: Ohno / Ng.\n\n(Exemplos A e B do Homework NÃO são este time.)",
     pv: [
       { k: "fato", t: "Fato", d: "Linha que está em Sua resposta no Homework STATIK da Aula 2. Sem ela, SEM FATO." },
       { k: "hip", t: "Hipótese", d: "Se Sua resposta está vazia, a célula diz HIPÓTESE — o modelo não completa com Exemplo A/B." },
@@ -79,11 +83,11 @@ export const EX = {
   },
   2: {
     chunks: [
-      "Jornada profissional — Squad Leader Marina Alves (exemplo de outro time; não copie como se fosse a sua).\n\nHoje: lidera a Squad Logística Reversa na Orion Varejo. LinkedIn: [URL dela].\nO que faz de fato na semana: prioriza board com Bruno Teixeira; destrava homologação no CD Extrema; não escreve o conector WMS de RMA (isso é Carla).",
-      "Marcos: 2017 analista de operações de CD · 2021 PO de devoluções · 2024 Squad Leader.\nTime em 3 colunas — Encolhe: triagem de \"não conforme\" no Excel do CD. Nasce: papéis de aterrissar a torre de devoluções no chão do CD. Muda: QA Renata — de achar bug de UI para cronometrar uso real (11 de 14 lotes ainda carimbados em papel, terça 10h15).",
-      "Gap #1 / vaga-alvo: Forward Deployed / Enterprise Deployment Lead — fazer a logística reversa aterrissar no CD, não só demo na Review.\nEvidências com âncora: 11/14 lotes em papel (Renata, terça 10h15) · 15 stories Done / 1 fluxo de crédito em produção no trimestre (board Bruno) · atas das 4 reviews sem linha de ciclo devolução→crédito.\n[FALTA EVIDÊNCIA]: ROI da torre de devoluções — sem baseline. Não entra no currículo."
+      "Jornada profissional — Squad Leader Lunna (exemplo de outro time; não copie como se fosse a sua).\n\nHoje: lidera a Squad Logística Reversa na Orion Varejo. LinkedIn: [URL dela].\nO que faz de fato na semana: prioriza board com Bartolomeu; destrava homologação no CD Extrema; não escreve o conector WMS de RMA (isso é Yoshi).",
+      "Marcos: 2017 analista de operações de CD · 2021 PO de devoluções · 2024 Squad Leader.\nTime em 3 colunas — Encolhe: triagem de \"não conforme\" no Excel do CD. Nasce: papéis de aterrissar a torre de devoluções no chão do CD. Muda: QA Maggie — de achar bug de UI para cronometrar uso real (11 de 14 lotes ainda carimbados em papel, terça 10h15).",
+      "Gap #1 / vaga-alvo: Forward Deployed / Enterprise Deployment Lead — fazer a logística reversa aterrissar no CD, não só demo na Review.\nEvidências com âncora: 11/14 lotes em papel (Maggie, terça 10h15) · 15 stories Done / 1 fluxo de crédito em produção no trimestre (board Bartolomeu) · atas das 4 reviews sem linha de ciclo devolução→crédito.\n[FALTA EVIDÊNCIA]: ROI da torre de devoluções — sem baseline. Não entra no currículo."
     ],
-    a2: "Jornada profissional — Squad Leader Marina Alves (exemplo de outro time; não copie como se fosse a sua).\n\n## Quem sou hoje\nCargo: Squad Leader · Logística Reversa · Orion Varejo.\nO que faço de fato: priorizo board com Product Leader Bruno Teixeira; destravo homologação no CD; não sou dona do conector WMS (Tech Lead Carla Mendes).\n\n## Marcos\n2017 operações de CD · 2021 PO de devoluções · 2024 Squad Leader.\n\n## 3 colunas\nEncolhe: triagem \"não conforme\" no Excel.\nNasce: aterrissar torre de devoluções no CD.\nMuda: QA Renata — de bug de UI para uso real (11/14 lotes em papel, terça 10h15).\n\n## Gap #1 / vaga-alvo\nEnterprise Deployment Lead — aterrissagem no CD, não demo na Review.\n\n## Evidências\n11/14 papel (Renata) · 15 Done / 1 fluxo em produção · atas sem ciclo devolução→crédito.\n[FALTA EVIDÊNCIA]: ROI — sem baseline.",
+    a2: "Jornada profissional — Squad Leader Lunna (exemplo de outro time; não copie como se fosse a sua).\n\n## Quem sou hoje\nCargo: Squad Leader · Logística Reversa · Orion Varejo.\nO que faço de fato: priorizo board com Product Leader Bartolomeu; destravo homologação no CD; não sou dona do conector WMS (Tech Lead Yoshi).\n\n## Marcos\n2017 operações de CD · 2021 PO de devoluções · 2024 Squad Leader.\n\n## 3 colunas\nEncolhe: triagem \"não conforme\" no Excel.\nNasce: aterrissar torre de devoluções no CD.\nMuda: QA Maggie — de bug de UI para uso real (11/14 lotes em papel, terça 10h15).\n\n## Gap #1 / vaga-alvo\nEnterprise Deployment Lead — aterrissagem no CD, não demo na Review.\n\n## Evidências\n11/14 papel (Maggie) · 15 Done / 1 fluxo em produção · atas sem ciclo devolução→crédito.\n[FALTA EVIDÊNCIA]: ROI — sem baseline.",
     pv: [
       { k: "fato", t: "Fato", d: "Marco, número ou cargo com âncora no Homework / LinkedIn. Sem âncora não entra." },
       { k: "hip", t: "Hipótese", d: "Gap e vaga-alvo são escolha sua; a IA não inventa a jornada." },

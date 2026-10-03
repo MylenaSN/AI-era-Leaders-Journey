@@ -72,7 +72,7 @@ Se não houver âncora → escreva `[FALTA EVIDÊNCIA]` na célula. Essa linha *
 - Métrica sem baseline
 - Cargo que você não exerceu
 - Data que o LinkedIn não confirma
-- História do exemplo da lateral (Marina / Orion Varejo) — não é a sua
+- História do exemplo da lateral (Lunna / Orion Varejo) — não é a sua
 
 ---
 

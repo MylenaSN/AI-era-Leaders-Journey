@@ -1,8 +1,8 @@
-import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js";
-import { buildLabPrompt } from "../content/lab-prompts.js";
-import { aula03BriefOf } from "../content/aula03-brief.js";
-import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js";
-import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js";
+import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js?v=20261003a";
+import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003a";
+import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003a";
+import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003a";
+import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261003a";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];

@@ -1,8 +1,8 @@
-import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js?v=20261003b";
-import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003b";
-import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003b";
-import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003b";
-import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261003b";
+import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js?v=20261003e";
+import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003e";
+import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003e";
+import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003e";
+import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261003e";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];
@@ -421,12 +421,12 @@ export function startJornada(cfg = {}) {
     });
   }
   const LABS = {
-    1: { autor:"Teo · seis partes do pedido", cap:"Consolidado dos 3 pilares", tool:"ChatGPT free", alt:"Gemini", href:"https://chatgpt.com", href2:"https://gemini.google.com",
+    1: { autor:"Teo · pedido com cláusulas", cap:"Homework → chat → consolidado dos 3 pilares", tool:"ChatGPT free", alt:"Gemini", href:"https://chatgpt.com", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"ChatGPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
-      out:"Consolidado Product · Tech Delivery · Human & AI a partir da leitura do seu time, com no máximo 3 oportunidades e o GATE HUMANO.",
+      out:"Consolidado do seu time nos 3 pilares (Product · Tech Delivery · Human & AI), no máximo 3 oportunidades com autor do Gantt",
       casca:"# Lab aula 03 semana 01.md\n\n## Time\n(1 linha)\n\n## Product Management\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Tech Delivery\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Human & AI Teams\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Três oportunidades\n1.\n2.\n3.\n\n## GATE HUMANO\n- PARA: a IA não escolhe o que entra no calendário do time\n- QUEM:\n- SÓ DEPOIS:\n- FRASE DE TRAVA: Nenhuma oportunidade deste arquivo entra no calendário sem o sim de [QUEM].\n",
-      prompt:"Anexe o Homework aula 02 semana 01.md preenchido. Persona: gestor sênior de times de tecnologia. Tarefa: consolidar AS IS em Product Management, Tech Delivery e Human & AI Teams, e apontar no máximo 3 oportunidades com autor da Aula 2 só quando o fato sustentar. Exemplo A e Exemplo B não são o meu time. Seção vazia = SEM FATO. Output = Lab aula 03 semana 01.md. Não resuma no chat.",
-      tips:["Você sobe o seu arquivo. O modelo não completa com time genérico.","Dois chats, o mesmo pedido. Compare onde cada um inventou autor ou número.","Na semana que vem o arquivo será o currículo. A regra é a mesma: sem fato, a linha não entra."] },
+      prompt:"Anexe o Homework aula 02 semana 01.md preenchido. Persona: gestor sênior de times de tecnologia. Tarefa: consolidar AS IS em Product Management, Tech Delivery e Human & AI Teams, e apontar no máximo 3 oportunidades com autor do Gantt da Aula 2 só quando o fato sustentar. Exemplo A e Exemplo B não são o meu time. Seção vazia = SEM FATO. Output = Lab aula 03 semana 01.md. Não resuma no chat.",
+      tips:["Passo: Homework Aula 2 + prompt → um chat → consolidado.","Oportunidade sem autor do Gantt ou sem fato no MD = risca.","A IA organiza; você autoriza o que entra no calendário."] },
     2: { autor:"Liu · lost in the middle", cap:"Fase 1 Enhancv · Fase 2 Loop Vitae", tool:"Enhancv", alt:"Gemini", href:"https://app.enhancv.com", href2:"https://gemini.google.com",
       etapas: [
         { tools: [{ label:"Enhancv", href:"https://app.enhancv.com" }] },
@@ -536,7 +536,11 @@ export function startJornada(cfg = {}) {
         { t: "Padrões da Revolução", d: "Não tratar a era atual como ruptura sem precedente; o padrão histórico de reestruturação de papéis continua." }
       ],
       a2Short: ["Gantt de autores", "Homework STATIK", "Sua resposta"],
-      a2:["Gantt da sala: reconhecer métodos nas eras (âncora, não lista decorativa)","Homework aula 02 semana 01.md — 5 seções STATIK; digite só em Sua resposta","Exemplos A e B são de outros times; a Aula 3 só lê o que você escreveu"] },
+      a2:[
+        "Gantt da sala: reconhecer métodos nas eras\n(âncora, não lista decorativa)",
+        "Homework aula 02 semana 01.md\n— 5 seções STATIK; digite só em Sua resposta",
+        "Exemplos A e B são de outros times; o coração do prompt na Aula 3 é a sua análise humana de líder que você gerou na Aula 2"
+      ] },
     2: { metodo:"Jornada profissional (MD) → currículo da vaga-alvo",
       a1:[
         { t: "Quem a empresa de IA contrata", d: "Olhe a página de vagas, não o organograma do PowerPoint. Exemplo real: Receita 74 · Engenharia/Produto 51 · Growth 21 · Operações 18 · Pesquisa 5. Pesquisa é ~3%. O modelo não é o produto — colocar o modelo em uso é." },

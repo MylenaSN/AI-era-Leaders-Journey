@@ -62,7 +62,7 @@ Fonte da trilha: [`04-trilha-cognitiva-master-ai-first-operations-leadership.md`
 
 | Pedido | Status | Notas |
 |--------|--------|-------|
-| Menos coach / casos fake (Marina etc.) | ✅ | 5 times (Vértice, Atlas, Lumen, Harbor, Cora); papéis antes do nome; copie o TIPO |
+| Menos coach / casos fake | ✅ | 5 times (Orion Reversa, Atlas, Lumen, Harbor, Cora); papéis antes do nome; copie o TIPO |
 | Nomes ligados a autores, não personagens inventados | ✅ | Labs citam autores; conceito sem teatro |
 | No Conceito: evitar **wave, semana, slide** no texto dos cartões | ✅ | Varredura S01–S16 |
 | Conteúdo denso e real (não teatro) | ✅ | Alinhado à densidade pedagógica |

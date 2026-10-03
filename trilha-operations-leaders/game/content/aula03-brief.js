@@ -4,14 +4,14 @@
  */
 export const AULA03_BRIEF = {
   1: {
-    titulo: "Vocabulário mínimo para orquestrar",
-    autor: "Teo · 6 pilares",
-    porque: "Você trouxe o arquivo da Aula 2. Antes de beber da ferramenta, a gente trava o método. No lab você cola o mesmo pedido em dois modelos. Sem língua compartilhada, cada um inventa o gate — e você não sabe o que está assinando.",
-    takeaway: "A IA acelera a execução. O gargalo continua sendo liderança e cultura. A decisão de autorizar continua sua.",
+    titulo: "Do Homework ao consolidado",
+    autor: "Teo · pedido com cláusulas",
+    porque: "Na Aula 2 você leu o seu time (STATIK). No lab, esse MD + o prompt vão para um chat. A IA devolve o consolidado nos 3 pilares — sem inventar o que o arquivo não tem.",
+    takeaway: "Homework preenchido → prompt → chat → consolidado. A IA organiza; você autoriza.",
     cards: [
-      { t: "Língua compartilhada", d: "Dez termos, do motor ao sistema. Sem isso, cada modelo inventa o que o time autorizou." },
-      { t: "Contrato do prompt", d: "Teo. Seis pilares. Prompt é contrato com cláusulas, não frase esperta." },
-      { t: "Gate humano", d: "Autonomia até o gate. Compare os dois outputs só na trava. Onde inventou dono, recusa." },
+      { t: "Insumo = seu MD", d: "Homework aula 02 semana 01.md. Sem o seu texto, o lab não começa." },
+      { t: "Um prompt, um chat", d: "Cole homework + prompt no ChatGPT ou Gemini. Peça o consolidado dos 3 pilares." },
+      { t: "Você autoriza", d: "No máximo 3 oportunidades com autor do Gantt. Inventou fato — risca." },
     ],
     track: [
       { k: "LLM", role: "Motor", d: "Gera e completa texto a partir do que recebe." },

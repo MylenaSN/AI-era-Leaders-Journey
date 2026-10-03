@@ -8,9 +8,9 @@ function labFiles(n) {
 export const LAB_DELIVERABLES = {
   1: {
     session: "Arena",
-    deliverable: "Consolidado dos 3 pilares a partir da leitura do seu time (propósito, demanda, capacidade, fluxo, urgência), com no máximo 3 oportunidades ancoradas em autor da Aula 2 e o bloco GATE HUMANO.",
-    why: "Você sobe o arquivo que preencheu. O modelo não completa com time genérico. Dois chats, o mesmo pedido. Na semana que vem o arquivo será o currículo — a regra é a mesma: sem fato, a linha não entra.",
-    outputs: ["1 arquivo Markdown"],
+    deliverable: "Pegue o Homework da Aula 2 (já preenchido) + o prompt do lab e cole num chat (ChatGPT ou Gemini). A saída é o consolidado do SEU time nos 3 pilares — Product · Tech Delivery · Human & AI — lendo propósito, demanda, capacidade, fluxo e urgência. No máximo 3 oportunidades, cada uma amarrada a um autor do Gantt da Aula 2. Sem fato no MD → SEM FATO.",
+    why: "Simples: o MD da Aula 2 é o insumo; a IA só organiza. Você autoriza o que entra no calendário.",
+    outputs: ["Lab aula 03 semana 01.md"],
     files: labFiles(1),
     artefato: null,
   },
@@ -148,9 +148,9 @@ export const LAB_DELIVERABLES = {
 export const LAB_PERSONAS = {
   1: {
     persona:
-      "Gestor sênior de times de tecnologia. Hard: leitura AS IS do serviço (STATIK) e consolidado em Product Management, Tech Delivery e Human & AI Teams. Soft: só aponta prática de autor da Aula 2 quando o fato do arquivo sustenta; recusa exemplo A/B como se fosse o time do aluno.",
+      "Gestor sênior de times de tecnologia. Hard: ler o Homework STATIK e devolver consolidado nos 3 pilares (Product · Tech Delivery · Human & AI), no máximo 3 oportunidades com autor do Gantt. Soft: sem fato no MD = SEM FATO; não usa Exemplo A/B como se fosse o time do aluno.",
     reforco:
-      "Auditor de gates humanos — mesmo perfil da semana 01, modo reforço. Hard: compara dois outputs lado a lado e aponta onde o gate foi enfraquecido. Soft: zero tolerância a ensaio consultivo; só markdown pronto para salvar.",
+      "Auditor do consolidado — confere se cada oportunidade tem fato no Homework e autor do Gantt. Soft: risca dono, número ou autor inventado.",
   },
   2: {
     persona:

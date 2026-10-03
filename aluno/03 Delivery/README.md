@@ -23,4 +23,4 @@ Invariante: mudança de cadência sem arquivo em `semana-09/` não entra no engi
 
 | Elemento | Tipo | Papel | Liga a |
 |----------|------|-------|--------|
-| `semana-07/` … `semana-10/` | pasta | Artefatos da semana | [`../README.md`](../README.md) · [`semana-09.md`](../../../../../../../trilhas-conhecimento/AI-first-Systems-Leadership/densidade-pedagogica/semana-09.md) |
+| `semana-07/` … `semana-10/` | pasta | Artefatos da semana | [`../README.md`](../README.md) · [`semana-09.md`](../../../../../../../trilhas-conhecimento/AI-First-Operations-Leadership/densidade-pedagogica/semana-09.md) |

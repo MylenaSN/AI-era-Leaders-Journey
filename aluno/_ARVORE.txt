@@ -12,6 +12,8 @@ aluno/
   01 Pre-voo/
     semana-01/  Homework aula 02 semana 01.md  Lab aula 03 semana 01.md  input-semana-01.txt
     semana-02/  Homework aula 02 semana 02.md  Lab aula 03 semana 02.md
+                Mapa de cargos aula 02 semana 02.md  A3 Report aula 02 semana 02.md
+                Curriculo aula 03 semana 02.md  Link Project aula 03 semana 02.txt
   02 Produto/
     semana-03/  Homework aula 02 semana 03.md  Lab aula 03 semana 03.md
     semana-04/  Homework aula 02 semana 04.md  Lab aula 03 semana 04.md

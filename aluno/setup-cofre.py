@@ -28,26 +28,52 @@ WAVE = {
 STUB = "# {name}\n\n(preencha na semana — o engine lê este nome)\n"
 
 # Manter alinhado a setup-jornada.py extras_semana e arquivos-jornada.js
-def a3_report_body():
+def corpo_s02(nome, fallback):
     path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "01 Pre-voo",
         "semana-02",
-        "A3 Report aula 02 semana 02.md",
+        nome,
     )
     if os.path.isfile(path):
         with open(path, encoding="utf-8") as fh:
             return fh.read()
-    return "# A3 Report aula 02 semana 02.md\n\nPreencha o A3 de 1 pagina.\n"
+    return fallback
 
 
 def extras_semana(n):
     catalog = {
         2: [
-            ("A3 Report aula 02 semana 02.md", a3_report_body()),
+            (
+                "Mapa de cargos aula 02 semana 02.md",
+                corpo_s02(
+                    "Mapa de cargos aula 02 semana 02.md",
+                    "# Mapa de cargos aula 02 semana 02.md\n\n"
+                    "Seu time em 3 colunas: encolhe | nasce | muda de natureza.\n"
+                    "Pelo trabalho da semana, nao pelo titulo.\n",
+                ),
+            ),
+            (
+                "A3 Report aula 02 semana 02.md",
+                corpo_s02(
+                    "A3 Report aula 02 semana 02.md",
+                    "# A3 Report aula 02 semana 02.md\n\nPreencha o A3 de 1 pagina do gap #1.\n",
+                ),
+            ),
+            (
+                "Curriculo aula 03 semana 02.md",
+                corpo_s02(
+                    "Curriculo aula 03 semana 02.md",
+                    "# Curriculo aula 03 semana 02.md\n\n"
+                    "Auditoria do lab: pedido usado, as duas ferramentas comparadas,\n"
+                    "linhas recusadas por falta de evidencia e nota do Jobscan.\n"
+                    "Zero linhas recusadas = lab nao feito.\n",
+                ),
+            ),
             (
                 "Link Project aula 03 semana 02.txt",
-                "Cole o link do A3 no Project (Claude, GPT ou Gemini).\n"
+                "Cole o link do Project (Claude, GPT ou Gemini) com o mapa de cargos,\n"
+                "o A3 e o curriculo. A Semana 03 le esse contexto.\n"
                 "O Lab aula 03 semana 02.md e o export em markdown.\n",
             ),
         ],

@@ -1,0 +1,39 @@
+{
+  "slug": "agile-school",
+  "nome": "Agile School",
+  "fonte": "domain/partners/agile-school/tema.md",
+  "estilo": "Minimalista, corporativo, tech-forward. Flat, espaço em branco, acento com moderação.",
+  "fontes": {
+    "titulo": "Montserrat",
+    "corpo": "Roboto"
+  },
+  "cores": {
+    "bg": "#F4F4F4",
+    "panel": "#FFFFFF",
+    "ink": "#333333",
+    "dim": "#666666",
+    "line": "#F0F0F0",
+    "conceito": "#5B2D8E",
+    "raiz": "#E88F2B",
+    "path": "#2BC0B4",
+    "gate": "#3B67B0",
+    "hall": "#C83E74",
+    "wave": "#3B67B0"
+  },
+  "waves": {
+    "1": "#3B67B0",
+    "2": "#2BC0B4",
+    "3": "#E88F2B",
+    "4": "#5B2D8E",
+    "5": "#C83E74"
+  },
+  "assinatura": [
+    "#5B2D8E",
+    "#3B67B0",
+    "#2BC0B4",
+    "#C8D400",
+    "#FFD700",
+    "#E88F2B",
+    "#C83E74"
+  ]
+}

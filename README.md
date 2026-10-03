@@ -17,7 +17,7 @@ O aluno **guarda** cada output na pasta da jornada (`AI-First-Operations-Leaders
 | Card FL2 | [`FEAT-JORNADA`](../core/FL02-loop-frameworks/loop-workitem/features/jornada-aluno-jogo/README.md) |
 | BC | [`jornada-aluno.md`](../core/bounded-contexts/jornada-aluno.md) |
 | Projeto | [`prj-aiel-as`](../core/FL02-loop-frameworks/loop-workitem/projetos/prj-aiel-as/) |
-| Tabuleiro (regras) | [`jogo-dois-trilhos.md`](../trilhas-conhecimento/AI-first-Systems-Leadership/densidade-pedagogica/jogo-dois-trilhos.md) |
+| Tabuleiro (regras) | [`jogo-dois-trilhos.md`](../trilhas-conhecimento/AI-First-Operations-Leadership/densidade-pedagogica/jogo-dois-trilhos.md) |
 
 Spec Mosby: [`spec-mosby.md`](./spec-mosby.md).
 
@@ -56,8 +56,10 @@ Inventário desta pasta. Qualquer alteração aqui atualiza **esta** seção no 
 | [`emitir-casos-exemplo.py`](./emitir-casos-exemplo.py) | rotina | Espelha os exemplos no `aluno/` e na V.2 | `python emitir-casos-exemplo.py` |
 | [`brand-config.json`](./brand-config.json) | projeção | HEX/tipo do slug ativo (commitado; não inventar) | [`partners/agile-school/brand-config.json`](../partners/agile-school/brand-config.json) · [`emitir-brand-config.py`](./emitir-brand-config.py) |
 | [`emitir-brand-config.py`](./emitir-brand-config.py) | rotina | Opcional: copia projeção do kit Parceiro | `python emitir-brand-config.py --slug=agile-school` |
-| [`cofre-artefatos.md`](./cofre-artefatos.md) | contrato | Nomes Homework/Lab + Drive + git | [`laboratorio-ia-mercado.md`](../trilhas-conhecimento/AI-first-Systems-Leadership/densidade-pedagogica/laboratorio-ia-mercado.md) |
+| [`cofre-artefatos.md`](./cofre-artefatos.md) | contrato | Nomes Homework/Lab + Drive + git | [`laboratorio-ia-mercado.md`](../trilhas-conhecimento/AI-First-Operations-Leadership/densidade-pedagogica/laboratorio-ia-mercado.md) |
 | [`jornada.manifest.schema.json`](./jornada.manifest.schema.json) | schema | O que o engine aceita | [`aluno/jornada.manifest.json`](./aluno/jornada.manifest.json) |
 | [`pedidos-jornada-resumo.md`](./pedidos-jornada-resumo.md) | doc | Inventário de pedidos + status | trilha cognitiva |
 | [`REVISAO-2026-08-30.md`](./REVISAO-2026-08-30.md) | doc | Log da revisão noturna | [`game/js/app.js`](./game/js/app.js) |
 | [`aluno/`](./aluno/README.md) | pacote | Workspace: 5 waves → 16 semanas | Drive do aluno · 3 prompts · S09 IDE |
+| [`trilhas-live.md`](./trilhas-live.md) | catálogo | Slugs e URLs no ar — Loop Game lê isto primeiro | `#loop-game` |
+| [`trilhas/`](./trilhas/README.md) | slugs | Outras formações; AFOL não mora aqui (fonte = este `play.html`) | Journey `/{slug}/` |

@@ -46,7 +46,7 @@ O `Lab aula 03 semana XX.md` e o envelope. Algumas semanas pedem mais arquivos n
 
 ## Arquivos extras do Lab (alem do .md)
 
-- Semana 02 — `A3 Report aula 02 semana 02.md` (Aula 2) e `Link Project aula 03 semana 02.txt`
+- Semana 02 — `Mapa de cargos aula 02 semana 02.md` e `A3 Report aula 02 semana 02.md` (Aula 2); `Curriculo aula 03 semana 02.md` e `Link Project aula 03 semana 02.txt` (Aula 3)
 - Semana 03 — `Diagrama hierarquia aula 03 semana 03.md`
 - Semana 04 — `Grafico KR aula 03 semana 04.csv`
 - Semana 05 — `Link prototipo aula 03 semana 05.txt` e `Jornada persona aula 03 semana 05.md` (salve a imagem como `Jornada persona aula 03 semana 05.png`)
@@ -127,8 +127,10 @@ def stub_homework(n):
     if n == 2:
         return (
             "# {0}\n\n"
-            "A entrega desta aula e o `A3 Report aula 02 semana 02.md` nesta pasta.\n"
-            "Preencha o A3 e cole o mesmo texto aqui e em `{1}`.\n"
+            "A entrega desta aula sao `Mapa de cargos aula 02 semana 02.md` e\n"
+            "`A3 Report aula 02 semana 02.md` nesta pasta.\n"
+            "Preencha os dois e cole o mesmo texto aqui e em `{1}`.\n"
+            "O gap #1 do mapa e a vaga-alvo da Aula 3.\n"
         ).format(name, input_name(n))
     return (
         "# {0}\n\n"
@@ -137,28 +139,54 @@ def stub_homework(n):
     ).format(name, input_name(n))
 
 
-def a3_report_body():
+def corpo_s02(nome, fallback):
     path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "aluno",
         "01 Pre-voo",
         "semana-02",
-        "A3 Report aula 02 semana 02.md",
+        nome,
     )
     if os.path.isfile(path):
         with open(path, encoding="utf-8") as fh:
             return fh.read()
-    return "# A3 Report aula 02 semana 02.md\n\nPreencha o A3 de 1 pagina.\n"
+    return fallback
 
 
 def extras_semana(n):
     """Nomes e stubs dos arquivos extras do Lab. Manter alinhado a arquivos-jornada.js."""
     catalog = {
         2: [
-            ("A3 Report aula 02 semana 02.md", a3_report_body()),
+            (
+                "Mapa de cargos aula 02 semana 02.md",
+                corpo_s02(
+                    "Mapa de cargos aula 02 semana 02.md",
+                    "# Mapa de cargos aula 02 semana 02.md\n\n"
+                    "Seu time em 3 colunas: encolhe | nasce | muda de natureza.\n"
+                    "Pelo trabalho da semana, nao pelo titulo.\n",
+                ),
+            ),
+            (
+                "A3 Report aula 02 semana 02.md",
+                corpo_s02(
+                    "A3 Report aula 02 semana 02.md",
+                    "# A3 Report aula 02 semana 02.md\n\nPreencha o A3 de 1 pagina do gap #1.\n",
+                ),
+            ),
+            (
+                "Curriculo aula 03 semana 02.md",
+                corpo_s02(
+                    "Curriculo aula 03 semana 02.md",
+                    "# Curriculo aula 03 semana 02.md\n\n"
+                    "Auditoria do lab: pedido usado, as duas ferramentas comparadas,\n"
+                    "linhas recusadas por falta de evidencia e nota do Jobscan.\n"
+                    "Zero linhas recusadas = lab nao feito.\n",
+                ),
+            ),
             (
                 "Link Project aula 03 semana 02.txt",
-                "Cole o link do A3 no Project (Claude, GPT ou Gemini).\n"
+                "Cole o link do Project (Claude, GPT ou Gemini) com o mapa de cargos,\n"
+                "o A3 e o curriculo. A Semana 03 le esse contexto.\n"
                 "O Lab aula 03 semana 02.md e o export em markdown.\n",
             ),
         ],

@@ -8,7 +8,7 @@ atualizado_em: "2026-08-30"
 
 Legenda: **✅** feito · **🟡** parcial · **❌** pendente
 
-Fonte da trilha: [`04-trilha-cognitiva-master-ai-first-systems-leadership.md`](../trilhas-conhecimento/AI-first-Systems-Leadership/04-trilha-cognitiva-master-ai-first-systems-leadership.md)
+Fonte da trilha: [`04-trilha-cognitiva-master-ai-first-operations-leadership.md`](../trilhas-conhecimento/AI-First-Operations-Leadership/04-trilha-cognitiva-master-ai-first-operations-leadership.md)
 
 ---
 
@@ -41,7 +41,7 @@ Fonte da trilha: [`04-trilha-cognitiva-master-ai-first-systems-leadership.md`](.
 |--------|--------|-------|
 | Terminologia: **Conceito · Homework Prático · Lab IA** | ✅ | Abas `#mesa-tabs` |
 | Header na aula: **só** `Semana XX — [frase trilha cognitiva]` | ✅ | `weekTitle()` + `SEMANA_TRILHA`; sem AI-era Leaders na mesa |
-| Mapa: título **AI-first Systems Leadership** (sem subtítulo mantra) | ✅ | Só `#title` no mapa |
+| Mapa: título **AI-First Operations Leadership** (sem subtítulo mantra) | ✅ | Só `#title` no mapa |
 | HUD mapa: Semanas + Waves no canto | ✅ | `#hud-streak`, `#hud-waves` |
 | HUD na aula: só andamento (ex. Conceito · 1/4) | ✅ | `#hud-lesson` |
 | Explorer alinhado às 5 waves da trilha master | 🟡 | Ordem W05→W01; título do explorer = frase da próxima semana |
@@ -94,7 +94,7 @@ Fonte da trilha: [`04-trilha-cognitiva-master-ai-first-systems-leadership.md`](.
 | Item | Status |
 |------|--------|
 | Pop-up de nota aparecendo embaixo da aula | ✅ | Dialog fora do `#app`, centralizado; não auto-abre no `renderMesa` |
-| Título duplicado no mapa | ✅ | Mapa: AI-first Systems Leadership; aula: Semana + trilha |
+| Título duplicado no mapa | ✅ | Mapa: AI-First Operations Leadership; aula: Semana + trilha |
 | Setup não abria no mapa | 🟡 | Dock com `z-index` no mapa; confirmar clique na ilha |
 | Bússola Wave 01 + exemplos além do Nexo (11 set 2026) | ✅ | Base (não chão); 5 times em `casos-exemplo.js`; A3 teatro ágil na S02 |
 

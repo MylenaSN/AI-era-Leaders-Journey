@@ -31,10 +31,10 @@ aluno/
 | [`jornada.manifest.json`](./jornada.manifest.json) | índice | Lista de ids que o engine aponta | schema [`../jornada.manifest.schema.json`](../jornada.manifest.schema.json) |
 | [`01 Pre-voo/`](./01%20Pre-voo/README.md) | wave | semanas 01–02 | nomes em [`cofre-artefatos.md`](../cofre-artefatos.md) |
 | [`02 Produto/`](./02%20Produto/README.md) | wave | semanas 03–06 | idem |
-| [`03 Delivery/`](./03%20Delivery/README.md) | wave | semanas 07–10 · casa do ciclo no IDE | [`semana-09.md`](../../../../../../trilhas-conhecimento/AI-first-Systems-Leadership/densidade-pedagogica/semana-09.md) |
+| [`03 Delivery/`](./03%20Delivery/README.md) | wave | semanas 07–10 · casa do ciclo no IDE | [`semana-09.md`](../../../../../../trilhas-conhecimento/AI-First-Operations-Leadership/densidade-pedagogica/semana-09.md) |
 | [`04 Times hibridos/`](./04%20Times%20hibridos/README.md) | wave | semanas 11–14 + adendo medida | [`bonus-medida/`](./04%20Times%20hibridos/bonus-medida/README.md) |
 | [`05 Homeostase/`](./05%20Homeostase/README.md) | wave | semanas 15–16 | fechamento + git do engine |
-| [`setup-cofre.py`](./setup-cofre.py) | rotina | Cria árvore + stubs no Drive/CMD | [`plus-s01-setup-cofre.md`](../../../../../../trilhas-conhecimento/AI-first-Systems-Leadership/densidade-pedagogica/plus-s01-setup-cofre.md) · [`_ARVORE.txt`](./_ARVORE.txt) |
+| [`setup-cofre.py`](./setup-cofre.py) | rotina | Cria árvore + stubs no Drive/CMD | [`plus-s01-setup-cofre.md`](../../../../../../trilhas-conhecimento/AI-First-Operations-Leadership/densidade-pedagogica/plus-s01-setup-cofre.md) · [`_ARVORE.txt`](./_ARVORE.txt) |
 | [`setup-cofre.bat`](./setup-cofre.bat) | rotina | Atalho Windows (sem Python) | `setup-cofre.py` |
 | [`_ARVORE.txt`](./_ARVORE.txt) | mapa | Contrato visual da árvore | [`cofre-artefatos.md`](../cofre-artefatos.md) |
 | `agents/` | pasta | AGENT-01, 02, 03 — prompt raiz da autora | não é Library |

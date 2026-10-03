@@ -1,11 +1,11 @@
 # A3 Report aula 02 semana 02.md
 
-Uma página. Um problema real do time. A IA pode ser escrivã — não dona da contramedida.
+Uma página. O **gap #1** do `Mapa de cargos aula 02 semana 02.md` — não um problema genérico. A IA pode ser escrivã, nunca dona da contramedida.
 
 Imagem do formulário: `A3 Report aula 02 semana 02.png` (na emissão: `a3-report-template.png`).
 
 Aula 2: você preenche este arquivo (ainda sem a IA escolher a ação).  
-Aula 3: cola este A3 no Project e classifica cada contramedida em kaizen | kaikaku.
+Aula 3: sobe no Project junto com o currículo da vaga-alvo. Gap de cargo fecha por kaizen — uma pessoa, uma habilidade, um ciclo. Reorganização anunciada é kaikaku e quase sempre é a decisão errada.
 
 ---
 
@@ -167,4 +167,4 @@ Próximo problema (um, o próximo A3):
 ---
 
 Cole o mesmo texto em `Homework aula 02 semana 02.md` e em `input-semana-02.txt`.  
-Na Aula 3, suba este arquivo no Project e salve o link em `Link Project aula 03 semana 02.txt`.
+Na Aula 3, suba este arquivo e o mapa de cargos no Project e salve o link em `Link Project aula 03 semana 02.txt`.

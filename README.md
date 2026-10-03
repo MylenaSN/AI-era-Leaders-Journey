@@ -49,8 +49,7 @@ Inventário desta pasta. Qualquer alteração aqui atualiza **esta** seção no 
 | [`README.md`](./README.md) | domain | Hub do Game (FEAT-JORNADA) | BC [`jornada-aluno.md`](../core/bounded-contexts/jornada-aluno.md) · stub FL2 |
 | [`spec-mosby.md`](./spec-mosby.md) | spec | DDD + Clean + USM | [`jornada-usuario.md`](../core/FL01-loop-universe/loop-arq/processos/jornada-usuario.md) |
 | [`play.html`](./play.html) | jogo | Shell HTML + campo do mapa | [`game/`](./game/README.md) |
-| [`setup-jornada.bat`](./setup-jornada.bat) | rotina | Windows — cria pasta no Desktop | [`game/js/app.js`](./game/js/app.js) Setup |
-| [`setup-jornada.sh`](./setup-jornada.sh) | rotina | macOS/Linux — mesma árvore no Desktop | [`game/js/app.js`](./game/js/app.js) Setup |
+| [`setup-jornada.py`](./setup-jornada.py) | rotina | Cria no Desktop a pasta unificada + 5 Waves | [`game/js/app.js`](./game/js/app.js) Setup · comando no terminal |
 | [`game/`](./game/README.md) | runtime | CSS + engine ES modules + ilhas de conteúdo | `play.html` · `brand-config.json` · `aluno/` |
 | [`game/content/casos-exemplo.js`](./game/content/casos-exemplo.js) | conteúdo | 5 times de exemplo (um por wave) | Lab aula 03 · `Prompt exemplo` |
 | [`emitir-casos-exemplo.py`](./emitir-casos-exemplo.py) | rotina | Espelha os exemplos no `aluno/` e na V.2 | `python emitir-casos-exemplo.py` |

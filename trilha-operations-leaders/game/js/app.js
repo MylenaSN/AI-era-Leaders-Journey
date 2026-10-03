@@ -427,11 +427,11 @@ export function startJornada(cfg = {}) {
       casca:"# Lab aula 03 semana 01.md\n\n## Time\n(1 linha)\n\n## Product Management\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Tech Delivery\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Human & AI Teams\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Três oportunidades\n1.\n2.\n3.\n\n## GATE HUMANO\n- PARA: a IA não escolhe o que entra no calendário do time\n- QUEM:\n- SÓ DEPOIS:\n- FRASE DE TRAVA: Nenhuma oportunidade deste arquivo entra no calendário sem o sim de [QUEM].\n",
       prompt:"Anexe o Homework aula 02 semana 01.md preenchido. Persona: gestor sênior de times de tecnologia. Tarefa: consolidar AS IS em Product Management, Tech Delivery e Human & AI Teams, e apontar no máximo 3 oportunidades com autor da Aula 2 só quando o fato sustentar. Exemplo A e Exemplo B não são o meu time. Seção vazia = SEM FATO. Output = Lab aula 03 semana 01.md. Não resuma no chat.",
       tips:["Você sobe o seu arquivo. O modelo não completa com time genérico.","Dois chats, o mesmo pedido. Compare onde cada um inventou autor ou número.","Na semana que vem o arquivo será o currículo. A regra é a mesma: sem fato, a linha não entra."] },
-    2: { autor:"Liu · lost in the middle", cap:"Currículo da vaga-alvo + Loop Vitae", tool:"Enhancv", alt:"Kickresume / ChatGPT / Gemini Notebook", href:"https://app.enhancv.com", href2:"https://gemini.google.com/notebooklm",
-      etapas: [{ tools: [{ label:"Enhancv", href:"https://app.enhancv.com" }, { label:"GPT", href:"https://chatgpt.com" }, { label:"Jobscan", href:"https://www.jobscan.co" }, { label:"Gemini Notebook", href:"https://gemini.google.com" }] }],
-      out:"PDF do currículo + linhas recusadas + nota do Jobscan + esteira Loop Vitae ativada (só linguagem natural)",
-      prompt:"Improving_Curriculum v.1 — prompt de propósito, cinco campos, sem Persona/Tom/Exemplos.\nPurpose: ajustar meu currículo para a vaga que eu sonho, lendo meu LinkedIn.\nAção: reescreva minhas experiências profissionais usando palavras-chave da vaga e focando em resultados quantificáveis.\nTool: Enhancv. Input: perfil do LinkedIn + anúncio da vaga.\nOutput Ideal: keywords da vaga, senioridade correta, resultado/impacto, linguagem executiva.\n\nDepois rode a v.1.1 — acrescente NO FIM: não invente número, cargo nem data; sem evidência no perfil, marque [FALTA EVIDÊNCIA].\n\nDepois do PDF: suba a pasta loop-vitae no Drive, abra um Notebook Gemini e cole o comando do README_LOOP_VITAE_Esteira_Agentica.md. A esteira roda só em linguagem natural (markdown) — sem script.",
-      tips:["Prompt comprido enterra o próprio pedido. Aqui ele encolhe.","Zero linhas recusadas = você não leu o que a IA escreveu.","PDF fecha o lab de forma; Loop Vitae é a esteira — Notebook Gemini, só MD, sem script."] },
+    2: { autor:"Liu · lost in the middle", cap:"Fase 1 — PDF no Enhancv", tool:"Enhancv", alt:"Kickresume", href:"https://app.enhancv.com", href2:"https://app.enhancv.com",
+      etapas: [{ tools: [{ label:"Enhancv", href:"https://app.enhancv.com" }] }],
+      out:"PDF do currículo (ATS) gerado no Enhancv com login LinkedIn",
+      prompt:"FASE 1 — só Enhancv. Entre com LinkedIn, cole o pedido curto Improving_Curriculum e exporte o PDF. Loop Vitae é a Fase 2.",
+      tips:["Fase 1 = PDF no Enhancv. Não cole A3 nem input-semana neste pedido.","Login com LinkedIn → cole o prompt → exporte PDF legível (texto, não imagem).","Fase 2 (Loop Vitae no Notebook Gemini) vem depois do PDF."] },
     3: { autor:"Wei · CoT", cap:"Diagrama da hierarquia", tool:"Claude ou GPT e mermaid", alt:"Napkin.ai (free)", href:"https://claude.ai", href2:"https://www.napkin.ai",
       etapas: [
         { tools: [{ label:"Claude", href:"https://claude.ai" }, { label:"GPT", href:"https://chatgpt.com" }] },
@@ -536,12 +536,12 @@ export function startJornada(cfg = {}) {
       a2:["Gantt da sala: reconhecer métodos nas eras (âncora, não lista decorativa)","Homework aula 02 semana 01.md — 5 seções STATIK; digite só em Sua resposta","Exemplos A e B são de outros times; a Aula 3 só lê o que você escreveu"] },
     2: { metodo:"Mapa de cargos em 3 colunas e Documento A3 (1 página)",
       a1:[
-        { t: "O organograma real", d: "Numa empresa de IA: Receita 74, Engenharia e Produto 51, Growth 21, Operações 18, Pesquisa 5. Pesquisa é 3% — a aterrissagem é o produto." },
-        { t: "Nasceu e foi absorvido", d: "Enterprise Deployment tem 25 vagas, metade da engenharia. Customer Support tem 1. O cargo que a IA comeu está visível no quadro." },
-        { t: "Os 3 pilares como lente", d: "Product lê Core Experience e Growth; Tech Delivery lê Deployment e Platform; Human & AI lê Agents, Safety e o vazio do suporte." }
+        { t: "Quem a empresa de IA contrata", d: "Olhe a página de vagas, não o organograma do PowerPoint. Exemplo real: Receita 74 · Engenharia/Produto 51 · Growth 21 · Operações 18 · Pesquisa 5. Pesquisa é ~3%. O modelo não é o produto — colocar o modelo em uso é." },
+        { t: "Cargo que nasce × cargo que some", d: "Nasce: Enterprise Deployment (25 vagas — metade da engenharia) = fazer a IA funcionar no cliente. Some/encolhe: Customer Support (1 vaga). O trabalho não sumiu: foi para produto, agente e deployment." },
+        { t: "Ler o quadro com os 3 pilares", d: "Use Product · Tech Delivery · Human & AI (Semana 01) como lente: Product → Core Experience e Growth; Tech Delivery → Deployment e Platform; Human & AI → Agents, Safety e o buraco do suporte." }
       ],
-      a2Short: ["Mapa de cargos do time", "Gap #1 nomeado", "A3 sem IA"],
-      a2:["Time em 3 colunas: encolhe, nasce, muda de natureza — pelo trabalho, não pelo título","A terceira coluna é a maior e a mais ignorada","A3 de 1 página do gap #1, contramedidas ainda sem IA"] },
+      a2Short: ["3 colunas do meu time", "Gap #1", "A3 de 1 página"],
+      a2:["Liste as pessoas do SEU time pelo trabalho real (não pelo título). Coloque cada uma em: encolhe · nasce · muda de natureza.","A coluna 'muda de natureza' costuma ser a maior — e a que ninguém nomeia. Escolha o gap #1 ali.","A3 de 1 página desse gap: situação, alvo, causas, contramedidas. Ainda sem IA — a caneta é sua."] },
     3: { metodo:"Hierarquia de Valor (Impacto → Outcome → Output → Task)",
       a1:[
         { t: "Output, outcome, impact", d: "Output é entrega; outcome é mudança observável; impact é efeito no negócio." },
@@ -1536,7 +1536,7 @@ export function startJornada(cfg = {}) {
     document.getElementById("tips").innerHTML = "";
     document.getElementById("dock-who").textContent = "Setup · pastas no Desktop";
     document.getElementById("dock-title").textContent = phraseLines("Criar pastas da jornada");
-    document.getElementById("dock-meta").textContent = "Windows: setup-jornada.bat · macOS/Linux: ./setup-jornada.sh";
+    document.getElementById("dock-meta").textContent = "Terminal · Python 3 · 5 pastas Wave";
     document.getElementById("dock-prompt").textContent = setupPrompt();
     document.getElementById("dock-prompt").style.display = "";
     actions.innerHTML = '<button type="button" id="btn-setup-done" class="btn-feito">✓ Feito</button>';
@@ -1550,32 +1550,54 @@ export function startJornada(cfg = {}) {
     return [
       "PASTAS DA JORNADA — Desktop",
       "",
-      "Na pasta do jogo (domain/game):",
+      "Cria no Desktop: AI-First-Operations-Leadership-Jornada/",
+      "com 5 pastas (uma por Wave). Os arquivos de cada aula entram depois.",
+      "",
+      "Nao renomeie pastas. O jogo aponta para estes nomes:",
+      "  01 Pre-voo          → Wave 01 — O Despertar",
+      "  02 Produto          → Wave 02 — O Mapa de Valor",
+      "  03 Delivery         → Wave 03 — A Engenharia do Ciclo",
+      "  04 Times hibridos   → Wave 04 — Humano & IA",
+      "  05 Homeostase       → Wave 05 — Seu potencial humano",
+      "",
+      "────────────────────────────────",
+      "PRE-REQUISITO: Python 3",
+      "────────────────────────────────",
+      "",
+      "Confira se ja tem:",
+      "  python --version",
+      "  (ou)  py --version",
+      "  (ou)  python3 --version",
+      "",
+      "Se NAO tiver Python 3:",
+      "",
+      "Windows (Prompt de Comando, como Administrador se pedir):",
+      "  winget install Python.Python.3.12",
+      "",
+      "macOS (Terminal, com Homebrew):",
+      "  brew install python3",
+      "",
+      "Linux (Debian/Ubuntu):",
+      "  sudo apt update && sudo apt install -y python3",
+      "",
+      "Feche e abra o terminal de novo. Confira com python --version.",
+      "",
+      "────────────────────────────────",
+      "COMANDO DO SETUP",
+      "────────────────────────────────",
+      "",
+      "1) Abra o terminal na pasta do jogo (domain/game).",
+      "2) Rode UM destes blocos:",
       "",
       "Windows (Prompt de Comando):",
-      "  setup-jornada.bat",
+      "  python setup-jornada.py",
+      "  (se der erro:  py setup-jornada.py)",
       "",
       "macOS / Linux (Terminal):",
-      "  chmod +x setup-jornada.sh",
-      "  ./setup-jornada.sh",
+      "  python3 setup-jornada.py",
       "",
-      "Cria no Desktop: AI-First-Operations-Leadership-Jornada/",
-      "16 semanas + plus, com os arquivos prontos para preencher.",
-      "",
-      "Em cada semana:",
-      "  · Cole o Homework aula 02 em input-semana-XX.txt",
-      "    e em Homework aula 02 semana XX.md",
-      "  · Semana 02: a entrega e o A3 Report aula 02 semana 02.md",
-      "    (mesmo texto no Homework e no input-semana-02.txt)",
-      "  · Salve o Lab aula 03 em Lab aula 03 semana XX.md",
-      "  · Use Prompt lab e Prompt exemplo desta pasta",
-      "    (o exemplo muda a cada wave — copie o TIPO, nao a empresa)",
-      "  · Se a pasta ja tiver outros arquivos do Lab",
-      "    (diagrama, link, grafico, deck), preencha esses — nao crie outro nome",
-      "",
-      "Os scripts (bat, sh, py) estao em Setup jornada.md",
-      "",
-      "Nao renomeie pastas nem arquivos. O jogo aponta para estes nomes.",
+      "Pronto. Volte ao jogo e marque Feito.",
+      "Nas proximas aulas vamos colocar os arquivos dentro das Waves.",
     ].join("\n");
   }
 
@@ -1584,7 +1606,7 @@ export function startJornada(cfg = {}) {
     persist();
     if (mode === "map") {
       closeDock();
-      toast("Setup ok — entre na semana 01 quando quiser o Lab aula 03.");
+      toast("Setup ok — 5 Waves no Desktop. Os arquivos entram aula a aula.");
       renderMapGadgets();
       syncHud();
       return;

@@ -54,21 +54,44 @@ const WEEK_SPECS = {
       + "Repita no fim: Exemplo A e Exemplo B não são o time do aluno.",
   },
   2: {
-    persona:
-      "Você reescreve a FORMA do currículo com palavras-chave da vaga. Hard: prompt de propósito (cinco campos), posição da restrição no fim (Liu), legibilidade ATS. Soft: gate do fato — número, cargo ou data sem prova vira [FALTA EVIDÊNCIA].",
-    contextoExtra:
-      "Insumos: perfil LinkedIn + anúncio da vaga-alvo (cargo que não existia há três anos, de preferência). "
-      + "A auditoria vai em `Curriculo aula 03 semana 02.md`. O texto gerado pode ir em `Lab aula 03 semana 02.md`. "
-      + "Depois do PDF: ativar Loop Vitae no Notebook Gemini — só linguagem natural (markdown), sem script.",
-    tarefa: (f) =>
-      "Rode Improving_Curriculum v.1 (Purpose / Ação / Tool / Input / Output Ideal) e depois v.1.1 com a restrição NO FIM: "
-      + "não invente número, cargo nem data; sem evidência no perfil, marque [FALTA EVIDÊNCIA]. "
-      + "Compare Enhancv (ou Kickresume) com ChatGPT ou Gemini. Liste linhas recusadas. "
-      + "Anote a nota do Jobscan. Salve o texto em `" + f.a3 + "` e a auditoria em `Curriculo aula 03 semana 02.md`. "
-      + "Feche com o passo Loop Vitae: pasta no Drive + comando do README_LOOP_VITAE_Esteira_Agentica.md.",
-    formato: () =>
-      "Markdown com: (1) texto do currículo; (2) tabela de linhas recusadas; (3) nota Jobscan; "
-      + "(4) checklist Loop Vitae (Workspace conectado). Não resuma no chat.",
+    // Fase 1 = só Enhancv → PDF. Sem Teo 6 pilares, sem A3, sem Loop Vitae neste prompt.
+    livre: [
+      "FASE 1 — Gerar o currículo em PDF no Enhancv",
+      "",
+      "1) Abra https://app.enhancv.com e entre com o seu LinkedIn.",
+      "2) Cole o bloco abaixo na ferramenta (ou no campo de pedido da IA do Enhancv).",
+      "3) Exporte o PDF (texto legível, não imagem).",
+      "4) Salve o PDF no Drive. Depois volte ao jogo — a Fase 2 (Loop Vitae) é outro passo.",
+      "",
+      "--- cole a partir daqui ---",
+      "",
+      "Purpose:",
+      "Ajustar meu currículo para a vaga que eu sonho, lendo meu LinkedIn.",
+      "",
+      "Ação:",
+      "Reescreva minhas experiências profissionais usando palavras-chave da vaga",
+      "e focando em resultados quantificáveis.",
+      "",
+      "Tool:",
+      "Enhancv",
+      "",
+      "Input:",
+      "Upload do meu perfil LinkedIn + anúncio da vaga-alvo",
+      "[cole a URL do LinkedIn]",
+      "[cole ou anexe o anúncio da vaga]",
+      "",
+      "Output Ideal:",
+      "Keywords da vaga, senioridade correta, resultado/impacto,",
+      "linguagem mais executiva e moderna — em layout ATS (uma coluna).",
+      "",
+      "Não invente número, cargo nem data: se o resultado não estiver no meu perfil,",
+      "marque como [FALTA EVIDÊNCIA] em vez de preencher.",
+      "",
+      "--- até aqui ---",
+      "",
+      "Entrega desta fase: o PDF do currículo.",
+      "Não peça A3, input-semana nem Loop Vitae agora — isso é a Fase 2.",
+    ].join("\n"),
   },
   3: {
     tarefa: () =>
@@ -166,6 +189,12 @@ const WEEK_SPECS = {
 export function buildLabPrompt(week, { reforco, homework, files, lab, persona }) {
   const pad = String(week).padStart(2, "0");
   const spec = WEEK_SPECS[week] || {};
+
+  // Prompt livre: cola direto na ferramenta (ex.: Enhancv). Sem envelope Teo.
+  if (spec.livre) {
+    return typeof spec.livre === "function" ? spec.livre({ reforco, files, lab }) : spec.livre;
+  }
+
   const personaBlock = spec.persona || persona;
   const ctx = [
     ctxHomework(homework, pad, files.a2),

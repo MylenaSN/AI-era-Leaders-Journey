@@ -35,14 +35,14 @@ export const AULA03_BRIEF = {
     ],
   },
   2: {
-    titulo: "Currículo da vaga-alvo + esteira Loop Vitae",
+    titulo: "Fase 1 — currículo em PDF no Enhancv",
     autor: "Liu · lost in the middle",
-    porque: "Prompt comprido enterra o pedido. Você gera o PDF com gate do fato — e depois ativa a esteira Loop Vitae no Notebook Gemini. A esteira é markdown em linguagem natural: sem script.",
-    takeaway: "A IA reescreve a forma. O fato é seu. O PDF fecha o lab de forma; Loop Vitae fecha o sistema.",
+    porque: "Prompt comprido enterra o pedido. Nesta fase você só gera o PDF no Enhancv, logando com o LinkedIn. Loop Vitae (Notebook Gemini) é a Fase 2 — depois do PDF.",
+    takeaway: "A IA reescreve a forma. O fato é seu. Fase 1 fecha com o PDF; Fase 2 ativa a esteira.",
     cards: [
-      { t: "Prompt do tamanho certo", d: "Comece curto. Quando crescer, pague com critério e exemplo — não com adjetivo. Posição é instrução." },
-      { t: "Gate do fato", d: "Número que você não prova numa entrevista não entra. Zero linhas recusadas = lab não feito." },
-      { t: "Loop Vitae sem script", d: "Pasta no Drive + Notebook Gemini + comando do README. Contratos em MD. Workspace conectado." },
+      { t: "Pedido curto", d: "Cinco campos + restrição do fato no fim. Sem Persona, sem Tom, sem A3." },
+      { t: "Enhancv + LinkedIn", d: "Entre no app.enhancv.com com o LinkedIn, cole o prompt e exporte o PDF." },
+      { t: "Fase 2 depois", d: "Loop Vitae no Notebook Gemini só depois do PDF pronto — não misture os dois passos." },
     ],
   },
   3: {

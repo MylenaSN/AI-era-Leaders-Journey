@@ -15,10 +15,10 @@ export const LAB_DELIVERABLES = {
     artefato: null,
   },
   2: {
-    session: "Project",
-    deliverable: "PDF do currículo da vaga-alvo + auditoria (linhas recusadas, Jobscan) + esteira Loop Vitae ativada no Notebook Gemini (só linguagem natural / markdown, sem script).",
-    why: "O PDF fecha a forma. Loop Vitae fecha o sistema: pasta no Drive, um comando no Notebook, Banco de Evidências no centro.",
-    outputs: ["PDF ATS + auditoria .md", "Notebook Gemini com Workspace conectado"],
+    session: "Enhancv",
+    deliverable: "Fase 1: PDF do currículo gerado no Enhancv (login LinkedIn). Fase 2 (depois): Loop Vitae no Notebook Gemini.",
+    why: "Um passo de cada vez. Agora só a forma em PDF. A esteira vem na Fase 2.",
+    outputs: ["PDF ATS no Drive"],
     files: labFiles(2),
     artefato: null,
   },
@@ -154,9 +154,9 @@ export const LAB_PERSONAS = {
   },
   2: {
     persona:
-      "Redatora de forma de currículo com gate do fato. Hard: Improving_Curriculum v.1/v.1.1, comparação vertical × chat frontier, Jobscan, ATS-plain vs executiva. Soft: recusa número inventado; ativa Loop Vitae em linguagem natural no Notebook Gemini.",
+      "Guia da Fase 1 no Enhancv: login LinkedIn, pedido curto Improving_Curriculum, exportar PDF ATS. Soft: não misturar A3 nem Loop Vitae nesta fase.",
     reforco:
-      "Auditor de currículo + esteira — confere linhas recusadas, nota do Jobscan e se o Notebook Gemini tem Workspace conectado com o comando do README_LOOP_VITAE. Soft: zero tolerância a script; a esteira é markdown.",
+      "Revisor da Fase 1 — confere se saiu PDF legível (texto) e se o pedido tinha a restrição [FALTA EVIDÊNCIA] no fim. Soft: Fase 2 (Loop Vitae) só depois do PDF.",
   },
   3: {
     persona:

@@ -1,17 +1,49 @@
 # Setup jornada.md
 
-Cria no Desktop a pasta `AI-First-Operations-Leadership-Jornada/`.
+Cria no Desktop a pasta unificada `AI-First-Operations-Leadership-Jornada/` com **5 pastas de Wave**. Os arquivos de cada aula entram depois, quando a formação pedir.
 
-Na pasta do jogo (`domain/game`):
+## Pré-requisito: Python 3
 
-- Windows: `setup-jornada.bat`
-- macOS / Linux: `chmod +x setup-jornada.sh` e `./setup-jornada.sh`
+```text
+python --version
+```
 
-Em cada semana:
-1. Cole o Homework aula 02 em `input-semana-XX.txt` e em `Homework aula 02 semana XX.md`.
-2. Semana 02: a entrega é o `A3 Report aula 02 semana 02.md` (mesmo texto no Homework e no input).
-3. Abra `Prompt lab aula 03 semana XX.md`, cole no chat, salve em `Lab aula 03 semana XX.md`.
-4. `Prompt exemplo aula 03 semana XX.md` é o exemplo da wave — só para ver o tipo de evidência (copie o TIPO, não a empresa).
-5. Se a pasta já tiver outros arquivos do Lab, preencha esses. Não crie outro nome.
+Se não tiver:
 
-Os scripts completos (bat, sh, py) estão em `outer-layers/outputs/ini-afsl-as V.2/aulas/setup-jornada.md`.
+| Sistema | Comando |
+|---------|---------|
+| Windows | `winget install Python.Python.3.12` |
+| macOS | `brew install python3` |
+| Linux (Debian/Ubuntu) | `sudo apt update && sudo apt install -y python3` |
+
+Feche e abra o terminal. Confira de novo com `python --version` (ou `python3` / `py`).
+
+## Comando (na pasta `domain/game`)
+
+**Windows (Prompt de Comando):**
+
+```text
+python setup-jornada.py
+```
+
+Se falhar: `py setup-jornada.py`
+
+**macOS / Linux (Terminal):**
+
+```text
+python3 setup-jornada.py
+```
+
+## O que nasce no Desktop
+
+```text
+AI-First-Operations-Leadership-Jornada/
+  01 Pre-voo/            ← Wave 01 — O Despertar
+  02 Produto/            ← Wave 02 — O Mapa de Valor
+  03 Delivery/           ← Wave 03 — A Engenharia do Ciclo
+  04 Times hibridos/     ← Wave 04 — Humano & IA
+  05 Homeostase/         ← Wave 05 — Seu potencial humano
+  LEIA-ME.md
+```
+
+Não renomeie essas pastas. O jogo aponta para estes nomes.

@@ -1,71 +1,47 @@
 # Prompt lab aula 03 semana 02.md
 
-`Improving_Curriculum v.1` — prompt de proposito. Cinco campos.
-Nao tem Persona, nao tem Tom, nao tem Exemplos. E de proposito.
+## Fase 1 — PDF no Enhancv (agora)
 
-Rode no **Enhancv** (app.enhancv.com) e depois em **ChatGPT ou Gemini**.
+Objetivo: gerar o currículo em **PDF**.
+Ferramenta: [app.enhancv.com](https://app.enhancv.com) — entre com o **seu LinkedIn**.
+
+Cole o bloco abaixo na ferramenta:
 
 ```
 Purpose:
-Qual a melhor ferramenta gratuita para gerar um curriculo ajustado para ler
-seu linkedin e ajustar seu curriculo para a vaga que voce sonha?
+Ajustar meu currículo para a vaga que eu sonho, lendo meu LinkedIn.
 
-Acao:
-Reescreva minhas experiencias profissionais usando palavras-chave da vaga
-e focando em resultados quantificaveis.
+Ação:
+Reescreva minhas experiências profissionais usando palavras-chave da vaga
+e focando em resultados quantificáveis.
 
 Tool:
 Enhancv
 
 Input:
-Upload Perfil linkedin
-[cole a URL do seu perfil]
+Upload do meu perfil LinkedIn + anúncio da vaga-alvo
+[cole a URL do LinkedIn]
+[cole ou anexe o anúncio da vaga]
 
 Output Ideal:
-Eu faco a reescrita das experiencias com foco em:
-keywords da vaga
-senioridade correta
-resultado/impacto
-linguagem mais executiva e moderna
-```
+Keywords da vaga, senioridade correta, resultado/impacto,
+linguagem mais executiva e moderna — em layout ATS (uma coluna).
 
-## Depois rode a v.1.1
-
-A v.1 pede "resultados quantificaveis" e nao diz de onde vem o numero.
-E o convite para o modelo inventar. Acrescente **no fim** — a posicao importa:
-
-```
-Nao invente numero, cargo nem data: se o resultado nao estiver no meu perfil,
+Não invente número, cargo nem data: se o resultado não estiver no meu perfil,
 marque como [FALTA EVIDÊNCIA] em vez de preencher.
 ```
 
-Compare as duas saidas. A diferenca entre elas e a aula.
+Exporte o PDF (texto legível, não imagem). Salve no Drive.
 
-## Segundo turno (replica HITL)
+Não cole A3, `input-semana-02` nem Loop Vitae neste pedido. Isso é outra fase.
 
-```
-Gate do fato: nenhuma linha com numero entra sem eu conseguir provar.
-Liste separadamente tudo que voce inferiu e nao leu no meu perfil.
-Para cada palavra-chave da vaga que voce usou, aponte onde no meu perfil ela se sustenta.
-Se nao se sustenta, tire. Curriculo curto e verdadeiro ganha de longo e generico.
-```
+## Fase 2 — Loop Vitae (depois do PDF)
 
-## Entrega
+Quando o PDF estiver pronto, a formação pede a esteira no Notebook Gemini
+(`README_LOOP_VITAE_Esteira_Agentica.md`). Só linguagem natural — sem script.
 
-Texto num Google Docs limpo, exportado em PDF legivel por ATS (texto, nao imagem).
-Depois cole o curriculo e a vaga no **Jobscan** (5 escaneamentos gratis por mes) e anote a nota.
+## Auditoria (quando a aula pedir)
 
-## Depois do PDF — Loop Vitae
-
-O PDF fecha a forma. A esteira fecha o sistema.
-
-1. Suba a pasta `loop-vitae` no Drive (so ela).
-2. Abra um **Notebook Gemini** novo e permita o Google Workspace.
-3. Cole o comando de `README_LOOP_VITAE_Esteira_Agentica.md` — troque so o caminho da pasta.
-4. Suba o curriculo. Confirme: WORKSPACE conectado.
-
-Loop Vitae **nao e um agent**. E o Notebook. Os contratos sao markdown em **linguagem natural**. Nao ha script para rodar.
-
-Nesta pasta, este lab tambem pede:
-- `Curriculo aula 03 semana 02.md` — a auditoria: pedido usado, comparacao das ferramentas, linhas recusadas, nota do Jobscan, Loop Vitae ativado
+- `Curriculo aula 03 semana 02.md`
+- `Lab aula 03 semana 02.md` — texto / envelope do lab
 - `Link Project aula 03 semana 02.txt`

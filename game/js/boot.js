@@ -3,6 +3,6 @@
  * O BC Trilhas não depende deste runtime.
  */
 import { MAP_ISLANDS } from "../content/map-islands.js";
-import { startJornada } from "./app.js?v=20261003f";
+import { startJornada } from "./app.js?v=20261003g";
 
 startJornada({ islands: MAP_ISLANDS });

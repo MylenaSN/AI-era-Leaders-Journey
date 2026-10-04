@@ -1,6 +1,7 @@
 # Prompt exemplo aula 03 semana 01.md
 
-Exemplo · Orion Varejo · Logística Reversa. Serve para ver o tipo de fato. Não copie no lugar do seu homework.
+Exemplo · Orion Varejo · Logística Reversa.  
+**Mesmo texto** do painel lateral no game (Homework → Lab aula 03). Serve para ver o tipo de fato. Não copie no lugar do seu homework.
 
 ```
 ## 1. Propósito

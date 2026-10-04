@@ -4,14 +4,14 @@
  */
 export const AULA03_BRIEF = {
   1: {
-    titulo: "Do Homework ao consolidado",
+    titulo: "First Loop — do fato ao consolidado",
     autor: "Teo · pedido com cláusulas",
-    porque: "Na Aula 2 você leu o seu time (STATIK). No lab, esse MD + o prompt vão para um chat. A IA devolve o consolidado nos 3 pilares — sem inventar o que o arquivo não tem.",
-    takeaway: "Homework preenchido → prompt → chat → consolidado. A IA organiza; você autoriza.",
+    porque: "O coração do prompt é a análise humana da Aula 2. Homework + prompt → chat → consolidado dos 3 pilares. Orion é o tipo; a verdade é a do seu time.",
+    takeaway: "Fato → autor do Gantt → oportunidade. Sem evidência, a linha não vive.",
     cards: [
-      { t: "Insumo = seu MD", d: "Homework aula 02 semana 01.md. Sem o seu texto, o lab não começa." },
-      { t: "Um prompt, um chat", d: "Cole homework + prompt no ChatGPT ou Gemini. Peça o consolidado dos 3 pilares." },
-      { t: "Você autoriza", d: "No máximo 3 oportunidades com autor do Gantt. Inventou fato — risca." },
+      { t: "Insumo = seu MD", d: "Homework aula 02 (Sua resposta). Sem isso, o lab não começa." },
+      { t: "Prompt → chat", d: "Cole homework + prompt. Peça o consolidado Product · Tech Delivery · Human & AI." },
+      { t: "Gate do fato", d: "No máximo 3 oportunidades com autor do Gantt. Inventou — risca." },
     ],
     track: [
       { k: "LLM", role: "Motor", d: "Gera e completa texto a partir do que recebe." },

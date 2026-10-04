@@ -1,32 +1,37 @@
 # Prompt exemplo aula 03 semana 01.md
 
 Exemplo · Orion Varejo · Logística Reversa.  
-**Mesmo texto** do painel lateral no game (Homework → Lab aula 03). Serve para ver o tipo de fato. Não copie no lugar do seu homework.
+**First Loop · ouro** — mesmo texto do painel lateral no game (Homework → Lab aula 03).  
+Copie o **tipo** de evidência. Não copie no lugar do seu homework.
 
 ```
-## 1. Propósito
-Objetivo: jornada de devolução (solicitação → triagem no CD → crédito / reestoque). O WMS legado continua no ar.
-Medida de hoje: stories apresentadas na review. Ciclo devolução → crédito e % no SLA não entram na pauta.
-O que tira o sono: marketplace ops e CX entram na frente de qualquer tela que o CD pediu.
-Reclamação: a operação não usa o fluxo que a squad mostrou como pronto — ainda carimba "não conforme" no papel.
-Autor reconhecido: Deming — a review olha o card, não o uso.
+Squad Leader Lunna lidera a Squad Logística Reversa na Orion Varejo (big tech do varejo). Núcleo: Product Leader Bartolomeu, Tech Lead Yoshi, dois engenheiros, Designer Pops, QA Maggie. Escopo: app e torre de devoluções — solicitação do cliente, triagem no CD, reestoque ou descarte. WMS legado no ar.
 
-## 2. Demanda
-Quem pede: CX, marketplace ops e Product Leader Bartolomeu.
-Canal: roadmap de épicos do PMO. O pedido do CD Extrema não tem fila.
-Planejado × não planejado: não medi.
-Autor reconhecido: Ford — a linha existe; o pedido de fora fura.
+## 1. Propósito e demanda (Sua resposta)
+- Objetivo e como mede: reduzir o ciclo devolução → crédito; medimos stories Done no prazo — mas o CD Extrema ainda carimba "não conforme" no papel.
+- O que tira o sono: Review premia demo da tela; % de devoluções fechadas no SLA não entra na pauta.
+- Reclamação: operação do CD e CX pedem previsibilidade do crédito e fila que não explode no pós-Black Friday.
+- Autor: Perri / Deming.
+
+## 2. Fontes de demanda
+- Quem pede: marketplace ops e CX furam a fila no Slack; canal oficial é o board do Bartolomeu.
+- Planejado × não planejado: ~55% planejado / 45% urgências de devolução — Maggie anotou na última sprint.
+- Autor: Ford / Anderson.
+
+## 3. Capacidade
+- Especialista: só Yoshi mexe no conector do WMS de RMA; o resto puxa front da jornada do cliente.
+- Tarefas ao mesmo tempo: 3–4 por pessoa quando o CD trava a homologação.
+- Autor: Taylor / Skelton e Pais.
 
 ## 4. Fluxo
-Etapas: solicitação → triagem → crédito / reestoque.
-Onde para: homologação no CD Extrema. Uma pessoa libera o lote.
-Regra para avançar: card Done = apresentado, não usado no chão do CD.
-Autor reconhecido: Ford (gargalo) e Deming (pronto sem uso).
+- Etapas: Análise → Dev → Review → Homologação no CD → Deploy.
+- Onde mais para: Homologação no CD Extrema (uma pessoa de operações libera o lote).
+- Autor: Ford / Ohno.
 
 ## 5. Urgência
-O diretor de Supply pediu copiloto para classificar motivo de devolução.
-O que já está combinado: o modelo pode rascunhar a classificação; operação e a squad leader autorizam o que vira regra no WMS.
-Autor reconhecido: Ng — humano autoriza. Teo — o pedido de IA ainda não é o sistema.
+- Pico de devolução ou pedido do diretor de Supply para tudo; card anterior fica parado.
+- Próximo item: topo do board — nem sempre seguido.
+- Autor: Ohno / Ng.
 
-Time: Squad Logística Reversa, Orion Varejo. Squad Leader Lunna.
+(Exemplos A e B do Homework NÃO são este time.)
 ```

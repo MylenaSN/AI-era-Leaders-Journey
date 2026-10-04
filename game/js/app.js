@@ -1,8 +1,8 @@
-import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js?v=20261003g";
-import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003g";
-import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003g";
-import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003g";
-import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261003g";
+import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js?v=20261003h";
+import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003h";
+import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003h";
+import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003h";
+import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261003h";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];
@@ -539,7 +539,7 @@ export function startJornada(cfg = {}) {
       a2:[
         "Gantt da sala: reconhecer métodos nas eras\n(âncora, não lista decorativa)",
         "Homework aula 02 semana 01.md\n— 5 seções STATIK; digite só em Sua resposta",
-        "Exemplos A e B são de outros times; o coração do prompt na Aula 3 é a sua análise humana de líder que você gerou na Aula 2"
+        "Exemplos A e B / Orion são de outros times; o coração do prompt na Aula 3 é a sua análise humana de líder da Aula 2"
       ] },
     2: { metodo:"Jornada profissional (MD) → currículo da vaga-alvo",
       a1:[

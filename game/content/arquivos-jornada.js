@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Nomes que o aluno lê no Drive e no cofre.
  * Wave acessível · semana-XX · Homework aula 02 / Lab aula 03.
  */
@@ -7,7 +7,7 @@ export const WAVE_DIR = {
   2: "02 Produto",
   3: "03 Delivery",
   4: "04 Times hibridos",
-  5: "05 Homeostase",
+  5: "05 Equilibrio AI-Era",
 };
 
 const WEEK_WAVE = {

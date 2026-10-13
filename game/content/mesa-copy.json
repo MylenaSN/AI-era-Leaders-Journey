@@ -47,16 +47,18 @@
         "porque": "O coração do prompt é a análise humana da Aula 2. Homework + prompt → chat → consolidado dos 3 pilares. Orion é o tipo; a verdade é a do seu time.",
         "cards": [
           {
-            "t": "INSUMO = SEU MD"
+            "t": "Insumo = seu MD"
           },
           {
-            "t": "PROMPT → CHAT"
+            "t": "Prompt → chat"
           },
           {
-            "d": "No máximo 3 oportunidades com autor do Gantt.\nInventou — risca."
+            "t": "Gate do fato"
           }
-        ]
-      }
+        ],
+        "takeaway": "Fato → autor do Gantt → oportunidade. Sem evidência, a linha não vive."
+      },
+      "deliverable": "Pegue o Homework da Aula 2 (já preenchido) + o prompt do lab e cole num chat (ChatGPT ou Gemini). A saída é o consolidado do SEU time nos 3 pilares — Product · Tech Delivery · Human & AI — lendo propósito, demanda, capacidade, fluxo e urgência. No máximo 3 oportunidades, cada uma amarrada a um autor do Gantt da Aula 2. Sem fato no MD → SEM FATO."
     },
     "2": {
       "metodo": "Jornada profissional (MD) → currículo da vaga-alvo",
@@ -699,5 +701,5 @@
       }
     }
   },
-  "updatedAt": "2026-10-13T17:45:57.645Z"
+  "updatedAt": "2026-10-13T17:47:25.028Z"
 }

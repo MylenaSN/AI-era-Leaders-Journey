@@ -47,10 +47,11 @@
         "porque": "O coração do prompt é a análise humana da Aula 2. Homework + prompt → chat → consolidado dos 3 pilares. Orion é o tipo; a verdade é a do seu time.",
         "cards": [
           {
-            "t": "Insumo = seu MD"
+            "t": "INSUMO = SEU MD"
           },
           {
-            "t": "Prompt → chat"
+            "t": "Prompt → chat",
+            "d": "Cole homework + prompt.\nO prompt solicita o consolidado Product · Tech Delivery · Human & AI aplicando as boas práticas em 6 elementos de um prompt."
           },
           {
             "t": "Gate do fato"
@@ -702,5 +703,5 @@
       }
     }
   },
-  "updatedAt": "2026-10-13T17:52:13.912Z"
+  "updatedAt": "2026-10-13T18:53:09.232Z"
 }

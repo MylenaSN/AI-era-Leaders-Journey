@@ -1873,7 +1873,6 @@ export function startJornada(cfg = {}) {
 
   function applyScore(n) {
     closeNotaDialog();
-    const lab = labOf();
     if (n === 1) {
       scoreLock = false;
       phase = "lab";
@@ -1899,15 +1898,32 @@ export function startJornada(cfg = {}) {
     winLock = true;
     if (!save.won.includes(week)) save.won.push(week);
     persist();
-    let mapDelay = 150;
     if (week === 16) {
       toast("Campo fechado. Exporte o manifest.");
-      mapDelay = 1600;
     } else if (isBonus(week)) {
       toast("Bônus no diretório. A trilha das semanas 11 a 16 continua no mesmo lugar.");
-      mapDelay = 900;
     }
-    setTimeout(showMap, mapDelay);
+    openSemanaDoneDialog(week);
+  }
+
+  function openSemanaDoneDialog(wk) {
+    const dlg = document.getElementById("semana-done-dialog");
+    const msg = document.getElementById("semana-done-msg");
+    const title = document.getElementById("semana-done-title");
+    const label = "Semana " + String(wk).padStart(2, "0");
+    if (title) title.textContent = label + " concluída";
+    if (msg) msg.textContent = label + " concluída com Sucesso \\o/";
+    if (dlg && !dlg.open) dlg.showModal();
+  }
+
+  function closeSemanaDoneDialog() {
+    const dlg = document.getElementById("semana-done-dialog");
+    if (dlg && dlg.open) dlg.close();
+  }
+
+  function confirmSemanaDone() {
+    closeSemanaDoneDialog();
+    showMap();
   }
 
   function toast(msg, bad) {
@@ -2288,6 +2304,10 @@ export function startJornada(cfg = {}) {
         syncHud();
       }
     };
+  }
+  const semanaDoneOk = document.getElementById("semana-done-ok");
+  if (semanaDoneOk) {
+    semanaDoneOk.onclick = () => confirmSemanaDone();
   }
   document.getElementById("btn-clear").onclick = () => {
     if (mode !== "level") return;

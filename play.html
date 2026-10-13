@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="game/css/play.css?v=20261013n" />
+  <link rel="stylesheet" href="game/css/play.css?v=20261013o" />
 </head>
 <body>
   <div id="app">
@@ -156,11 +156,19 @@
     <form method="dialog" class="nota-form" id="nota-form">
       <p class="nota-kicker">Fechamento · Lab aula 03</p>
       <h2 id="nota-title">Como foi o output?</h2>
-      <div id="nota-lead" class="nota-context"></div>
+      <div id="nota-lead" class="nota-context" hidden></div>
       <div id="nota-scores" class="nota-scores-stack"></div>
       <button type="button" id="nota-later" class="ghost nota-back">Voltar ao lab</button>
     </form>
   </dialog>
-  <script type="module" src="game/js/boot.js?v=20261013n"></script>
+  <dialog id="semana-done-dialog" class="nota-dialog semana-done-dialog" aria-labelledby="semana-done-title">
+    <form method="dialog" class="nota-form semana-done-form">
+      <p class="nota-kicker">Fechamento da semana</p>
+      <h2 id="semana-done-title">Semana concluída</h2>
+      <p id="semana-done-msg" class="semana-done-msg">Semana XX concluída com Sucesso \o/</p>
+      <button type="button" id="semana-done-ok" class="btn-feito semana-done-ok">OK</button>
+    </form>
+  </dialog>
+  <script type="module" src="game/js/boot.js?v=20261013o"></script>
 </body>
 </html>

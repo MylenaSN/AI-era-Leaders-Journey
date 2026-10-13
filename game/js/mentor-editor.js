@@ -100,7 +100,6 @@ function setEditing(on) {
   document.body.classList.toggle("mentor-editing", editing);
   const a = api();
   if (a && typeof a.setEditMode === "function") a.setEditMode(editing);
-  // re-render cria DOM novo — reaplica contenteditable várias vezes
   syncContentEditable();
   setTimeout(syncContentEditable, 50);
   setTimeout(syncContentEditable, 200);
@@ -150,6 +149,11 @@ function setByPath(obj, path, value) {
     const k = parts[i];
     const next = parts[i + 1];
     const nextIsIndex = /^\d+$/.test(next);
+    if (/^\d+$/.test(k) && Array.isArray(cur)) {
+      if (cur[Number(k)] == null) cur[Number(k)] = nextIsIndex ? [] : {};
+      cur = cur[Number(k)];
+      continue;
+    }
     if (cur[k] == null) cur[k] = nextIsIndex ? [] : {};
     cur = cur[k];
   }
@@ -259,7 +263,8 @@ export function bootMentorEditor() {
   document.addEventListener("keydown", onKeydown, true);
   document.addEventListener("keydown", onEditKeyGuard, true);
   document.addEventListener("keyup", onEditKeyGuard, true);
-  // Re-checa se app terminar de carregar; com sessão mentor liga edição sozinha
+
+  // Aguarda app.js; com sessao mentor valida, entra em edicao automaticamente
   let n = 0;
   const wait = setInterval(() => {
     n++;
@@ -276,8 +281,9 @@ export function bootMentorEditor() {
     if (n > 48) {
       clearInterval(wait);
       refreshBar();
-      if (readSession() && !sessionMatchesPage(readSession(), detectSlugFromLocation())) {
-        toast("Sessão mentor não combina com esta URL — entre de novo em mentor.html");
+      const session = readSession();
+      if (session && !sessionMatchesPage(session, detectSlugFromLocation())) {
+        toast("Sessao mentor nao combina com esta URL — entre de novo em /mentor.html");
       }
     }
   }, 250);

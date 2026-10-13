@@ -212,11 +212,32 @@ function onKeydown(ev) {
   }
 }
 
+/** Space/Enter em <button> ativa o card — no modo edição só digita no texto. */
+function onEditKeyGuard(ev) {
+  if (!document.body.classList.contains("mentor-editing")) return;
+  const inEdit = ev.target.closest("[data-edit-path]");
+  if (!inEdit) return;
+  const inBtn = ev.target.closest("button");
+  if (!inBtn) return;
+  const isSpace = ev.key === " " || ev.code === "Space" || ev.key === "Spacebar";
+  const isEnter = ev.key === "Enter";
+  if (!isSpace && !isEnter) return;
+  ev.stopPropagation();
+  if (isEnter) {
+    ev.preventDefault();
+    return;
+  }
+  // botão dispara click no keyup do Space; keydown precisa inserir o espaço
+  if (ev.type === "keyup") ev.preventDefault();
+}
+
 export function bootMentorEditor() {
   ensureBar();
   refreshBar();
   document.addEventListener("dblclick", onShiftDblClick, true);
   document.addEventListener("keydown", onKeydown, true);
+  document.addEventListener("keydown", onEditKeyGuard, true);
+  document.addEventListener("keyup", onEditKeyGuard, true);
   // Re-checa se app terminar de carregar depois
   let n = 0;
   const wait = setInterval(() => {

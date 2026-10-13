@@ -47,7 +47,8 @@
         "porque": "O coração do prompt é a análise humana da Aula 2. Homework + prompt → chat → consolidado dos 3 pilares. Orion é o tipo; a verdade é a do seu time.",
         "cards": [
           {
-            "t": "INSUMO = SEU MD"
+            "t": "INSUMO = SEU MD",
+            "d": "Homework aula 02"
           },
           {
             "t": "PROMPT → CHAT",
@@ -55,7 +56,7 @@
           },
           {
             "t": "Gate do fato",
-            "d": "3 oportunidades de melhoria lendo seu processo atual."
+            "d": "3 oportunidades de melhoria com a leitura do SEU PROCESSO ATUAL."
           }
         ],
         "takeaway": "Fato → Análise → Oportunidades"
@@ -704,5 +705,5 @@
       }
     }
   },
-  "updatedAt": "2026-10-13T18:55:32.866Z"
+  "updatedAt": "2026-10-13T18:56:44.595Z"
 }

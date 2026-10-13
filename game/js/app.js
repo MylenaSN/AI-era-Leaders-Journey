@@ -2,7 +2,7 @@
 import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003h";
 import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003h";
 import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003h";
-import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261003h";
+import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261013p";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];
@@ -798,7 +798,7 @@ export function startJornada(cfg = {}) {
   }
 
   function loadMesaCopy() {
-    return fetch("game/content/mesa-copy.json?v=20261013n")
+    return fetch("game/content/mesa-copy.json?v=20261013p")
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("mesa-copy"))))
       .then((copy) => {
         applyMesaCopy(copy);
@@ -1417,8 +1417,12 @@ export function startJornada(cfg = {}) {
       chunks.slice(0, n).join("\n\n"),
     ];
     if (n >= chunks.length) {
-      const pv = ex.pv.map((row) => row.t + ": " + row.d).join("\n");
-      lines.push("", "Referência de output:", pv, "========== FIM ==========");
+      const pvRows = Array.isArray(ex.pv) ? ex.pv : [];
+      if (pvRows.length) {
+        const pv = pvRows.map((row) => row.t + ": " + row.d).join("\n");
+        lines.push("", "Referência de output:", pv);
+      }
+      lines.push("========== FIM ==========");
     }
     return lines.join("\n");
   }

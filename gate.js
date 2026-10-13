@@ -3,7 +3,10 @@
   const PASS = "human loop";
 
   function norm(s) {
-    return String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+    return String(s || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
   }
 
   if (sessionStorage.getItem(KEY) === "1") {

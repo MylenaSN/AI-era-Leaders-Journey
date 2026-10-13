@@ -8,9 +8,11 @@ atualizado_em: "2026-10-13"
 
 Fonte que o **Loop Game** lê **antes** de perguntar ao mentor. Uma linha = uma URL isolada. Ninguém edita a pasta de outra linha.
 
-A capa [`http://game.patronloop.com/`](http://game.patronloop.com/) é índice / gate — não é play de trilha.
+A capa [`http://game.patronloop.com/`](http://game.patronloop.com/) abre o **login mentor** (default). Não é play de trilha.
 
-**Login mentor (edição em produção):** [`mentor.html`](http://game.patronloop.com/mentor.html) — escolhe a trilha, cola PAT de sessão, edita a mesa (lápis / disquete ou Ctrl+Alt+S). Isolamento por slug.
+**Login mentor (edição em produção):** [`/`](http://game.patronloop.com/) ou [`mentor.html`](http://game.patronloop.com/mentor.html) — escolhe a trilha, cola PAT de sessão, edita a mesa (lápis / disquete ou Ctrl+Alt+S). Isolamento por slug.
+
+**Gate do aluno (senha `human loop`):** [`jornada.html`](http://game.patronloop.com/jornada.html) — ativo sempre; depois do login correto, a sessão fica em `sessionStorage` até fechar a aba. Sem chave na sessão = pede senha de novo.
 
 ## Catálogo
 

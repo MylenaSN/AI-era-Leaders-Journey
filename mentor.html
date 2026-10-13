@@ -79,12 +79,12 @@
     <select id="trilha" required></select>
 
     <label for="pat">GitHub PAT (Contents: Write no Journey)</label>
-    <input id="pat" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_… ou ghp_…" required />
-    <p class="hint">Fine-grained: repo <strong>MylenaSN/AI-era-Leaders-Journey</strong>, Contents Read and write — só a pasta da sua trilha.</p>
+    <input id="pat" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_… · ghp_… · gho_…" required />
+    <p class="hint">Fine-grained: repo <strong>MylenaSN/AI-era-Leaders-Journey</strong>, Contents Read and write — só a pasta da sua trilha. Também aceita token do <code>gh auth</code> (<code>gho_</code>).</p>
 
     <button type="submit" id="go">Entrar na mesa</button>
     <p class="err" id="err"></p>
-    <p class="foot">Alunos não usam este domínio. Game = Lab IA para mentores.</p>
+    <p class="foot">Capa padrão do domínio. Aluno com senha: <a href="jornada.html">jornada.html</a>.</p>
   </form>
 
   <script type="module">
@@ -113,8 +113,8 @@
         err.textContent = "Trilha inválida.";
         return;
       }
-      if (!/^(github_pat_|ghp_)/.test(token)) {
-        err.textContent = "Cole um PAT GitHub válido (github_pat_… ou ghp_…).";
+      if (!/^(github_pat_|ghp_|gho_)/.test(token)) {
+        err.textContent = "Cole um PAT GitHub válido (github_pat_…, ghp_… ou gho_…).";
         return;
       }
       clearSession();

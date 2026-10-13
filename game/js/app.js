@@ -536,13 +536,13 @@ export function startJornada(cfg = {}) {
       a1:[
         { t: "As 5 revoluções", d: "Entender o fio das cinco Revoluções Industriais e o padrão de substituição/reestruturação de papéis em cada era." },
         { t: "AI-era Leaders", d: "Na 5ª Revolução (era agêntica) o líder é orquestrador de sistemas híbridos — a IA fortalece papéis humanos." },
-        { t: "Padrões da Revolução", d: "Não tratar a era atual como ruptura sem precedente; o padrão histórico de reestruturação de papéis continua." }
+        { t: "Padrões da Revolução", d: "Não tratar a era atual como ruptura sem precedente;\no padrão histórico de reestruturação de papéis continua." }
       ],
-      a2Short: ["Gantt de autores", "Homework STATIK", "Sua resposta"],
+      a2Short: ["GANTT DE AUTORES", "HOMEWORK STATIK", "SUA ANÁLISE"],
       a2:[
-        "Gantt da sala: reconhecer métodos nas eras\n(âncora, não lista decorativa)",
-        "Homework aula 02 semana 01.md\n— 5 seções STATIK; digite só em Sua resposta",
-        "Exemplos A e B / Orion são de outros times; o coração do prompt na Aula 3 é a sua análise humana de líder da Aula 2"
+        "Gantt das Revoluções:\nReconhecer métodos nas eras\n(Grandes autores que influenciaram nossas revoluções industriais)",
+        "Homework aula 02 semana 01.md\n— 5 seções STATIK;\nPreencha o arquivo e mantenha salvo para utilizarmos na aula 03",
+        "Seções 1 e 2: Propósito e demanda\nSeções 3 e 4: Capacidade e fluxo \nSeção 5: Urgência\n\nO coração do prompt na Aula 3 é a sua análise humana de líder da Aula 2"
       ] },
     2: { metodo:"Jornada profissional (MD) → currículo da vaga-alvo",
       a1:[
@@ -803,7 +803,7 @@ export function startJornada(cfg = {}) {
   }
 
   function loadMesaCopy() {
-    return fetch("game/content/mesa-copy.json?v=20261013r")
+    return fetch("game/content/mesa-copy.json?v=20261013s")
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("mesa-copy"))))
       .then((copy) => {
         applyMesaCopy(copy);

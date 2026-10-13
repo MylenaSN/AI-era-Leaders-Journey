@@ -3,8 +3,8 @@
  * O BC Trilhas não depende deste runtime.
  */
 import { MAP_ISLANDS } from "../content/map-islands.js";
-import { startJornada } from "./app.js?v=20261013r";
-import { bootMentorEditor } from "./mentor-editor.js?v=20261013r";
+import { startJornada } from "./app.js?v=20261013s";
+import { bootMentorEditor } from "./mentor-editor.js?v=20261013s";
 
 startJornada({ islands: MAP_ISLANDS });
 bootMentorEditor();

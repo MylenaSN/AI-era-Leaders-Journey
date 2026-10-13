@@ -59,6 +59,7 @@ function refreshBar() {
   ensureBar();
   barEl.hidden = !ok;
   document.body.classList.toggle("mentor-session", ok);
+  document.body.classList.toggle("mentor-editing", ok && editing);
   const meta = document.getElementById("mentor-bar-meta");
   if (ok && meta) {
     const t = trilhaBySlug(session.slug);
@@ -69,19 +70,28 @@ function refreshBar() {
   const editBtn = document.getElementById("mentor-btn-edit");
   if (editBtn) {
     editBtn.classList.toggle("on", editing);
-    editBtn.querySelector("span").textContent = editing ? "Saindo…" : "Editar";
+    editBtn.querySelector("span").textContent = editing ? "Editando" : "Editar";
+    editBtn.title = editing
+      ? "Clique para sair do modo edição"
+      : "Editar textos (lápis)";
   }
 }
 
 function syncContentEditable() {
+  document.body.classList.toggle("mentor-editing", editing);
   const a = api();
   if (a && typeof a.applyEditAttrs === "function") {
     a.applyEditAttrs();
-    return;
   }
   document.querySelectorAll("[data-edit-path]").forEach((el) => {
-    el.setAttribute("contenteditable", editing ? "true" : "false");
-    if (!editing) el.blur();
+    if (editing) {
+      el.setAttribute("contenteditable", "true");
+      el.setAttribute("spellcheck", "true");
+    } else {
+      el.setAttribute("contenteditable", "false");
+      el.removeAttribute("spellcheck");
+      el.blur();
+    }
   });
 }
 
@@ -96,7 +106,8 @@ function setEditing(on) {
   setTimeout(syncContentEditable, 200);
   setTimeout(syncContentEditable, 500);
   refreshBar();
-  if (editing) toast("Modo edição — clique no texto com borda · Ctrl+Alt+S salva");
+  if (editing) toast("Modo edição ON — texto com borda roxa · Ctrl+Alt+S salva");
+  else toast("Modo edição OFF");
 }
 
 function toggleEdit() {
@@ -104,9 +115,19 @@ function toggleEdit() {
   const pageSlug = detectSlugFromLocation();
   if (!sessionMatchesPage(session, pageSlug)) {
     toast("Faça login de mentor nesta trilha");
+    location.href = "/mentor.html";
     return;
   }
   setEditing(!editing);
+}
+
+function tryAutoEdit() {
+  const session = readSession();
+  const pageSlug = detectSlugFromLocation();
+  if (!sessionMatchesPage(session, pageSlug)) return false;
+  if (!api()) return false;
+  if (!editing) setEditing(true);
+  return true;
 }
 
 function harvestEditsIntoCopy() {
@@ -238,13 +259,26 @@ export function bootMentorEditor() {
   document.addEventListener("keydown", onKeydown, true);
   document.addEventListener("keydown", onEditKeyGuard, true);
   document.addEventListener("keyup", onEditKeyGuard, true);
-  // Re-checa se app terminar de carregar depois
+  // Re-checa se app terminar de carregar; com sessão mentor liga edição sozinha
   let n = 0;
   const wait = setInterval(() => {
     n++;
-    if (api() || n > 40) {
+    refreshBar();
+    if (api()) {
+      const q = location.search || "";
+      if (/mentor=1|saved=/.test(q) || readSession()) {
+        if (tryAutoEdit()) {
+          clearInterval(wait);
+          return;
+        }
+      }
+    }
+    if (n > 48) {
       clearInterval(wait);
       refreshBar();
+      if (readSession() && !sessionMatchesPage(readSession(), detectSlugFromLocation())) {
+        toast("Sessão mentor não combina com esta URL — entre de novo em mentor.html");
+      }
     }
   }, 250);
 }

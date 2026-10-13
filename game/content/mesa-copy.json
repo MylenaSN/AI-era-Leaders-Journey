@@ -50,11 +50,11 @@
             "t": "INSUMO = SEU MD"
           },
           {
-            "t": "Prompt → chat",
-            "d": "Cole homework + prompt.\nO prompt solicita o consolidado Product · Tech Delivery · Human & AI aplicando as boas práticas em 6 elementos de um prompt."
+            "t": "PROMPT → CHAT"
           },
           {
-            "t": "Gate do fato"
+            "t": "Gate do fato",
+            "d": "3 oportunidades de melhoria no seu processo atual."
           }
         ],
         "takeaway": "Fato → Análise → Oportunidades"
@@ -703,5 +703,5 @@
       }
     }
   },
-  "updatedAt": "2026-10-13T18:53:09.232Z"
+  "updatedAt": "2026-10-13T18:54:09.569Z"
 }

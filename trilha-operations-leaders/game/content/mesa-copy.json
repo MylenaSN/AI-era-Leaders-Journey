@@ -56,9 +56,9 @@
             "t": "Gate do fato"
           }
         ],
-        "takeaway": "Fato → autor do Gantt → oportunidade. Sem evidência, a linha não vive."
+        "takeaway": "Fato → Análise → Oportunidades"
       },
-      "deliverable": "Pegue o Homework da Aula 2 (já preenchido) + o prompt do lab e cole num chat (ChatGPT ou Gemini). A saída é o consolidado do SEU time nos 3 pilares — Product · Tech Delivery · Human & AI — lendo propósito, demanda, capacidade, fluxo e urgência. No máximo 3 oportunidades, cada uma amarrada a um autor do Gantt da Aula 2. Sem fato no MD → SEM FATO."
+      "deliverable": "Pegue o Homework da Aula 2 (já preenchido) + o prompt do lab e cole num chat (ChatGPT ou Gemini). \nA saída é o consolidado do SEU time nos 3 pilares com oportunidades de melhoria processual — Product · Tech Delivery · Human & AI — lendo propósito, demanda, capacidade, fluxo e urgência."
     },
     "2": {
       "metodo": "Jornada profissional (MD) → currículo da vaga-alvo",
@@ -701,5 +701,5 @@
       }
     }
   },
-  "updatedAt": "2026-10-13T17:47:25.028Z"
+  "updatedAt": "2026-10-13T17:49:20.851Z"
 }

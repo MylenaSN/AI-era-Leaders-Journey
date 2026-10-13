@@ -285,6 +285,7 @@ export function startJornada(cfg = {}) {
   function bindScoreButtons() {
     document.querySelectorAll(".nota-score-block[data-n]").forEach((b) => {
       b.onclick = (ev) => {
+        if (mentorEditMode && ev.target.closest("[data-edit-path]")) return;
         ev.preventDefault();
         ev.stopPropagation();
         applyScore(Number(b.getAttribute("data-n")));
@@ -304,12 +305,14 @@ export function startJornada(cfg = {}) {
     const lab = labOf();
     const lead = document.getElementById("nota-lead");
     if (lead) {
-      const meta = LAB_DELIVERABLES[week] || {};
+      const meta = deliverableLive(week);
       lead.textContent = phraseLines(meta.deliverable || lab.out);
+      lead.setAttribute("data-edit-path", "weeks." + week + ".deliverable");
     }
     const box = document.getElementById("nota-scores");
     if (box) box.innerHTML = scoreScaleHtml();
     bindScoreButtons();
+    applyMentorEditAttrs();
     if (!dlg.open) dlg.showModal();
   }
 
@@ -731,11 +734,21 @@ export function startJornada(cfg = {}) {
     Object.keys(PLAY).forEach((k) => {
       const p = PLAY[k] || {};
       const l = LABS[k] || {};
+      const meta = LAB_DELIVERABLES[k] || LAB_DELIVERABLES[Number(k)] || {};
+      const briefSrc = typeof aula03BriefOf === "function" ? aula03BriefOf(Number(k)) : {};
       weeks[k] = {
         metodo: p.metodo || "",
         a1: (p.a1 || []).map((c) => ({ t: c.t || "", d: c.d || "" })),
         a2: (p.a2 || []).slice(),
         a2Short: (p.a2Short || []).slice(),
+        deliverable: meta.deliverable || "",
+        why: meta.why || "",
+        brief: {
+          autor: briefSrc.autor || l.autor || "",
+          porque: briefSrc.porque || "",
+          takeaway: briefSrc.takeaway || "",
+          cards: (briefSrc.cards || []).map((c) => ({ t: c.t || "", d: c.d || "" })),
+        },
         lab: {
           autor: l.autor || "",
           cap: l.cap || "",
@@ -768,6 +781,9 @@ export function startJornada(cfg = {}) {
       if (Array.isArray(w.a2)) PLAY[n].a2 = w.a2.slice();
       if (Array.isArray(w.a2Short)) PLAY[n].a2Short = w.a2Short.slice();
       if (w.casoBody != null) PLAY[n].casoBody = w.casoBody;
+      if (w.deliverable != null || w.why != null || w.brief) {
+        /* overrides ficam em mesaCopyLive; briefLive/deliverableLive leem dali */
+      }
       if (!LABS[n]) LABS[n] = {};
       if (w.lab && typeof w.lab === "object") {
         ["autor", "cap", "out", "prompt", "tool", "alt"].forEach((field) => {
@@ -782,7 +798,7 @@ export function startJornada(cfg = {}) {
   }
 
   function loadMesaCopy() {
-    return fetch("game/content/mesa-copy.json?v=20261013m")
+    return fetch("game/content/mesa-copy.json?v=20261013n")
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("mesa-copy"))))
       .then((copy) => {
         applyMesaCopy(copy);
@@ -790,6 +806,21 @@ export function startJornada(cfg = {}) {
       .catch(() => {
         mesaCopyLive = buildMesaCopyFromMemory();
       });
+  }
+
+  function applyMentorEditAttrs() {
+    document.querySelectorAll("[data-edit-path]").forEach((el) => {
+      if (mentorEditMode) {
+        el.setAttribute("contenteditable", "plaintext-only");
+        if (el.getAttribute("contenteditable") !== "plaintext-only") {
+          el.setAttribute("contenteditable", "true");
+        }
+        el.setAttribute("spellcheck", "true");
+      } else {
+        el.setAttribute("contenteditable", "false");
+        el.removeAttribute("spellcheck");
+      }
+    });
   }
 
   function exposeMentorApi() {
@@ -802,7 +833,9 @@ export function startJornada(cfg = {}) {
         mesaWeekPaint = 0;
         mesaA3Paint = "";
         if (mode === "level") renderMesa();
+        else applyMentorEditAttrs();
       },
+      applyEditAttrs: applyMentorEditAttrs,
       isEditMode: () => mentorEditMode,
       getWeek: () => week,
       toast: (msg) => toast(msg),
@@ -864,21 +897,53 @@ export function startJornada(cfg = {}) {
   }
 
   function a3BriefReady() {
-    const brief = aula03BriefOf(week);
+    const brief = briefLive();
     return brief.cards.every((_, i) => a3open[i]);
   }
 
+  function weekCopy(wk) {
+    const key = String(wk);
+    return (mesaCopyLive && mesaCopyLive.weeks && mesaCopyLive.weeks[key]) || null;
+  }
+
+  function briefLive() {
+    const brief = { ...aula03BriefOf(week) };
+    const ov = weekCopy(week) && weekCopy(week).brief;
+    if (!ov) return brief;
+    if (ov.autor != null) brief.autor = ov.autor;
+    if (ov.porque != null) brief.porque = ov.porque;
+    if (ov.takeaway != null) brief.takeaway = ov.takeaway;
+    if (Array.isArray(ov.cards)) {
+      brief.cards = ov.cards.map((c, i) => ({
+        t: c.t != null ? c.t : (brief.cards[i] && brief.cards[i].t) || "",
+        d: c.d != null ? c.d : (brief.cards[i] && brief.cards[i].d) || "",
+      }));
+    }
+    return brief;
+  }
+
+  function deliverableLive(wk) {
+    const meta = { ...(LAB_DELIVERABLES[wk] || {}) };
+    const w = weekCopy(wk);
+    if (w) {
+      if (w.deliverable != null) meta.deliverable = w.deliverable;
+      if (w.why != null) meta.why = w.why;
+    }
+    return meta;
+  }
+
   function briefHtml() {
-    const brief = aula03BriefOf(week);
-    const meta = LAB_DELIVERABLES[week] || {};
+    const brief = briefLive();
+    const meta = deliverableLive(week);
     const ready = a3BriefReady();
     const a3Next = seqNext(a3open, brief.cards.length);
     const focus = ready ? brief.cards.length - 1 : a3Next;
     const why = brief.porque || meta.why || brief.tese || "";
+    const bp = "weeks." + week + ".brief";
     let html = '<div class="a3-brief' + (ready ? " is-ready" : "") + '">';
-    html += '<p class="a3-brief-kicker">' + escapeHtml(brief.autor || "Aula 3") + "</p>";
+    html += '<p class="a3-brief-kicker" data-edit-path="' + bp + '.autor">' + escapeHtml(brief.autor || "Aula 3") + "</p>";
     html += '<p class="a3-brief-label">Por que este lab</p>';
-    html += '<p class="a3-brief-why">' + escapeHtml(why) + "</p>";
+    html += '<p class="a3-brief-why" data-edit-path="' + bp + '.porque">' + escapeHtml(why) + "</p>";
     if (!ready) {
       html += '<p class="a3-brief-label">Passo ' + (focus + 1) + " de " + brief.cards.length + "</p>";
       html += '<div class="a3-brief-los is-seq">';
@@ -886,8 +951,11 @@ export function startJornada(cfg = {}) {
         if (i > a3Next) return;
         const open = !!a3open[i];
         html += '<button type="button" class="piece a3-lo' + (open ? " on" : " next") + '" data-a3="' + i + '">';
-        if (open) html += '<span class="tag">✓ ' + escapeHtml(card.t) + "</span>";
-        else html += '<span class="card-d">' + phraseLines(card.d) + "</span>";
+        if (open) {
+          html += '<span class="tag">✓ <span data-edit-path="' + bp + ".cards." + i + '.t">' + escapeHtml(card.t) + "</span></span>";
+        } else {
+          html += '<span class="card-d" data-edit-path="' + bp + ".cards." + i + '.d">' + phraseLines(card.d) + "</span>";
+        }
         html += "</button>";
       });
       html += "</div>";
@@ -923,20 +991,20 @@ export function startJornada(cfg = {}) {
       }
     } else {
       html += '<ul class="a3-brief-done">';
-      brief.cards.forEach((card) => {
-        html += "<li>✓ " + escapeHtml(card.t) + "</li>";
+      brief.cards.forEach((card, i) => {
+        html += '<li>✓ <span data-edit-path="' + bp + ".cards." + i + '.t">' + escapeHtml(card.t) + "</span></li>";
       });
       html += "</ul>";
       if (meta.deliverable) {
         html += '<p class="a3-brief-label">No lab você gera</p>';
-        html += '<p class="a3-brief-do">' + escapeHtml(meta.deliverable) + "</p>";
+        html += '<p class="a3-brief-do" data-edit-path="weeks.' + week + '.deliverable">' + escapeHtml(meta.deliverable) + "</p>";
       }
       const briefFiles = meta.files && meta.files.length ? meta.files : [filesOf(week).a3];
       if (briefFiles.length) {
         html += '<p class="a3-brief-label">Nesta pasta</p>';
         html += '<p class="a3-brief-do">' + briefFiles.map((name) => escapeHtml(name)).join(" · ") + "</p>";
       }
-      html += '<p class="a3-brief-take">' + escapeHtml(brief.takeaway) + "</p>";
+      html += '<p class="a3-brief-take" data-edit-path="' + bp + '.takeaway">' + escapeHtml(brief.takeaway) + "</p>";
       html += '<button type="button" id="btn-open-lab" class="btn-feito a3-open-lab">Abrir o Lab aula 03</button>';
     }
     html += "</div>";
@@ -982,6 +1050,7 @@ export function startJornada(cfg = {}) {
     if (!mesa || mesa.dataset.boundClicks) return;
     mesa.dataset.boundClicks = "1";
     mesa.addEventListener("click", (ev) => {
+      if (mentorEditMode && ev.target.closest("[data-edit-path]")) return;
       const a1 = ev.target.closest("[data-a1]");
       if (a1 && mesa.contains(a1)) {
         onA1Click(Number(a1.getAttribute("data-a1")), a1);
@@ -1260,12 +1329,12 @@ export function startJornada(cfg = {}) {
   }
 
   function labDeliverableHtml(wk) {
-    const meta = LAB_DELIVERABLES[wk];
-    if (!meta) return "";
+    const meta = deliverableLive(wk);
+    if (!meta || (!meta.deliverable && !meta.why)) return "";
     let html = '<section class="lab-deliverable">';
     html += "<h3 class=\"lab-session-title\">" + labSessionTitle(wk) + "</h3>";
-    html += "<p class=\"lab-deliver-what\"><b>O que você vai gerar:</b> " + phraseLines(meta.deliverable) + "</p>";
-    html += "<p class=\"lab-deliver-why\"><b>Por quê:</b> " + phraseLines(meta.why) + "</p>";
+    html += '<p class="lab-deliver-what"><b>O que você vai gerar:</b> <span data-edit-path="weeks.' + wk + '.deliverable">' + phraseLines(meta.deliverable) + "</span></p>";
+    html += '<p class="lab-deliver-why"><b>Por quê:</b> <span data-edit-path="weeks.' + wk + '.why">' + phraseLines(meta.why) + "</span></p>";
     if (meta.outputs && meta.outputs.length) {
       html += "<p class=\"lab-deliver-format\"><b>Formato:</b> " + meta.outputs.join(" · ") + "</p>";
     }
@@ -1420,6 +1489,11 @@ export function startJornada(cfg = {}) {
 
   function fillLabFrames() {
     const map = labCopyMap();
+    // Painéis duplicados capa/entrega/tips: removidos — edição vai no card "O que você vai gerar" + prompt.
+    ["mentor-lab-tips", "mentor-lab-cap", "mentor-lab-out"].forEach((id) => {
+      const dead = document.getElementById(id);
+      if (dead) dead.remove();
+    });
     document.querySelectorAll("[data-lab-body]").forEach((el) => {
       const key = el.getAttribute("data-lab-body");
       if (map[key]) el.textContent = map[key];
@@ -1427,40 +1501,6 @@ export function startJornada(cfg = {}) {
         el.setAttribute("data-edit-path", "weeks." + week + ".lab.prompt");
       }
     });
-    const lab = labOf();
-    let tipsHost = document.getElementById("mentor-lab-tips");
-    if (!tipsHost) {
-      const workspace = document.querySelector(".lab-lab");
-      if (workspace) {
-        tipsHost = document.createElement("div");
-        tipsHost.id = "mentor-lab-tips";
-        tipsHost.className = "mentor-lab-tips";
-        tipsHost.setAttribute("data-edit-path", "weeks." + week + ".lab.tips");
-        workspace.appendChild(tipsHost);
-      }
-    }
-    if (tipsHost) {
-      tipsHost.setAttribute("data-edit-path", "weeks." + week + ".lab.tips");
-      tipsHost.textContent = Array.isArray(lab.tips) ? lab.tips.join("\n") : "";
-      let capHost = document.getElementById("mentor-lab-cap");
-      if (!capHost) {
-        capHost = document.createElement("p");
-        capHost.id = "mentor-lab-cap";
-        capHost.className = "mentor-lab-cap";
-        tipsHost.parentNode.insertBefore(capHost, tipsHost);
-      }
-      capHost.setAttribute("data-edit-path", "weeks." + week + ".lab.cap");
-      capHost.textContent = lab.cap || "";
-      let outHost = document.getElementById("mentor-lab-out");
-      if (!outHost) {
-        outHost = document.createElement("p");
-        outHost.id = "mentor-lab-out";
-        outHost.className = "mentor-lab-out";
-        tipsHost.parentNode.insertBefore(outHost, tipsHost);
-      }
-      outHost.setAttribute("data-edit-path", "weeks." + week + ".lab.out");
-      outHost.textContent = lab.out || "";
-    }
     document.querySelectorAll(".btn-copy-lab[data-copy]").forEach((btn) => {
       const key = btn.getAttribute("data-copy");
       btn.onclick = (ev) => {
@@ -1476,6 +1516,7 @@ export function startJornada(cfg = {}) {
         copyLabText(labOf().casca);
       };
     }
+    applyMentorEditAttrs();
   }
 
   function updateCasoPanel() {
@@ -1551,7 +1592,7 @@ export function startJornada(cfg = {}) {
     document.querySelectorAll("[data-a3]").forEach((el) => {
       el.onclick = () => {
         const i = Number(el.getAttribute("data-a3"));
-        if (i !== seqNext(a3open, aula03BriefOf(week).cards.length)) return;
+        if (i !== seqNext(a3open, briefLive().cards.length)) return;
         a3open[i] = true;
         a3chip = null;
         railFocus = 3;
@@ -1590,7 +1631,7 @@ export function startJornada(cfg = {}) {
       ? ""
       : (phase === "nota" || phase === "brief"
         ? ""
-        : phraseLines((LAB_DELIVERABLES[week] || {}).deliverable || lab.out));
+        : phraseLines((deliverableLive(week).deliverable) || lab.out));
     const a3Head = document.querySelector("#rail-a3 h2");
     if (a3Head) {
       a3Head.textContent = phase === "brief"
@@ -1639,6 +1680,7 @@ export function startJornada(cfg = {}) {
     applyRailFocus();
     updateMesaTabs();
     syncHud();
+    applyMentorEditAttrs();
   }
 
   function scoreScaleHtml() {

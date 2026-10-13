@@ -74,6 +74,11 @@ function refreshBar() {
 }
 
 function syncContentEditable() {
+  const a = api();
+  if (a && typeof a.applyEditAttrs === "function") {
+    a.applyEditAttrs();
+    return;
+  }
   document.querySelectorAll("[data-edit-path]").forEach((el) => {
     el.setAttribute("contenteditable", editing ? "true" : "false");
     if (!editing) el.blur();
@@ -85,11 +90,13 @@ function setEditing(on) {
   document.body.classList.toggle("mentor-editing", editing);
   const a = api();
   if (a && typeof a.setEditMode === "function") a.setEditMode(editing);
-  // paint async — re-sync editable after mesa re-render
+  // re-render cria DOM novo — reaplica contenteditable várias vezes
+  syncContentEditable();
   setTimeout(syncContentEditable, 50);
-  setTimeout(syncContentEditable, 300);
+  setTimeout(syncContentEditable, 200);
+  setTimeout(syncContentEditable, 500);
   refreshBar();
-  if (editing) toast("Modo edição — Shift+duplo clique no texto · Ctrl+Alt+S salva");
+  if (editing) toast("Modo edição — clique no texto com borda · Ctrl+Alt+S salva");
 }
 
 function toggleEdit() {

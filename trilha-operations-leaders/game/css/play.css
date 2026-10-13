@@ -1587,21 +1587,4 @@ body.mentor-editing [data-edit-path]:focus {
   outline: 2px solid #5B2D8E;
   background: rgba(91, 45, 142, 0.06);
 }
-.mentor-lab-cap, .mentor-lab-out, .mentor-lab-tips {
-  display: none;
-  margin: 8px 0 0;
-  font-size: 0.82rem;
-  white-space: pre-wrap;
-}
-body.mentor-editing .mentor-lab-cap,
-body.mentor-editing .mentor-lab-out,
-body.mentor-editing .mentor-lab-tips {
-  display: block;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: #fbf7fc;
-  border: 1px solid #e8e0f0;
-}
-body.mentor-editing .mentor-lab-cap::before { content: "Lab · capa: "; font-weight: 700; color: #5B2D8E; }
-body.mentor-editing .mentor-lab-out::before { content: "Lab · entrega: "; font-weight: 700; color: #5B2D8E; }
-body.mentor-editing .mentor-lab-tips::before { content: "Lab · tips (1 por linha):\A"; font-weight: 700; color: #5B2D8E; white-space: pre; }
+/* capa/entrega/tips duplicados removidos — edite o card do lab e o prompt */

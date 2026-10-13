@@ -792,13 +792,18 @@ export function startJornada(cfg = {}) {
         if (Array.isArray(w.lab.tips)) LABS[n].tips = w.lab.tips.slice();
       }
     });
-    mesaWeekPaint = 0;
+    // força rebuild dos cards a1/a2 (senão o fallback antigo fica na tela)
+    mesaWeekPaint = -1;
     mesaA3Paint = "";
+    const a1box = document.getElementById("cards-a1");
+    const a2box = document.getElementById("slots-a2");
+    if (a1box) a1box.innerHTML = "";
+    if (a2box) a2box.innerHTML = "";
     if (mode === "level") renderMesa();
   }
 
   function loadMesaCopy() {
-    return fetch("game/content/mesa-copy.json?v=20261013p")
+    return fetch("game/content/mesa-copy.json?v=20261013r")
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("mesa-copy"))))
       .then((copy) => {
         applyMesaCopy(copy);

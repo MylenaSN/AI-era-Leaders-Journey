@@ -170,6 +170,16 @@ function setByPath(obj, path, value) {
   }
 }
 
+const PENDING_MESA_KEY = "afol-mentor-pending-mesa-v1";
+
+function stashPendingMesa(copy) {
+  try {
+    sessionStorage.setItem(PENDING_MESA_KEY, JSON.stringify(copy));
+  } catch (_) {
+    /* quota / private mode */
+  }
+}
+
 async function savePublish() {
   const session = readSession();
   const pageSlug = detectSlugFromLocation();
@@ -203,15 +213,19 @@ async function savePublish() {
     toast("Falha ao publicar: " + result.error);
     return;
   }
-  toast("Publicado · " + result.paths.length + " arquivo(s). Recarregando…");
-  setEditing(false);
-  // força ler o JSON do GitHub Pages (evita cache do fallback antigo)
-  setTimeout(() => {
-    const url = new URL(location.href);
-    url.searchParams.set("mentor", "1");
-    url.searchParams.set("saved", String(Date.now()));
-    location.replace(url.toString());
-  }, 900);
+  const published = result.payload || copy;
+  a.applyMesaCopy(published);
+  stashPendingMesa(published);
+  toast(
+    "Salvo no GitHub · " +
+      result.paths.length +
+      " arquivo(s). Recarregando com o seu texto (Pages pode atrasar ~1 min)…"
+  );
+  // sessionStorage cobre o atraso do GitHub Pages; reload imediato
+  const url = new URL(location.href);
+  url.searchParams.set("mentor", "1");
+  url.searchParams.set("saved", String(Date.now()));
+  location.replace(url.toString());
 }
 
 function onShiftDblClick(ev) {

@@ -59,7 +59,7 @@ async function putFile(token, path, content, sha) {
 /**
  * @param {{ slug: string, token: string }} session
  * @param {object} mesaCopy
- * @returns {Promise<{ ok: true, paths: string[] } | { ok: false, error: string }>}
+ * @returns {Promise<{ ok: true, paths: string[], payload: object } | { ok: false, error: string }>}
  */
 export async function publishMesaCopy(session, mesaCopy) {
   const trilha = trilhaBySlug(session.slug);
@@ -97,7 +97,7 @@ export async function publishMesaCopy(session, mesaCopy) {
       await putFile(session.token, path, text, sha);
       done.push(path);
     }
-    return { ok: true, paths: done };
+    return { ok: true, paths: done, payload };
   } catch (err) {
     return { ok: false, error: String(err.message || err) };
   }

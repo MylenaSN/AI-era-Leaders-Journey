@@ -802,18 +802,47 @@ export function startJornada(cfg = {}) {
     if (mode === "level") renderMesa();
   }
 
+  function readPendingMentorMesa() {
+    try {
+      const raw = sessionStorage.getItem("afol-mentor-pending-mesa-v1");
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return parsed && parsed.weeks ? parsed : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function clearPendingMentorMesa() {
+    try {
+      sessionStorage.removeItem("afol-mentor-pending-mesa-v1");
+    } catch (_) { /* ignore */ }
+  }
+
+  function pickNewerMesa(live, pending) {
+    if (!pending) return live;
+    if (!live) return pending;
+    const liveAt = Date.parse(live.updatedAt || "") || 0;
+    const pendAt = Date.parse(pending.updatedAt || "") || 0;
+    if (pendAt > liveAt) return pending;
+    if (liveAt >= pendAt) clearPendingMentorMesa();
+    return live;
+  }
+
   function loadMesaCopy() {
-    let bust = "20261013t";
+    let bust = "20261013w";
     try {
       if (sessionStorage.getItem("afol-mentor-session-v1")) bust = String(Date.now());
     } catch (_) { /* ignore */ }
+    const pending = readPendingMentorMesa();
     return fetch("game/content/mesa-copy.json?v=" + bust)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("mesa-copy"))))
       .then((copy) => {
-        applyMesaCopy(copy);
+        applyMesaCopy(pickNewerMesa(copy, pending));
       })
       .catch(() => {
-        mesaCopyLive = buildMesaCopyFromMemory();
+        if (pending) applyMesaCopy(pending);
+        else mesaCopyLive = buildMesaCopyFromMemory();
       });
   }
 

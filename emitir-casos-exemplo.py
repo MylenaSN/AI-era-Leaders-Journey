@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Espelha casos-exemplo.js nos Prompt exemplo do aluno e da emissao V.2."""
 from __future__ import print_function
 
@@ -47,8 +47,8 @@ ALUNO_DIR = {
     12: os.path.join("04 Times hibridos", "semana-12"),
     13: os.path.join("04 Times hibridos", "semana-13"),
     14: os.path.join("04 Times hibridos", "semana-14"),
-    15: os.path.join("05 Homeostase", "semana-15"),
-    16: os.path.join("05 Homeostase", "semana-16"),
+    15: os.path.join("05 Equilibrio AI-Era", "semana-15"),
+    16: os.path.join("05 Equilibrio AI-Era", "semana-16"),
     17: os.path.join("04 Times hibridos", "bonus-medida"),
 }
 

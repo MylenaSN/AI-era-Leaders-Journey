@@ -1,0 +1,686 @@
+{
+  "version": 1,
+  "slug": "trilha-operations-leaders",
+  "weeks": {
+    "1": {
+      "metodo": "Gantt histórico + leitura STATIK do serviço (Homework)",
+      "a1": [
+        {
+          "t": "As 5 revoluções",
+          "d": "Entender o fio das cinco Revoluções Industriais e o padrão de substituição/reestruturação de papéis em cada era."
+        },
+        {
+          "t": "AI-era Leaders",
+          "d": "Na 5ª Revolução (era agêntica) o líder é orquestrador de sistemas híbridos — a IA fortalece papéis humanos."
+        },
+        {
+          "t": "Padrões da Revolução",
+          "d": "Não tratar a era atual como ruptura sem precedente; o padrão histórico de reestruturação de papéis continua."
+        }
+      ],
+      "a2": [
+        "Gantt da sala: reconhecer métodos nas eras\n(âncora, não lista decorativa)",
+        "Homework aula 02 semana 01.md\n— 5 seções STATIK; digite só em Sua resposta",
+        "Exemplos A e B / Orion são de outros times; o coração do prompt na Aula 3 é a sua análise humana de líder da Aula 2"
+      ],
+      "a2Short": [
+        "Gantt de autores",
+        "Homework STATIK",
+        "Sua resposta"
+      ],
+      "lab": {
+        "autor": "Teo · pedido com cláusulas",
+        "cap": "Homework → chat → consolidado dos 3 pilares",
+        "out": "Consolidado do seu time nos 3 pilares (Product · Tech Delivery · Human & AI), no máximo 3 oportunidades com autor do Gantt",
+        "prompt": "Anexe o Homework aula 02 semana 01.md preenchido. Persona: gestor sênior de times de tecnologia. Tarefa: consolidar AS IS em Product Management, Tech Delivery e Human & AI Teams, e apontar no máximo 3 oportunidades com autor do Gantt da Aula 2 só quando o fato sustentar. Exemplo A e Exemplo B não são o meu time. Seção vazia = SEM FATO. Output = Lab aula 03 semana 01.md. Não resuma no chat.",
+        "tips": [
+          "Passo: Homework Aula 2 + prompt → um chat → consolidado.",
+          "Oportunidade sem autor do Gantt ou sem fato no MD = risca.",
+          "A IA organiza; você autoriza o que entra no calendário."
+        ],
+        "tool": "ChatGPT free",
+        "alt": "Gemini"
+      }
+    },
+    "2": {
+      "metodo": "Jornada profissional (MD) → currículo da vaga-alvo",
+      "a1": [
+        {
+          "t": "Quem a empresa de IA contrata",
+          "d": "Olhe a página de vagas, não o organograma do PowerPoint. Exemplo real: Receita 74 · Engenharia/Produto 51 · Growth 21 · Operações 18 · Pesquisa 5. Pesquisa é ~3%. O modelo não é o produto — colocar o modelo em uso é."
+        },
+        {
+          "t": "Cargo que nasce × cargo que some",
+          "d": "Nasce: Enterprise Deployment (25 vagas — metade da engenharia) = fazer a IA funcionar no cliente. Some/encolhe: Customer Support (1 vaga). O trabalho não sumiu: foi para produto, agente e deployment."
+        },
+        {
+          "t": "Ler o quadro com os 3 pilares",
+          "d": "Use Product · Tech Delivery · Human & AI (Semana 01) como lente: Product → Core Experience e Growth; Tech Delivery → Deployment e Platform; Human & AI → Agents, Safety e o buraco do suporte."
+        }
+      ],
+      "a2": [
+        "Preencha Homework aula 02 semana 02.md — sua jornada: marcos, o que faz de fato, time em 3 colunas.",
+        "Liste só o que você prova (número, cargo ou data). Sem prova = [FALTA EVIDÊNCIA]. Nomeie o gap #1.",
+        "Escolha a vaga-alvo (cargo que não existia há ~3 anos). Esse MD + LinkedIn alimentam o Lab aula 03."
+      ],
+      "a2Short": [
+        "Jornada profissional",
+        "Evidências e gap",
+        "Vaga-alvo"
+      ],
+      "lab": {
+        "autor": "Liu · lost in the middle",
+        "cap": "Fase 1 Enhancv · Fase 2 Loop Vitae",
+        "out": "PDF no Enhancv + esteira Loop Vitae (vaga Agile School · AI-Orchestrator Manager)",
+        "prompt": "Duas fases: (1) PDF no Enhancv com jornada + LinkedIn; (2) ZIP Loop_Vitae no Drive, Notebook Gemini, Curriculum-advisor, md-2-pdf.",
+        "tips": [
+          "Homework = jornada profissional — é o insumo do prompt.",
+          "Fase 1 = PDF ATS no Enhancv. Fase 2 = Loop Vitae (licença individual, não redistribuir).",
+          "Vaga hipotética: Agile School · AI-Orchestrator Manager. Sem evidência → [FALTA EVIDÊNCIA]."
+        ],
+        "tool": "Enhancv",
+        "alt": "Gemini"
+      }
+    },
+    "3": {
+      "metodo": "Hierarquia de Valor (Impacto → Outcome → Output → Task)",
+      "a1": [
+        {
+          "t": "Output, outcome, impact",
+          "d": "Output é entrega; outcome é mudança observável; impact é efeito no negócio."
+        },
+        {
+          "t": "Volume ≠ valor",
+          "d": "Contar entregas sem medir mudança para o cliente confunde atividade com resultado."
+        },
+        {
+          "t": "Pergunta de valor",
+          "d": "Trocar \"o que entregamos?\" por \"que resultado movemos?\" alinha o time ao impacto."
+        }
+      ],
+      "a2": [
+        "1 impacto estratégico no topo do board",
+        "2–3 outcomes, outputs e tasks ligadas",
+        "Priorizar 3 itens reais pela contribuição ao impacto"
+      ],
+      "a2Short": [
+        "Impacto estratégico",
+        "Outcomes e outputs",
+        "Priorizar 3 itens"
+      ],
+      "lab": {
+        "autor": "Wei · CoT",
+        "cap": "Diagrama da hierarquia",
+        "out": "5 linhas Classe, raciocínio, evidência e 1 diagrama",
+        "prompt": "Mostre o RACIOCÍNIO da classe ANTES do rótulo.\nItens reais: [cole 5 entregas].\nPara cada: Output / Outcome / Impact e 1 frase de evidência. Recuse se inventar métrica.\nDepois: diagrama mermaid da Hierarquia de Valor da Aula 2.",
+        "tips": [
+          "Sem CoT visível a classe é chute.",
+          "Diagrama bonito sem as 5 linhas não fecha.",
+          "Métrica que o time não mediu = alucinação."
+        ],
+        "tool": "Claude ou GPT e mermaid",
+        "alt": "Napkin.ai (free)"
+      }
+    },
+    "4": {
+      "metodo": "OKR → backlog (funil e hipótese)",
+      "a1": [
+        {
+          "t": "KR com baseline",
+          "d": "KR sem baseline medido pelo time não é KR — é slogan."
+        },
+        {
+          "t": "Target assinado",
+          "d": "O target é decisão de cargo; o modelo não troca o alvo."
+        },
+        {
+          "t": "Backlog serve o objetivo",
+          "d": "Projeto entra se testa uma hipótese do OKR. O contrário — backlog mandando no objetivo — invalida o funil."
+        }
+      ],
+      "a2": [
+        "1 Objetivo e 2 KRs",
+        "Baseline que VOCÊ mediu",
+        "4 projetos com hipótese"
+      ],
+      "a2Short": [
+        "Objetivo e KRs",
+        "Baseline medido",
+        "Projetos com hipótese"
+      ],
+      "lab": {
+        "autor": "Ng · workflow",
+        "cap": "Gráfico / planilha",
+        "out": "Síntese dos KRs com baseline que VOCÊ mediu",
+        "prompt": "Workflow: 1) li a planilha/baseline que eu colei 2) resumo 3) NÃO mudo o alvo.\nOKR da Aula 2: [cole]. Se KR sem baseline, marque INVÁLIDO. Gere um gráfico simples baseline→hoje→target.",
+        "tips": [
+          "Moonshot sem baseline. Cole o número medido.",
+          "A IA mudou o target: isso é gate seu.",
+          "Gráfico sem eixo com unidade não serve ao C-Level."
+        ],
+        "tool": "Gemini (Sheets)",
+        "alt": "GPT"
+      }
+    },
+    "5": {
+      "metodo": "Lean Inception e PBB no board",
+      "a1": [
+        {
+          "t": "Persona evidenciada",
+          "d": "Persona sem identificação, sem rotina, sem ações no produto não é persona."
+        },
+        {
+          "t": "Core do MVP",
+          "d": "A fatia do MVP é o core — o que não pode ficar de fora do primeiro passo. Adjacente e transformacional tendem ao próximo passo. Se o essencial ficar de fora, o MVP não valida o propósito do produto."
+        },
+        {
+          "t": "MVP serve o OKR",
+          "d": "O MVP serve o OKR — nunca o contrário. Objetivo e KRs claros antes do board; vitrine que não liga ao KR é recusada."
+        }
+      ],
+      "a2": [
+        "Porquê, personas e jornada",
+        "MVP no mapa de entrega",
+        "IN / OUT explícito"
+      ],
+      "a2Short": [
+        "Porquê e personas",
+        "MVP no mapa",
+        "IN e OUT"
+      ],
+      "lab": {
+        "autor": "intenção → UI",
+        "cap": "Protótipo e imagem coesa",
+        "out": "Link do protótipo da fatia IN e 1 imagem de jornada",
+        "prompt": "Gere um protótipo SÓ da fatia IN do PBB: [cole IN/OUT]. Não implemente OUT. Depois (Gemini/Designer): uma imagem da jornada da persona — mesmo traço, sem stock genérico. O MVP serve o OKR da semana 04 — se a vitrine não liga ao KR, recuse.",
+        "tips": [
+          "Markdown no chat não é protótipo. Precisa do link.",
+          "Imagem de banco de foto: peça consistência com a persona.",
+          "Tudo IN: volte ao OUT da Aula 2."
+        ],
+        "tool": "Lovable (free)",
+        "alt": "v0 · Designer/Gemini imagem"
+      }
+    },
+    "6": {
+      "metodo": "User Story Mapping (Patton) e Scorecard INVEST (Wake)",
+      "a1": [
+        {
+          "t": "Backlog como jornada",
+          "d": "Patton: atividades → passos → stories; fatia horizontal = MVP com jornada completa, ainda que rasa."
+        },
+        {
+          "t": "INVEST qualitativo",
+          "d": "Wake: checklist nas 6 letras — story que falha em alguma volta ao refinamento antes do sprint."
+        },
+        {
+          "t": "Scorecard 1–3",
+          "d": "No mercado: nota 1 = ruim, 2 = aceitável, 3 = excelente por critério (máx. 18). Qualquer nota 1 reprova a story."
+        }
+      ],
+      "a2": [
+        "3 stories do fluxo feliz com tabela INVEST (nota 1–3 por critério, total até 18)",
+        "1 story reescrita se reprovada (qualquer nota 1)",
+        "Registrar qual critério forçou o retorno ao refinamento"
+      ],
+      "a2Short": [
+        "Scorecard 3 stories",
+        "1 story reescrita",
+        "Critério de corte"
+      ],
+      "lab": {
+        "autor": "Wake · INVEST",
+        "cap": "Scorecard INVEST 1–3",
+        "out": "Scorecard INVEST das 3 stories (máx. 18; nota 1 em qualquer critério reprova)",
+        "prompt": "Avalie as 3 user stories da Aula 2 com o Scorecard INVEST.\nPara cada critério (Independent, Negotiable, Valuable, Estimable, Small, Testable) atribua nota 1–3:\n1 = ruim (não atende) · 2 = aceitável (pode melhorar) · 3 = excelente.\nSome o total (máx. 18). Regra de corte: se QUALQUER critério = 1, marque REPROVADA e indique o ajuste mínimo.\nPROIBIDO dar 3 em todos os critérios sem justificativa ancorada no texto da story.\nFormato: tabela por story + total + veredito (aprovada/reprovada) + sugestão só para reprovadas.",
+        "tips": [
+          "Wake criou checklist Sim/Não — o scorecard 1–3 é adaptação de mercado.",
+          "Nota 1 em Independent manda a story de volta ao refinamento.",
+          "IA que dá 18/18 em tudo: você recusa e repontua à mão."
+        ],
+        "tool": "Custom GPT / Gem",
+        "alt": "Cursor no backlog.md"
+      }
+    },
+    "7": {
+      "metodo": "Team Topologies e linguagem compartilhada (DDD)",
+      "a1": [
+        {
+          "t": "Quatro tipos de time",
+          "d": "Stream-aligned, Platform, Enabling, Complicated-subsystem (Skelton & Pais) — cada um com papel e carga cognitiva."
+        },
+        {
+          "t": "Bounded context",
+          "d": "Termos decisores do bounded context precisam ter significado explícito para toda a equipe."
+        },
+        {
+          "t": "Interação entre tipos",
+          "d": "Stream consome platform; enabling reduz atrito. Uma interação nomeada vale mais que organograma novo."
+        }
+      ],
+      "a2": [
+        "Mapa dos 4 tipos e carga cognitiva",
+        "1 ajuste de fronteira (interação, não cargo)",
+        "Glossário de 8–12 termos do time"
+      ],
+      "a2Short": [
+        "Mapa 4 tipos",
+        "Ajuste de fronteira",
+        "Glossário do time"
+      ],
+      "lab": {
+        "autor": "Lewis · RAG",
+        "cap": "Caderno e overview (áudio/vídeo)",
+        "out": "Glossário com citação e 1 Audio/Video Overview",
+        "prompt": "Suba SÓ os artefatos da Aula 2 (mapa de topologia). Pergunte: liste 8–12 termos conflitantes COM citação do arquivo. Depois gere o Overview. Se não citar a fonte, o termo é alucinação.",
+        "tips": [
+          "Chat sem PDF = chute da web, não RAG.",
+          "Overview sem glossário citado é teatro.",
+          "Termo sem dono: volte ao mapa da Aula 2."
+        ],
+        "tool": "NotebookLM (free)",
+        "alt": "Gemini com PDFs"
+      }
+    },
+    "8": {
+      "metodo": "Kanban sistêmico (Anderson) e métricas de fluxo",
+      "a1": [
+        {
+          "t": "Métricas de fluxo",
+          "d": "LT: da entrada à entrega; CT: do início do trabalho à entrega; TH: itens por período; WIP: trabalho em progresso; CFD: diagrama de fluxo acumulado."
+        },
+        {
+          "t": "Lei de Little",
+          "d": "LT ≈ WIP ÷ TH. Se o WIP sobe e o throughput não acompanha, o lead time explode — é matemática do fluxo, não opinião."
+        },
+        {
+          "t": "Board visível",
+          "d": "Políticas de WIP, classes de serviço e puxar explícitas no Kanban. Só se gerencia o que se vê."
+        }
+      ],
+      "a2": [
+        "Dashboard com LT, CT, TH, WIP e CFD",
+        "Segmento por tipologia (bug · feature · risco)",
+        "1 alavancador via Lei de Little"
+      ],
+      "a2Short": [
+        "Dashboard de fluxo",
+        "Segmentar por tipo",
+        "Alavanca Little"
+      ],
+      "lab": {
+        "autor": "Anderson · fluxo",
+        "cap": "Dashboard Kanban e diagrama",
+        "out": "Dashboard LT/CT/TH/WIP/CFD e diagrama mermaid do fluxo",
+        "prompt": "A partir do dashboard da Aula 2 [cole números que EU medi], monte Lab aula 03 semana 08.md com:\n1) Lead Time (LT), Cycle Time (CT), Throughput (TH), WIP e CFD explicados em linguagem do time.\n2) Lei de Little: LT ≈ WIP ÷ TH — onde está o alavancador?\n3) Diagrama mermaid do fluxo atual.\n4) (Apoio futuro) Rascunho de prompt agnóstico para 3 agents: Métricas de fluxo · Esteira híbrida · Advisor de liderança — cada um com persona/steering/skill, sem depender de ferramenta.\nUse só números do meu contexto. Não invente target externo.",
+        "tips": [
+          "LT = tempo total até entregar. CT = tempo em trabalho ativo. TH = itens/ período. WIP = em progresso. CFD = diagrama de fluxo acumulado.",
+          "Sem números da Aula 2 o dashboard é teatro.",
+          "Os 3 agents do curso são apoiadores — esta semana fecha o painel de fluxo."
+        ],
+        "tool": "Cursor Hobby",
+        "alt": "Copilot · mermaid no GPT"
+      }
+    },
+    "9": {
+      "metodo": "Auditoria de cadências e métricas em 3 camadas",
+      "a1": [
+        {
+          "t": "Rito ≠ ritmo",
+          "d": "Reunião sem métrica de ciclo é rito. Ritmo é cadência que o painel de fluxo que você já mede justifica."
+        },
+        {
+          "t": "Voto do time",
+          "d": "Fica / sai / muda é decisão do time. A IA não declara o ritmo vencedor."
+        },
+        {
+          "t": "Kill criteria",
+          "d": "Adotar framework de escala (SAFe, Flight Levels, Spotify) só com patrocínio e critério de abandono se não funcionar."
+        }
+      ],
+      "a2": [
+        "Lista fica / sai / muda",
+        "Painel em 3 camadas: operacional → tático → estratégico",
+        "1 ritmo candidato (voto do time decide)"
+      ],
+      "a2Short": [
+        "Fica / sai / muda",
+        "Painel 3 camadas",
+        "Ritmo candidato"
+      ],
+      "lab": {
+        "autor": "ritmos e voto",
+        "cap": "Board e workspace no IDE",
+        "out": "Antes/depois de 1 ritmo em 03 Delivery/semana-09/ e 1 pergunta de voto",
+        "prompt": "A partir da auditoria fica/sai/muda da Aula 2, desenhe um board (Agora / Proposta / Voto). Uma pergunta para Mentimeter. NÃO declare o ritmo vencedor.\nSalve o board em 03 Delivery/semana-09/Lab aula 03 semana 09.md — abra sua pasta AI-First-Operations-Leadership-Jornada no Cursor. Ciclo sem pasta no disco é rito.",
+        "tips": [
+          "Sem pergunta de voto a IA 'ganhou' sozinha.",
+          "Board sem a lista fica/sai/muda da Aula 2 é layout vazio.",
+          "Cola no Mural: o artefato precisa ser colável, não um ensaio."
+        ],
+        "tool": "Cursor e Claude Artifact",
+        "alt": "Whimsical free → cola no Mural"
+      }
+    },
+    "10": {
+      "metodo": "Business case enxuto e Passaporte FinOps",
+      "a1": [
+        {
+          "t": "Core · adjacente · transformacional",
+          "d": "Core melhora o que já funciona; adjacente expande o próximo; transformacional aposta alto — exige kill criteria desde o início."
+        },
+        {
+          "t": "Teto de budget",
+          "d": "Budget de iniciativa é o teto explícito: sem teto, cada gasto parece justificável isoladamente."
+        },
+        {
+          "t": "ROI com julgamento",
+          "d": "ROI (Return on Investment) compara opções, mas não substitui contexto — retorno de curto prazo pode esconder valor estratégico."
+        }
+      ],
+      "a2": [
+        "Problema em 1 frase — sem mencionar ferramenta",
+        "Baseline, custo e benefício com premissas explícitas",
+        "Passaporte FinOps: custo unitário, teto, alerta, dono e métrica de valor"
+      ],
+      "a2Short": [
+        "Problema em 1 frase",
+        "Baseline e custos",
+        "Passaporte FinOps"
+      ],
+      "lab": {
+        "autor": "Amodei · risco",
+        "cap": "Apresentação / PDF de 3 cenários",
+        "out": "Deck de 5 slides: conservador / base / agressivo e teto",
+        "prompt": "Gere apresentação curta com 3 ROIs a partir do Passaporte FinOps: [cole números]. O slide final é TETO ASSINADO POR HUMANO. Não recomende o agressivo. Console de cloud só em leitura.",
+        "tips": [
+          "Um único ROI 'o modelo disse'. Faltam 3.",
+          "Agressivo como único slide: esconde o conservador.",
+          "Sem teto assinado o C-Level compra teatro."
+        ],
+        "tool": "Gamma (free)",
+        "alt": "Gemini"
+      }
+    },
+    "11": {
+      "metodo": "Mapa híbrido e Context / Prompt / Steering",
+      "a1": [
+        {
+          "t": "Loop com gates",
+          "d": "Todo processo é um loop; gate humano é o ponto onde decisão irreversível não pode ser automática."
+        },
+        {
+          "t": "Automação vs GenIA",
+          "d": "Regra fixa → automação clássica; ambiguidade de linguagem → GenIA (IA generativa); alto risco → gate humano obrigatório."
+        },
+        {
+          "t": "Líder orquestrador",
+          "d": "Você desenha onde humanos precisam estar acordados — não executa cada nó no lugar do time."
+        }
+      ],
+      "a2": [
+        "Mapa do ecossistema: humanos, agentes, ferramentas, gates e dados",
+        "Context, Prompt e Steering no nó mais crítico do loop",
+        "Testar o conjunto com 1 caso real e documentar escala para humano"
+      ],
+      "a2Short": [
+        "Mapa do ecossistema",
+        "Context no nó crítico",
+        "Teste com 1 caso"
+      ],
+      "lab": {
+        "autor": "papel no loop",
+        "cap": "Esteira clássica vs GenAI",
+        "out": "1 etapa acelerada e 1 etapa PROIBIDA para o agente",
+        "prompt": "Do mapa da Aula 2: escolha 1 nó para automação sem LLM (n8n ou Zapier) e 1 nó para Cursor/Copilot. Mostre os dois fluxos. Proibido agente em decisão de valor ou gate humano.",
+        "tips": [
+          "'Vamos usar o Cursor' sem nó: volte ao mapa.",
+          "Tudo no agente: falta a etapa sem GenAI.",
+          "Zapier no julgamento = gate furado."
+        ],
+        "tool": "n8n cloud free ou Zapier free",
+        "alt": "Cursor numa etapa só"
+      }
+    },
+    "12": {
+      "metodo": "Persona, Steering e Skill (1 agente)",
+      "a1": [
+        {
+          "t": "Anatomia do agente",
+          "d": "Persona (quem é), Tools (o que chama), Skills (procedimentos) e orquestração (quem decide a próxima ação)."
+        },
+        {
+          "t": "Conceito antes da marca",
+          "d": "LangChain/LangGraph e IDEs usam nomes diferentes para os mesmos conceitos — aprenda o conceito, não só o rótulo do vendor."
+        },
+        {
+          "t": "Identidade mínima",
+          "d": "Agente sem persona é colaborador sem descrição de cargo — improvisa a cada chamada."
+        }
+      ],
+      "a2": [
+        "Persona com missão, Steering com limites e Skill com passos",
+        "Teste cenário feliz e cenário de escalada para humano",
+        "3 blocos versionados no disco (persona / steering / skill)"
+      ],
+      "a2Short": [
+        "Persona e steering",
+        "Teste de escalada",
+        "3 arquivos no disco"
+      ],
+      "lab": {
+        "autor": "Chase / Moura / Wang",
+        "cap": "Arquivos de agent",
+        "out": "persona.md, steering.md e skill.md no disco",
+        "prompt": "A partir dos 3 blocos da Aula 2, gere os 3 arquivos no repo e um hook (evento→condição→gate). Chatbot Custom GPT sem arquivo NÃO conta. Inclua 3 proibições no steering.",
+        "tips": [
+          "Custom GPT sem pasta no git.",
+          "Falta o hook ligado ao gate da semana 11.",
+          "Persona sem proibição: o agent faz tudo."
+        ],
+        "tool": "Cursor",
+        "alt": "Kiro"
+      }
+    },
+    "13": {
+      "metodo": "Spec de sistema agêntico sustentável",
+      "a1": [
+        {
+          "t": "Quatro níveis de agente",
+          "d": "Reativo → com tools → multi-step → hierárquico: cada nível soma autonomia com critério."
+        },
+        {
+          "t": "Maestro, não gargalo",
+          "d": "Orquestrador coordena specialists e gates — se executa tudo, vira ponto único de falha."
+        },
+        {
+          "t": "Escalar com base",
+          "d": "Subir de agente simples para sistema hierárquico só quando processo e gates já estão claros para humanos."
+        }
+      ],
+      "a2": [
+        "Diagrama: orquestrador, specialists e gates humanos",
+        "Contratos de entrada/saída, regras de roteamento e runbook de falha",
+        "Guia de como incluir o próximo agente sem redesenhar o núcleo"
+      ],
+      "a2Short": [
+        "Diagrama do maestro",
+        "Contratos e roteamento",
+        "Guia de expansão"
+      ],
+      "lab": {
+        "autor": "Ng · spec-before-code",
+        "cap": "Diagrama e spec",
+        "out": "requirements → design (código opcional)",
+        "prompt": "Spec do maestro da Aula 2. Em Kiro (ou spec MD): requirements, design, gates. NÃO commitar código sem spec. Diagrama hierárquico input→roteamento→specialists→gate humano.",
+        "tips": [
+          "Código no primeiro commit: volte à spec.",
+          "Diagrama sem gate final humano.",
+          "Sem contratos de entrada/saída o maestro é um chat."
+        ],
+        "tool": "Kiro",
+        "alt": "Cursor e Eraser/mermaid"
+      }
+    },
+    "14": {
+      "metodo": "KB viva e critério de subagents",
+      "a1": [
+        {
+          "t": "RAG traz verdade",
+          "d": "RAG (Retrieval-Augmented Generation) busca na sua base antes de responder — antídoto contra alucinação de fato."
+        },
+        {
+          "t": "MCP conecta",
+          "d": "MCP (Model Context Protocol) liga agentes a ferramentas e dados sem reescrever integração a cada vendor."
+        },
+        {
+          "t": "Subagents e evals",
+          "d": "Subagents dividem missões distintas; evals (avaliações sistemáticas) medem se você pode confiar no sistema."
+        }
+      ],
+      "a2": [
+        "KB viva: 5–10 casos reais versionados com o porquê",
+        "Decisão documentada: dividir em subagents só se missão e eval forem distintos",
+        "Limiar numérico de promoção — sem limiar, workflow não sobe"
+      ],
+      "a2Short": [
+        "KB com casos reais",
+        "Critério subagents",
+        "Limiar de promoção"
+      ],
+      "lab": {
+        "autor": "Lewis e Husain",
+        "cap": "RAG e eval (fine-tune só se RAG falhar)",
+        "out": "3 evals com limiar. Fine-tune NÃO é o default",
+        "prompt": "A KB da Aula 2 é a base (RAG). Escreva 3 casos de eval com limiar numérico. Sem limiar o workflow não promove.\nPergunta de líder: precisamos de fine-tune (AI Studio / AutoTrain) ou a KB resolve? Se a KB resolve, NÃO fine-tune.",
+        "tips": [
+          "'Funciona no chat' sem limiar.",
+          "Fine-tune pedido sem tentar RAG: Lewis primeiro.",
+          "Eval sem caso da KB é teste de teatro."
+        ],
+        "tool": "Cursor e Sheets ou Promptfoo",
+        "alt": "NotebookLM na KB"
+      }
+    },
+    "15": {
+      "metodo": "Linha do tempo experiência → skill → evidência",
+      "a1": [
+        {
+          "t": "Meta antes de categorias",
+          "d": "Defina o papel que quer exercer em 12–24 meses — categorias nascem da meta, não de framework genérico."
+        },
+        {
+          "t": "Evidência, não currículo",
+          "d": "Conquista comprova skill; skill sem evidência é autodeclaração."
+        },
+        {
+          "t": "CHA como apoio",
+          "d": "CHA (Conhecimento, Habilidade, Atitude) informa perguntas — não impõe a estrutura do seu plano."
+        }
+      ],
+      "a2": [
+        "Linha do tempo: experiência → skill → evidência (5 marcos)",
+        "Gaps nomeados nos SEUS grupos de competência",
+        "1 ação SMART da quinzena ligada a um gap com evidência"
+      ],
+      "a2Short": [
+        "Timeline 5 marcos",
+        "Gaps nomeados",
+        "Ação SMART"
+      ],
+      "lab": {
+        "autor": "advisor próprio",
+        "cap": "Project do PDI",
+        "out": "Advisor que recusa CHA genérico",
+        "prompt": "Alimente o Project com a linha do tempo da Aula 2. Categorias = as MINHAS. Se eu pedir 'faz um PDI CHA', recuse e peça evidência da timeline. 1 gap SMART da quinzena.",
+        "tips": [
+          "Prompt avulso 'me dá um PDI'. Sem Project.",
+          "CHA genérico passou: o advisor não está ancorado.",
+          "Gap sem SMART: não fecha a quinzena."
+        ],
+        "tool": "Claude Project / Custom GPT",
+        "alt": "Gemini Gem"
+      }
+    },
+    "16": {
+      "metodo": "Pensamento arbóreo e rascunho vs decisão de autoria",
+      "a1": [
+        {
+          "t": "Sinais de dependência",
+          "d": "Pedido sem critério, aceitar saída sem questionar e orgulho de \"uso IA para tudo\" — sinais de ferramenta no centro."
+        },
+        {
+          "t": "Sobrevivente → transformador",
+          "d": "Transformador desenha onde a IA entra, com critério, gate e autoria clara — não reage com medo ou dependência."
+        },
+        {
+          "t": "IA a serviço",
+          "d": "Pergunta-teste: se a ferramenta sumisse hoje, você ainda saberia fazer esse julgamento?"
+        }
+      ],
+      "a2": [
+        "Mapa arbóreo: tronco (tese) · galhos (domínios) · folhas (execução)",
+        "Declaração: 1 rascunho vs 1 decisão de autoria (PI)",
+        "Preservar artefatos do ano como registro do raciocínio"
+      ],
+      "a2Short": [
+        "Mapa arbóreo",
+        "Rascunho vs decisão",
+        "Artefatos do ano"
+      ],
+      "lab": {
+        "autor": "Amodei · autoria",
+        "cap": "Overview do ano e decisão OFFLINE",
+        "out": "Video/Audio Overview e 1 decisão escrita sem LLM",
+        "prompt": "Suba o pacote do ano (A3, OKR, métricas de fluxo, PDI). Gere Overview. A ATA: uma decisão do ritual EU escrevo offline — o modelo não escolhe o ritual do time.",
+        "tips": [
+          "O modelo escolheu a decisão: apague e escreva à mão.",
+          "Overview sem fontes do pacote.",
+          "Sem cláusula de autoria o PI some."
+        ],
+        "tool": "NotebookLM",
+        "alt": "Gamma PDF do pacote"
+      }
+    },
+    "17": {
+      "metodo": "Uma lente de tamanho e frase para o C-Level (além de LT/CT/TH)",
+      "a1": [
+        {
+          "t": "Fluxo ≠ tamanho",
+          "d": "LT/CT/TH dizem quando o card anda. Não dizem o que saiu para a diretoria."
+        },
+        {
+          "t": "Uma lente",
+          "d": "Funcional, técnica ou qualitativa — uma por ciclo. A IA não troca a lente."
+        },
+        {
+          "t": "No estimates",
+          "d": "Não estimar o card em hora. Ainda assim o time nomeia unidade e o que não conta."
+        }
+      ],
+      "a2": [
+        "Recorte de fluxo que vocês já medem",
+        "Uma lente, unidade e o que não conta",
+        "1 frase de C-Level e 1 linha de no-estimates"
+      ],
+      "a2Short": [
+        "Recorte de fluxo",
+        "Lente e unidade",
+        "Frase C-Level"
+      ],
+      "lab": {
+        "autor": "Albrecht / COSMIC / Anderson (ponte)",
+        "cap": "Língua de tamanho para o C-Level",
+        "out": "Lab aula 03 semana bonus.md — a IA estressa a unidade; não inventa PF",
+        "prompt": "Preencher Lab aula 03 semana bonus.md estressando a unidade que o time já escreveu na Aula 2 — sem inventar pontos de função, COSMIC ou LOC fora do bloco.\nFormato:\n# Lab aula 03 semana bonus.md\n## Lente (copiada da Aula 2)\n## O que inflaria esta unidade (3 tentações)\n## O que a diretoria entenderia errado\n## GATE HUMANO\n- PARA: a IA não troca a lente nem inventa contagem\n- QUEM: cargo que assina a língua do trimestre\n- SÓ DEPOIS:\n- FRASE DE TRAVA: Nenhuma contagem entra no comitê sem o sim de [QUEM].\nRegra: se o bloco da Aula 2 estiver vazio, PERGUNTE. Recuse velocity como tamanho.",
+        "tips": [
+          "A IA escolheu APF sozinha. Volte à lente do A2.",
+          "Número de PF sem inventário = alucinação.",
+          "Velocity no slide do C-Level: recuse."
+        ],
+        "tool": "ChatGPT free",
+        "alt": "Gemini"
+      }
+    }
+  }
+}

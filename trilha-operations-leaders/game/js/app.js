@@ -722,6 +722,98 @@ export function startJornada(cfg = {}) {
   }
 
   function playOf() { return PLAY[week]; }
+
+  let mesaCopyLive = null;
+  let mentorEditMode = false;
+
+  function buildMesaCopyFromMemory() {
+    const weeks = {};
+    Object.keys(PLAY).forEach((k) => {
+      const p = PLAY[k] || {};
+      const l = LABS[k] || {};
+      weeks[k] = {
+        metodo: p.metodo || "",
+        a1: (p.a1 || []).map((c) => ({ t: c.t || "", d: c.d || "" })),
+        a2: (p.a2 || []).slice(),
+        a2Short: (p.a2Short || []).slice(),
+        lab: {
+          autor: l.autor || "",
+          cap: l.cap || "",
+          out: l.out || "",
+          prompt: typeof l.prompt === "string" ? l.prompt : "",
+          tips: Array.isArray(l.tips) ? l.tips.slice() : [],
+          tool: l.tool || "",
+          alt: l.alt || "",
+        },
+      };
+      if (p.casoBody) weeks[k].casoBody = p.casoBody;
+    });
+    return {
+      version: 1,
+      slug: (mesaCopyLive && mesaCopyLive.slug) || "trilha-operations-leaders",
+      weeks,
+    };
+  }
+
+  function applyMesaCopy(copy) {
+    if (!copy || !copy.weeks) return;
+    mesaCopyLive = copy;
+    Object.keys(copy.weeks).forEach((k) => {
+      const w = copy.weeks[k];
+      const n = Number(k);
+      if (!Number.isFinite(n)) return;
+      if (!PLAY[n]) PLAY[n] = { a1: [], a2: [], a2Short: [] };
+      if (w.metodo != null) PLAY[n].metodo = w.metodo;
+      if (Array.isArray(w.a1)) PLAY[n].a1 = w.a1.map((c) => ({ t: c.t || "", d: c.d || "" }));
+      if (Array.isArray(w.a2)) PLAY[n].a2 = w.a2.slice();
+      if (Array.isArray(w.a2Short)) PLAY[n].a2Short = w.a2Short.slice();
+      if (w.casoBody != null) PLAY[n].casoBody = w.casoBody;
+      if (!LABS[n]) LABS[n] = {};
+      if (w.lab && typeof w.lab === "object") {
+        ["autor", "cap", "out", "prompt", "tool", "alt"].forEach((field) => {
+          if (w.lab[field] != null) LABS[n][field] = w.lab[field];
+        });
+        if (Array.isArray(w.lab.tips)) LABS[n].tips = w.lab.tips.slice();
+      }
+    });
+    mesaWeekPaint = 0;
+    mesaA3Paint = "";
+    if (mode === "level") renderMesa();
+  }
+
+  function loadMesaCopy() {
+    return fetch("game/content/mesa-copy.json?v=20261013m")
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("mesa-copy"))))
+      .then((copy) => {
+        applyMesaCopy(copy);
+      })
+      .catch(() => {
+        mesaCopyLive = buildMesaCopyFromMemory();
+      });
+  }
+
+  function exposeMentorApi() {
+    window.__AFOL_MENTOR__ = {
+      getMesaCopy: () => mesaCopyLive || buildMesaCopyFromMemory(),
+      applyMesaCopy,
+      setEditMode: (on) => {
+        mentorEditMode = !!on;
+        document.body.classList.toggle("mentor-editing", mentorEditMode);
+        mesaWeekPaint = 0;
+        mesaA3Paint = "";
+        if (mode === "level") renderMesa();
+      },
+      isEditMode: () => mentorEditMode,
+      getWeek: () => week,
+      toast: (msg) => toast(msg),
+      refresh: () => {
+        mesaWeekPaint = 0;
+        mesaA3Paint = "";
+        if (mode === "level") renderMesa();
+      },
+    };
+  }
+
   function needsSetup() { return week === 1; }
   function needsSetupPrompt() {
     return !save.setupS01 && !save.won.includes(1);
@@ -1331,7 +1423,44 @@ export function startJornada(cfg = {}) {
     document.querySelectorAll("[data-lab-body]").forEach((el) => {
       const key = el.getAttribute("data-lab-body");
       if (map[key]) el.textContent = map[key];
+      if (key === "prompt") {
+        el.setAttribute("data-edit-path", "weeks." + week + ".lab.prompt");
+      }
     });
+    const lab = labOf();
+    let tipsHost = document.getElementById("mentor-lab-tips");
+    if (!tipsHost) {
+      const workspace = document.querySelector(".lab-lab");
+      if (workspace) {
+        tipsHost = document.createElement("div");
+        tipsHost.id = "mentor-lab-tips";
+        tipsHost.className = "mentor-lab-tips";
+        tipsHost.setAttribute("data-edit-path", "weeks." + week + ".lab.tips");
+        workspace.appendChild(tipsHost);
+      }
+    }
+    if (tipsHost) {
+      tipsHost.setAttribute("data-edit-path", "weeks." + week + ".lab.tips");
+      tipsHost.textContent = Array.isArray(lab.tips) ? lab.tips.join("\n") : "";
+      let capHost = document.getElementById("mentor-lab-cap");
+      if (!capHost) {
+        capHost = document.createElement("p");
+        capHost.id = "mentor-lab-cap";
+        capHost.className = "mentor-lab-cap";
+        tipsHost.parentNode.insertBefore(capHost, tipsHost);
+      }
+      capHost.setAttribute("data-edit-path", "weeks." + week + ".lab.cap");
+      capHost.textContent = lab.cap || "";
+      let outHost = document.getElementById("mentor-lab-out");
+      if (!outHost) {
+        outHost = document.createElement("p");
+        outHost.id = "mentor-lab-out";
+        outHost.className = "mentor-lab-out";
+        tipsHost.parentNode.insertBefore(outHost, tipsHost);
+      }
+      outHost.setAttribute("data-edit-path", "weeks." + week + ".lab.out");
+      outHost.textContent = lab.out || "";
+    }
     document.querySelectorAll(".btn-copy-lab[data-copy]").forEach((btn) => {
       const key = btn.getAttribute("data-copy");
       btn.onclick = (ev) => {
@@ -1372,9 +1501,11 @@ export function startJornada(cfg = {}) {
     document.getElementById("caso-who").textContent = inLab
       ? casoBanner(week)
       : "Homework exemplo · " + pinCount + "/" + p.a2.length;
-    casoPre.textContent = inLab && pinCount >= p.a2.length
-      ? revealedExemplo(week)
-      : rev.text;
+    const overrideBody = PLAY[week] && PLAY[week].casoBody;
+    casoPre.textContent = overrideBody
+      ? overrideBody
+      : (inLab && pinCount >= p.a2.length ? revealedExemplo(week) : rev.text);
+    casoPre.setAttribute("data-edit-path", "weeks." + week + ".casoBody");
     btnCaso.disabled = false;
   }
 
@@ -1477,12 +1608,15 @@ export function startJornada(cfg = {}) {
     if (mesaWeekPaint !== week || a1box.children.length !== p.a1.length) {
       a1box.innerHTML = p.a1.map((card, i) => {
         const open = !!a1open[i];
-        return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a1="' + i + '"><span class="tag">' + card.t + "</span><span class='card-d'>" + phraseLines(card.d) + "</span></button>";
+        const pe = "weeks." + week + ".a1." + i;
+        return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a1="' + i + '"><span class="tag" data-edit-path="' + pe + '.t">' + card.t + "</span><span class='card-d' data-edit-path=\"" + pe + '.d">' + phraseLines(card.d) + "</span></button>";
       }).join("");
       a2box.innerHTML = p.a2.map((txt, i) => {
         const label = (p.a2Short && p.a2Short[i]) ? p.a2Short[i] : ("Passo " + (i + 1));
         const open = !!a2pin[i];
-        return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a2="' + i + '"' + (a1ready ? "" : " disabled") + '><span class="tag">' + label + "</span><span class='card-body'>" + phraseLines(txt) + "</span></button>";
+        const pe = "weeks." + week + ".a2." + i;
+        const ps = "weeks." + week + ".a2Short." + i;
+        return '<button type="button" class="piece' + (open ? " on" : "") + '" data-a2="' + i + '"' + (a1ready ? "" : " disabled") + '><span class="tag" data-edit-path="' + ps + '">' + label + "</span><span class='card-body' data-edit-path=\"" + pe + '">' + phraseLines(txt) + "</span></button>";
       }).join("");
       mesaWeekPaint = week;
     } else {
@@ -2138,12 +2272,15 @@ export function startJornada(cfg = {}) {
   resize();
   renderExplorer();
   syncHud();
-  loadBrand().then(() => {
-    resize();
-    bootFromUrl();
-    requestAnimationFrame(() => {
+  exposeMentorApi();
+  loadBrand()
+    .then(() => loadMesaCopy())
+    .then(() => {
       resize();
-      requestAnimationFrame(tick);
+      bootFromUrl();
+      requestAnimationFrame(() => {
+        resize();
+        requestAnimationFrame(tick);
+      });
     });
-  });
 }

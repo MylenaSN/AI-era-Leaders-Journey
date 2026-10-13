@@ -1,4 +1,4 @@
----
+﻿---
 id: pacote-aluno
 titulo: Pacote que a turma baixa — engine + workspace
 atualizado_em: "2026-08-29"
@@ -20,7 +20,7 @@ aluno/
   02 Produto/          semana-03–06
   03 Delivery/         semana-07–10   ← IDE do ciclo
   04 Times hibridos/   semana-11–14
-  05 Homeostase/       semana-15  semana-16
+  05 Equilibrio AI-Era/       semana-15  semana-16
 ```
 
 ## arquitetura-folder
@@ -33,7 +33,7 @@ aluno/
 | [`02 Produto/`](./02%20Produto/README.md) | wave | semanas 03–06 | idem |
 | [`03 Delivery/`](./03%20Delivery/README.md) | wave | semanas 07–10 · casa do ciclo no IDE | [`semana-09.md`](../../../../../../trilhas-conhecimento/AI-First-Operations-Leadership/densidade-pedagogica/semana-09.md) |
 | [`04 Times hibridos/`](./04%20Times%20hibridos/README.md) | wave | semanas 11–14 + adendo medida | [`bonus-medida/`](./04%20Times%20hibridos/bonus-medida/README.md) |
-| [`05 Homeostase/`](./05%20Homeostase/README.md) | wave | semanas 15–16 | fechamento + git do engine |
+| [`05 Equilibrio AI-Era/`](./05%20Equilibrio%20AI-Era/README.md) | wave | semanas 15–16 | fechamento + git do engine |
 | [`setup-cofre.py`](./setup-cofre.py) | rotina | Cria árvore + stubs no Drive/CMD | [`plus-s01-setup-cofre.md`](../../../../../../trilhas-conhecimento/AI-First-Operations-Leadership/densidade-pedagogica/plus-s01-setup-cofre.md) · [`_ARVORE.txt`](./_ARVORE.txt) |
 | [`setup-cofre.bat`](./setup-cofre.bat) | rotina | Atalho Windows (sem Python) | `setup-cofre.py` |
 | [`_ARVORE.txt`](./_ARVORE.txt) | mapa | Contrato visual da árvore | [`cofre-artefatos.md`](../cofre-artefatos.md) |

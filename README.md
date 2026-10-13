@@ -10,7 +10,9 @@ atualizado_em: "2026-09-01"
 
 **5º domain.** Runtime autônomo da jornada gamificada — `play.html` + `game/` + `aluno/` rodam sem import de Trilhas, Library ou agents do Loop.
 
-O aluno **guarda** cada output na pasta da jornada (`AI-First-Operations-Leadership-Jornada` no Desktop, depois Drive) e a semana seguinte **lê** o Homework aula 02. Na semana 16 exporta o manifest e consolida os 3 artefatos da trilha. Oferta viva: **AI-First Operations Leadership** (`INI-AFSL-AS`).
+**THIS IS OUR WAY:** [`THE_LOOP_GAME.md`](./THE_LOOP_GAME.md) — 5 Waves · spine comercial 10 semanas · entrega à Agile School e a quem sustenta o loop = **EVERYTHING**.
+
+O aluno **guarda** cada output na pasta da jornada (`AI-First-Operations-Leadership-Jornada` no Desktop, depois Drive) e a semana seguinte **lê** o Homework aula 02. O motor ainda expande em 16 semanas; a spine vendida é 10s / 5 Waves. Oferta viva: **AI-First Operations Leadership** (`INI-AFSL-AS`).
 
 | Rastreio | Onde |
 |----------|------|
@@ -47,11 +49,15 @@ Inventário desta pasta. Qualquer alteração aqui atualiza **esta** seção no 
 | Elemento | Tipo | Papel | Liga a |
 |----------|------|-------|--------|
 | [`README.md`](./README.md) | domain | Hub do Game (FEAT-JORNADA) | BC [`jornada-aluno.md`](../core/bounded-contexts/jornada-aluno.md) · stub FL2 |
+| [`THE_LOOP_GAME.md`](./THE_LOOP_GAME.md) | manifesto | Jeito + 5 Cycles/Waves + EVERYTHING (Agile School = quem paga) | densidades · Journey · `Code_Guide` |
+| [`PROMPT_APRENDIZADO_5_CYCLES.md`](./PROMPT_APRENDIZADO_5_CYCLES.md) | contrato | Mastery gates · ICP cascata · leis do prompt | USM · ASSIC · PDC |
 | [`spec-mosby.md`](./spec-mosby.md) | spec | DDD + Clean + USM | [`jornada-usuario.md`](../core/FL01-loop-universe/loop-arq/processos/jornada-usuario.md) |
 | [`play.html`](./play.html) | jogo | Shell HTML + campo do mapa | [`game/`](./game/README.md) |
 | [`setup-jornada.py`](./setup-jornada.py) | rotina | Cria no Desktop a pasta unificada + 5 Waves | [`game/js/app.js`](./game/js/app.js) Setup · comando no terminal |
 | [`game/`](./game/README.md) | runtime | CSS + engine ES modules + ilhas de conteúdo | `play.html` · `brand-config.json` · `aluno/` |
 | [`game/content/casos-exemplo.js`](./game/content/casos-exemplo.js) | conteúdo | 5 times de exemplo (um por wave) | Lab aula 03 · `Prompt exemplo` |
+| [`game/content/mesa-copy.json`](./game/content/mesa-copy.json) | conteúdo | Copy editável da mesa (A1/A2/lab) | Mentor editor · publish GitHub |
+| [`mentor.html`](./mentor.html) | gate | Login mentor → trilha + PAT de sessão | `game/js/mentor-*.js` |
 | [`emitir-casos-exemplo.py`](./emitir-casos-exemplo.py) | rotina | Espelha os exemplos no `aluno/` e na V.2 | `python emitir-casos-exemplo.py` |
 | [`brand-config.json`](./brand-config.json) | projeção | HEX/tipo do slug ativo (commitado; não inventar) | [`partners/agile-school/brand-config.json`](../partners/agile-school/brand-config.json) · [`emitir-brand-config.py`](./emitir-brand-config.py) |
 | [`emitir-brand-config.py`](./emitir-brand-config.py) | rotina | Opcional: copia projeção do kit Parceiro | `python emitir-brand-config.py --slug=agile-school` |

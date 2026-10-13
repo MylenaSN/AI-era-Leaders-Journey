@@ -1,4 +1,4 @@
----
+﻿---
 id: cofre-artefatos
 titulo: Cofre — nomes que o engine lê
 atualizado_em: "2026-08-30"
@@ -75,7 +75,7 @@ aluno/
   02 Produto/semana-03/…
   03 Delivery/semana-09/Lab aula 03 semana 09.md   ← IDE do ciclo (Wave 03)
   04 Times hibridos/…
-  05 Homeostase/semana-16/Lab aula 03 semana 16.md
+  05 Equilibrio AI-Era/semana-16/Lab aula 03 semana 16.md
 ```
 
 Wave → semana. O aluno abre `aluno/` no Cursor. Drive pode espelhar a mesma árvore.

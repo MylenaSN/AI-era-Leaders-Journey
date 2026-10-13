@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Cria a árvore do cofre (pastas + arquivos nomeados). Não sobrescreve o que já existe."""
 from __future__ import print_function
 
@@ -21,8 +21,8 @@ WAVE = {
     12: "04 Times hibridos",
     13: "04 Times hibridos",
     14: "04 Times hibridos",
-    15: "05 Homeostase",
-    16: "05 Homeostase",
+    15: "05 Equilibrio AI-Era",
+    16: "05 Equilibrio AI-Era",
 }
 
 STUB = "# {name}\n\n(preencha na semana — o engine lê este nome)\n"

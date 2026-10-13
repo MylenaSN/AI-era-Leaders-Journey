@@ -33,7 +33,7 @@
       height: 100dvh;
       overflow: hidden;
     }
-    /* Desktop: semana ocupa o viewport; scroll interno nos painéis */
+    /* Desktop: semana ocupa o viewport; scroll interno nos painÃ©is */
     body.journey-level {
       height: 100dvh;
       overflow: hidden;
@@ -1435,7 +1435,7 @@
     #caso .who { font: 700 0.68rem/1 var(--font-title); text-transform: uppercase; letter-spacing: 0.05em; color: var(--gate); }
     #caso #btn-caso:disabled { opacity: 0.45; cursor: not-allowed; }
     @media (max-width: 900px) {
-      /* Mobile: scroll na página inteira — painéis podem crescer */
+      /* Mobile: scroll na pÃ¡gina inteira â€” painÃ©is podem crescer */
       body.journey-level {
         height: auto;
         min-height: 100dvh;
@@ -1533,3 +1533,75 @@
       .lab-deliverable p { font-size: 0.78rem; line-height: 1.48; }
       #caso-body { font-size: 0.76rem; max-height: none; }
     }
+/* —— Mentor editor (sessão) —— */
+#mentor-bar {
+  position: fixed;
+  top: 10px;
+  right: 12px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.94);
+  border: 1px solid var(--line, #e5e5e5);
+  box-shadow: 0 8px 24px rgba(31, 54, 75, 0.12);
+  font-family: var(--font-body, Roboto, sans-serif);
+}
+#mentor-bar[hidden] { display: none !important; }
+.mentor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line, #ddd);
+  background: #fff;
+  color: #1f364b;
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mentor-btn.on, .mentor-btn--save:not(:disabled) {
+  border-color: #5B2D8E;
+  color: #5B2D8E;
+}
+.mentor-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.mentor-btn--ghost { font-weight: 500; color: #666; }
+.mentor-bar-meta {
+  font-size: 0.72rem;
+  color: #666;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body.mentor-editing [data-edit-path] {
+  outline: 1px dashed rgba(91, 45, 142, 0.45);
+  outline-offset: 2px;
+  border-radius: 4px;
+  cursor: text;
+}
+body.mentor-editing [data-edit-path]:focus {
+  outline: 2px solid #5B2D8E;
+  background: rgba(91, 45, 142, 0.06);
+}
+.mentor-lab-cap, .mentor-lab-out, .mentor-lab-tips {
+  display: none;
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+}
+body.mentor-editing .mentor-lab-cap,
+body.mentor-editing .mentor-lab-out,
+body.mentor-editing .mentor-lab-tips {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #fbf7fc;
+  border: 1px solid #e8e0f0;
+}
+body.mentor-editing .mentor-lab-cap::before { content: "Lab · capa: "; font-weight: 700; color: #5B2D8E; }
+body.mentor-editing .mentor-lab-out::before { content: "Lab · entrega: "; font-weight: 700; color: #5B2D8E; }
+body.mentor-editing .mentor-lab-tips::before { content: "Lab · tips (1 por linha):\A"; font-weight: 700; color: #5B2D8E; white-space: pre; }

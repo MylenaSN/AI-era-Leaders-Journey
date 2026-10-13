@@ -604,7 +604,10 @@
     .a3-brief {
       display: flex; flex-direction: column; gap: 8px;
       flex: 1; min-height: 0; min-width: 0;
-      overflow-x: hidden; overflow-y: auto; padding-bottom: 6px;
+      overflow-x: hidden; overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 16px;
     }
     .a3-brief-kicker {
       margin: 0; font: 700 0.62rem/1 var(--font-title);
@@ -746,19 +749,18 @@
       background: linear-gradient(180deg, transparent 0%, var(--panel) 22%);
       padding-top: 4px;
     }
-    .lab-workspace.has-many-tools .lab-frame-prompt,
-    .lab-workspace.has-many-tools .lab-frame-prompt .lab-frame-body {
-      min-height: min(34vh, 100%);
-    }
+    /* Prompt/caso: altura só pelo flex (min-height:0). min(Nvh) no body
+       estourava o .lab-frame (overflow:hidden) e o scroll “chegava ao fim”
+       sem mostrar as últimas linhas (ex.: texto após # 6. TOM). */
     .lab-frame-prompt {
       flex: 1 1 auto;
-      min-height: min(52vh, 100%);
+      min-height: 0;
       display: flex;
       flex-direction: column;
     }
     .lab-frame-prompt .lab-frame-body {
       flex: 1 1 auto;
-      min-height: min(46vh, 100%);
+      min-height: 0;
       font-size: 0.74rem;
       line-height: 1.42;
     }
@@ -779,10 +781,12 @@
     }
     .lab-frame-body {
       flex: 1; min-height: 0; min-width: 0; max-width: 100%;
-      margin: 0; padding: 8px 10px;
+      margin: 0; padding: 8px 10px 20px;
       font-size: 0.68rem; line-height: 1.35; white-space: pre-wrap;
       overflow-x: hidden; overflow-y: auto;
       overflow-wrap: anywhere; word-break: break-word;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
       background: transparent; border: 0;
       font-family: var(--font-body); color: var(--ink);
     }
@@ -929,13 +933,14 @@
       .lab-lab { overflow: visible; }
       #rail-a3.has-lab .stack { overflow: visible; }
       .a3-brief { overflow: visible; }
-      .lab-frame-prompt,
-      .lab-frame-prompt .lab-frame-body {
-        min-height: min(40vh, 100%);
+      .lab-frame-prompt {
+        min-height: 12rem;
       }
       .lab-frame-prompt .lab-frame-body {
+        min-height: 10rem;
+        max-height: min(55vh, 28rem);
         overflow-x: hidden;
-        overflow-y: visible;
+        overflow-y: auto;
       }
     }
     #dock h3 { margin: 0 0 6px; font-size: 0.92rem; }
@@ -1438,8 +1443,10 @@
       white-space: pre-wrap;
       overflow-x: hidden; overflow-y: auto;
       overflow-wrap: anywhere; word-break: break-word;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
       background: var(--bg); border: 1px solid var(--line);
-      border-radius: 10px; padding: 8px 9px;
+      border-radius: 10px; padding: 8px 9px 18px;
       font-family: var(--font-body); color: var(--ink);
       flex: 1; min-height: 0; min-width: 0; max-width: 100%;
     }

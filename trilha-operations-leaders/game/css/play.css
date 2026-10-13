@@ -449,12 +449,12 @@
     .nota-score-block.ok .nota-score-title { color: var(--path); }
     .nota-back { width: 100%; margin-top: 0; text-align: center; }
     .semana-done-msg {
-      margin: 0 0 1.1rem;
-      padding: 1rem 1.05rem;
+      margin: 0.35rem 0 1.15rem;
+      padding: 1.15rem 1.1rem;
       border-radius: 14px;
       border: 1px solid color-mix(in srgb, var(--path) 35%, var(--line));
       background: color-mix(in srgb, var(--path) 8%, #fff);
-      font: 700 1.05rem/1.4 var(--font-title);
+      font: 700 1.2rem/1.35 var(--font-title);
       color: var(--ink);
       text-align: center;
     }

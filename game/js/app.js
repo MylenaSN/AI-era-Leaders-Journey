@@ -1913,9 +1913,7 @@ export function startJornada(cfg = {}) {
   function openSemanaDoneDialog(wk) {
     const dlg = document.getElementById("semana-done-dialog");
     const msg = document.getElementById("semana-done-msg");
-    const title = document.getElementById("semana-done-title");
     const label = "Semana " + String(wk).padStart(2, "0");
-    if (title) title.textContent = label + " concluída";
     if (msg) msg.textContent = label + " concluída com Sucesso \\o/";
     if (dlg && !dlg.open) dlg.showModal();
   }

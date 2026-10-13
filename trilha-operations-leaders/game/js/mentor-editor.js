@@ -178,8 +178,15 @@ async function savePublish() {
     toast("Falha ao publicar: " + result.error);
     return;
   }
-  toast("Publicado · " + result.paths.length + " arquivo(s). Pages pode atrasar ~1 min.");
+  toast("Publicado · " + result.paths.length + " arquivo(s). Recarregando…");
   setEditing(false);
+  // força ler o JSON do GitHub Pages (evita cache do fallback antigo)
+  setTimeout(() => {
+    const url = new URL(location.href);
+    url.searchParams.set("mentor", "1");
+    url.searchParams.set("saved", String(Date.now()));
+    location.replace(url.toString());
+  }, 900);
 }
 
 function onShiftDblClick(ev) {

@@ -803,7 +803,11 @@ export function startJornada(cfg = {}) {
   }
 
   function loadMesaCopy() {
-    return fetch("game/content/mesa-copy.json?v=20261013s")
+    let bust = "20261013t";
+    try {
+      if (sessionStorage.getItem("afol-mentor-session-v1")) bust = String(Date.now());
+    } catch (_) { /* ignore */ }
+    return fetch("game/content/mesa-copy.json?v=" + bust)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("mesa-copy"))))
       .then((copy) => {
         applyMesaCopy(copy);

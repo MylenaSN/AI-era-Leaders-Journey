@@ -37,7 +37,8 @@
     }
     localStorage.setItem(EMAIL_KEY, typedEmail);
     sessionStorage.setItem(KEY, "1");
-    location.href = "play.html";
+    var path = location.pathname.replace(/\\/g, "/");
+    location.href = path.indexOf("/trilha-operations-leaders/") !== -1 ? "../universe.html" : "universe.html";
   };
 
   function fail(msg) {

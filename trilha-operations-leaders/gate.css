@@ -128,3 +128,28 @@ html, body {
 }
 .gate-panel .gate-cta { width: 100%; margin-top: 0.35rem; }
 .gate-panel .gate-err { text-align: center; }
+.universe {
+  width: min(36rem, 100%);
+}
+.universe h1 { margin-bottom: 1.25rem; }
+.project-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.project-link {
+  display: block;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg);
+  color: var(--ink);
+  text-decoration: none;
+}
+.project-link:hover { border-color: var(--accent); }
+.project-link strong {
+  display: block;
+  font: 700 1rem/1.3 var(--font-title);
+}
+.project-link span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--dim);
+  font-size: 0.88rem;
+}

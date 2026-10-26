@@ -4,21 +4,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>patronloop · entrada da mentora</title>
+  <title>Entrada do Patron Loop Universe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="gate.css" />
   <script>
-    if (sessionStorage.getItem("patronloop-mentor-home-v1") === "1") location.replace("play.html");
+    if (sessionStorage.getItem("patronloop-mentor-home-v1") === "1") {
+      var path = location.pathname.replace(/\\/g, "/");
+      location.replace(path.indexOf("/trilha-operations-leaders/") !== -1 ? "../universe.html" : "universe.html");
+    }
   </script>
 </head>
 <body>
   <main class="gate">
     <form id="mentor-home" class="gate-panel">
       <p class="gate-brand">patronloop</p>
-      <h1>Entrada da mentora</h1>
-      <p class="gate-note">A trilha usa esta casa. O aluno não entra.</p>
+      <h1>Entrada do Patron Loop Universe</h1>
       <label class="gate-field">E-mail
         <input type="email" id="mentor-email" name="email" autocomplete="username" required />
       </label>

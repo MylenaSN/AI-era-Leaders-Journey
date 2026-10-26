@@ -217,7 +217,7 @@ async function savePublish() {
   a.applyMesaCopy(published);
   stashPendingMesa(published);
   toast(
-    "Salvo no GitHub · " +
+    "Salvo · " +
       result.paths.length +
       " arquivo(s). Recarregando com o seu texto (Pages pode atrasar ~1 min)…"
   );

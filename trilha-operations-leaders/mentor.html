@@ -73,15 +73,18 @@
 <body>
   <script src="mentor-home-guard.js"></script>
   <form class="card" id="login-form">
-    <h1>Login mentor</h1>
-    <p class="sub">Escolha a trilha isolada. O PAT fica só nesta sessão do browser (nunca no git).</p>
+    <h1>Mesa da trilha</h1>
+    <p class="sub">Um token do Gitea basta. Este navegador guarda o mesmo. Não gere outro a cada edição.</p>
 
     <label for="trilha">Trilha</label>
     <select id="trilha" required></select>
 
-    <label for="pat">Token Gitea (contents: write no repo da mentora)</label>
-    <input id="pat" type="password" autocomplete="off" spellcheck="false" placeholder="token Gitea — nunca GitHub" required />
-    <p class="hint">Token de <strong>gitea.com</strong> no repo da mentora. Owner/repo em <code>mentor-config.js</code>. PAT GitHub é recusado.</p>
+    <div id="pat-block">
+      <label for="pat">Token Gitea</label>
+      <input id="pat" type="password" autocomplete="off" spellcheck="false" placeholder="o token que já está em secrets/gitea.token" />
+      <p class="hint">Cole uma vez o token do arquivo <code>secrets/gitea.token</code>. Depois, este navegador entra direto.</p>
+    </div>
+    <p id="remembered" class="hint" hidden>Token deste navegador encontrado. <a href="#" id="trocar">Esquecer e colar outro</a></p>
 
     <button type="submit" id="go">Entrar na mesa</button>
     <p class="err" id="err"></p>
@@ -92,7 +95,8 @@
     import {
       TRILHAS,
       writeSession,
-      clearSession,
+      readSession,
+      forgetToken,
     } from "./game/js/mentor-config.js";
 
     const sel = document.getElementById("trilha");
@@ -103,35 +107,67 @@
       sel.appendChild(opt);
     });
 
+    const patBlock = document.getElementById("pat-block");
+    const pat = document.getElementById("pat");
+    const remembered = document.getElementById("remembered");
+    const go = document.getElementById("go");
+    let saved = readSession();
+
+    function enterMesa() {
+      location.href = "play.html?mentor=1";
+    }
+
+    function showPaste() {
+      saved = null;
+      remembered.hidden = true;
+      patBlock.hidden = false;
+      pat.required = true;
+      go.textContent = "Entrar na mesa";
+      pat.focus();
+    }
+
+    if (saved && saved.token && saved.slug) {
+      sel.value = saved.slug;
+      patBlock.hidden = true;
+      pat.required = false;
+      remembered.hidden = false;
+      go.textContent = "Continuar";
+    } else {
+      pat.required = true;
+    }
+
+    document.getElementById("trocar").addEventListener("click", (ev) => {
+      ev.preventDefault();
+      forgetToken();
+      showPaste();
+    });
+
     document.getElementById("login-form").addEventListener("submit", (ev) => {
       ev.preventDefault();
       const err = document.getElementById("err");
       err.textContent = "";
       const slug = sel.value;
-      const token = document.getElementById("pat").value.trim();
       const trilha = TRILHAS.find((t) => t.slug === slug);
       if (!trilha) {
         err.textContent = "Trilha inválida.";
         return;
       }
+      if (patBlock.hidden && saved && saved.token) {
+        writeSession({ slug, token: saved.token, mentor: trilha.mentor });
+        enterMesa();
+        return;
+      }
+      const token = pat.value.trim();
       if (token.length < 20) {
-        err.textContent = "Cole o token Gitea da sessão. Não fica no disco.";
+        err.textContent = "Cole o token que já está em secrets/gitea.token. Não gere outro.";
         return;
       }
       if (/^(github_pat_|ghp_|gho_)/.test(token)) {
         err.textContent = "Este PAT é GitHub. A esteira final da mentora é Gitea.";
         return;
       }
-      clearSession();
       writeSession({ slug, token, mentor: trilha.mentor });
-      const onLive = /patronloop\.com$/i.test(location.hostname);
-      let href;
-      if (slug === "trilha-operations-leaders" && !onLive) {
-        href = "play.html?mentor=1";
-      } else {
-        href = trilha.playPath + "?mentor=1";
-      }
-      location.href = href;
+      enterMesa();
     });
   </script>
 </body>

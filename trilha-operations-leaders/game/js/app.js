@@ -786,7 +786,7 @@ export function startJornada(cfg = {}) {
   function loadMesaCopy() {
     let bust = "20261013w";
     try {
-      if (sessionStorage.getItem("afol-mentor-session-v1")) bust = String(Date.now());
+      if (sessionStorage.getItem("afol-mentor-session-v2-gitea")) bust = String(Date.now());
     } catch (_) { /* ignore */ }
     const pending = readPendingMentorMesa();
     return fetch("game/content/mesa-copy.json?v=" + bust)

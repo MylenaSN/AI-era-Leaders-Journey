@@ -372,7 +372,7 @@ export function startJornada(cfg = {}) {
     });
   }
   const LABS = {
-    1: { autor:"Teo · pedido com cláusulas", cap:"Homework → chat → consolidado dos 3 pilares", tool:"ChatGPT free", alt:"Gemini", href:"https://chatgpt.com", href2:"https://gemini.google.com",
+    1: { autor:"Teo · pedido com cláusulas", cap:"Homework → chat → consolidado dos 3 pilares", tool:"ChatGPT ou Gemini", alt:"—", href:"https://chatgpt.com", href2:"https://gemini.google.com",
       etapas: [{ tools: [{ label:"ChatGPT", href:"https://chatgpt.com" }, { label:"Gemini", href:"https://gemini.google.com" }] }],
       out:"Consolidado do seu time nos 3 pilares (Product · Tech Delivery · Human & AI), no máximo 3 oportunidades com autor do Gantt",
       casca:"# Lab aula 03 semana 01.md\n\n## Time\n(1 linha)\n\n## Product Management\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Tech Delivery\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Human & AI Teams\n- O que o arquivo mostra:\n- Já em uso / lacuna:\n- Oportunidade: ou SEM FATO\n\n## Três oportunidades\n1.\n2.\n3.\n\n## GATE HUMANO\n- PARA: a IA não escolhe o que entra no calendário do time\n- QUEM:\n- SÓ DEPOIS:\n- FRASE DE TRAVA: Nenhuma oportunidade deste arquivo entra no calendário sem o sim de [QUEM].\n",
@@ -1077,7 +1077,7 @@ export function startJornada(cfg = {}) {
       labDone = false;
       a3open = [];
       a3chip = null;
-      phase = "brief";
+      phase = "lab";
       mesaA3Paint = "";
       paintA3Panel();
     }
@@ -1419,11 +1419,25 @@ export function startJornada(cfg = {}) {
     return lines.join("\n");
   }
 
+  function labNamedToolsHtml(lab) {
+    const tool = String((lab && lab.tool) || "").trim();
+    const alt = String((lab && lab.alt) || "").trim();
+    let html = "";
+    if (tool && tool !== "—") {
+      html += '<p class="lab-chip lab-named-tool"><b>Ferramenta</b> · ' + escapeHtml(tool) + "</p>";
+    }
+    if (alt && alt !== "—") {
+      html += '<p class="lab-chip lab-named-tool"><b>Superfície</b> · ' + escapeHtml(alt) + "</p>";
+    }
+    return html;
+  }
+
   function labLabHtml() {
     const lab = labOf();
     const toolCount = labEtapas(lab).reduce((n, e) => n + (e.tools || []).length, 0);
     const manyCls = toolCount >= 3 ? " has-many-tools" : "";
     let html = '<div class="lab-lab">';
+    html += labNamedToolsHtml(lab);
     if (reforco) {
       html += "<p class='lab-chip reforco'>Nota 1 — chat novo. Use o contrato ao lado.</p>";
     }
@@ -1861,10 +1875,7 @@ export function startJornada(cfg = {}) {
 
   function startGateFromLab() {
     labDone = true;
-    phase = "nota";
-    renderMesa();
-    syncHud();
-    openNotaDialog();
+    winWeek();
   }
 
   function applyScore(n) {
@@ -1906,7 +1917,12 @@ export function startJornada(cfg = {}) {
     const dlg = document.getElementById("semana-done-dialog");
     const msg = document.getElementById("semana-done-msg");
     const label = "Semana " + String(wk).padStart(2, "0");
-    if (msg) msg.textContent = label + " concluída com Sucesso \\o/";
+    const next = wk < N_WEEKS ? wk + 1 : 0;
+    if (msg) {
+      msg.textContent = next
+        ? label + " fechada. A Semana " + String(next).padStart(2, "0") + " já está no mapa."
+        : "Semana 10 fechada. A trilha inteira está no mapa.";
+    }
     if (dlg && !dlg.open) dlg.showModal();
   }
 
@@ -2020,8 +2036,8 @@ export function startJornada(cfg = {}) {
 
   function trailPoint(m, t) {
     const y = m.bot - t * (m.bot - m.top);
-    const amp = (m.w - m.padL - m.padR) * (0.12 + t * 0.18);
-    let x = m.cx + Math.sin(t * Math.PI * 2.15 + 0.4) * amp;
+    const amp = (m.w - m.padL - m.padR) * 0.32;
+    let x = m.cx + Math.sin(t * Math.PI) * amp;
     x = Math.max(m.padL + 24, Math.min(m.w - m.padR - 24, x));
     return { x, y };
   }

@@ -3,12 +3,7 @@ import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003h";
 import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003h";
 import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003h";
 import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261013p";
-import { SPINE } from "../content/spine-10.js?v=20261023a";
-import { SPINE } from "../content/spine-10.js?v=20261023a";
-import { SPINE } from "../content/spine-10.js?v=20261023a";
-import { SPINE } from "../content/spine-10.js?v=20261023a";
-import { SPINE } from "../content/spine-10.js?v=20261023a";
-import { SPINE } from "../content/spine-10.js?v=20261023a";
+import { SPINE } from "../content/spine-10.js?v=20261026a";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];
@@ -628,36 +623,6 @@ export function startJornada(cfg = {}) {
   };
 
 
-
-
-  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
-  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
-  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
-  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
-
-
-  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
-  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
-  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
-  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
-
-
-  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
-  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
-  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
-  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
-
-
-  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
-  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
-  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
-  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
-
-
-  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
-  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
-  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
-  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
 
 
   Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });

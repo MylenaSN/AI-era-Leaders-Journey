@@ -83,3 +83,48 @@ html, body {
   text-underline-offset: 3px;
 }
 .gate-mentor-link a:hover { color: var(--ink); }
+.gate-panel {
+  width: min(22rem, 100%);
+  text-align: left;
+}
+.gate-panel .gate-brand { text-align: center; }
+.gate-panel h1 {
+  margin: 0 0 0.4rem;
+  font: 700 1.35rem/1.2 var(--font-title);
+  text-align: center;
+}
+.gate-note {
+  margin: 0 0 1.25rem;
+  color: var(--dim);
+  font-size: 0.92rem;
+  text-align: center;
+}
+.gate-note-quiet { margin: 1rem 0 0; font-size: 0.78rem; }
+.gate-field {
+  display: block;
+  margin: 0 0 0.75rem;
+  font: 600 0.72rem/1 var(--font-title);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.gate-field input {
+  display: block;
+  width: 100%;
+  margin: 0.4rem 0 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.4 var(--font-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.gate-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.gate-panel .gate-cta { width: 100%; margin-top: 0.35rem; }
+.gate-panel .gate-err { text-align: center; }

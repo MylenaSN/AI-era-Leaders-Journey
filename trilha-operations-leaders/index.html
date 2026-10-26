@@ -4,12 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <meta http-equiv="refresh" content="0; url=mentor.html" />
-  <title>Mentor · AI-First Operations Leadership</title>
-  <script>location.replace("mentor.html");</script>
+  <title>patronloop · entrada da mentora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="gate.css" />
+  <script>
+    if (sessionStorage.getItem("patronloop-mentor-home-v1") === "1") location.replace("play.html");
+  </script>
 </head>
 <body>
-  <p>Abrindo login mentor… <a href="mentor.html">Continuar</a></p>
-  <p class="foot"><a href="jornada.html">Entrada do aluno (senha)</a></p>
+  <main class="gate">
+    <form id="mentor-home" class="gate-panel">
+      <p class="gate-brand">patronloop</p>
+      <h1>Entrada da mentora</h1>
+      <p class="gate-note">A trilha usa esta casa. O aluno não entra.</p>
+      <label class="gate-field">E-mail
+        <input type="email" id="mentor-email" name="email" autocomplete="username" required />
+      </label>
+      <label class="gate-field">Senha
+        <input type="password" id="mentor-pass" name="password" autocomplete="current-password" required />
+      </label>
+      <p id="mentor-err" class="gate-err" hidden></p>
+      <button type="submit" class="gate-cta">Entrar</button>
+      <p class="gate-note gate-note-quiet">Neste navegador o e-mail fica lembrado. A sessão vale até fechar o navegador.</p>
+    </form>
+  </main>
+  <script src="mentor-home.lock.js"></script>
+  <script src="mentor-home.js"></script>
 </body>
 </html>

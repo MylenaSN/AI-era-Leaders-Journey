@@ -22,21 +22,27 @@
   <script src="universe.js"></script>
   <script>
     var list = document.getElementById("project-list");
-    (window.PATRON_PROJECTS || []).forEach(function (project) {
-      var item = document.createElement("li");
-      var link = document.createElement("a");
-      link.className = "project-link";
-      link.href = project.href;
-      var title = document.createElement("strong");
-      title.textContent = project.name;
-      link.appendChild(title);
-      if (project.note) {
-        var note = document.createElement("span");
-        note.textContent = project.note;
-        link.appendChild(note);
-      }
-      item.appendChild(link);
-      list.appendChild(item);
+    (window.PATRON_PROJECTS || []).forEach(function (group) {
+      var heading = document.createElement("li");
+      heading.className = "project-group";
+      heading.textContent = group.group;
+      list.appendChild(heading);
+      (group.items || []).forEach(function (project) {
+        var item = document.createElement("li");
+        var link = document.createElement("a");
+        link.className = "project-link";
+        link.href = project.href;
+        var title = document.createElement("strong");
+        title.textContent = project.name;
+        link.appendChild(title);
+        if (project.note) {
+          var note = document.createElement("span");
+          note.textContent = project.note;
+          link.appendChild(note);
+        }
+        item.appendChild(link);
+        list.appendChild(item);
+      });
     });
   </script>
 </body>

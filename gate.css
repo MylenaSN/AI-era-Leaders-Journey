@@ -153,3 +153,10 @@ html, body {
   color: var(--dim);
   font-size: 0.88rem;
 }
+.project-group {
+  margin: 0.35rem 0 0;
+  font: 700 0.72rem/1 var(--font-title);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}

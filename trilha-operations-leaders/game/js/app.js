@@ -1922,7 +1922,7 @@ export function startJornada(cfg = {}) {
     if (msg) {
       msg.innerHTML = ""
         + '<span class="semana-done-line">Finalizamos os conhecimentos desta semana!</span>'
-        + '<span class="semana-done-line">Concluído um passo dignificativo para</span>'
+        + '<span class="semana-done-line">Concluído um passo significativo para</span>'
         + '<span class="semana-done-line">se tornar um verdadeiro:</span>'
         + '<strong class="semana-done-role">AI-Operations Leader!</strong>';
     }

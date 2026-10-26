@@ -78,9 +78,9 @@
     <label for="trilha">Trilha</label>
     <select id="trilha" required></select>
 
-    <label for="pat">GitHub PAT (Contents: Write no Journey)</label>
-    <input id="pat" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_… · ghp_… · gho_…" required />
-    <p class="hint">Fine-grained: repo <strong>MylenaSN/AI-era-Leaders-Journey</strong>, Contents Read and write — só a pasta da sua trilha. Também aceita token do <code>gh auth</code> (<code>gho_</code>).</p>
+    <label for="pat">Token Gitea (contents: write no repo da mentora)</label>
+    <input id="pat" type="password" autocomplete="off" spellcheck="false" placeholder="token Gitea — nunca GitHub" required />
+    <p class="hint">Token de <strong>gitea.com</strong> no repo da mentora. Owner/repo em <code>mentor-config.js</code>. PAT GitHub é recusado.</p>
 
     <button type="submit" id="go">Entrar na mesa</button>
     <p class="err" id="err"></p>
@@ -113,8 +113,12 @@
         err.textContent = "Trilha inválida.";
         return;
       }
-      if (!/^(github_pat_|ghp_|gho_)/.test(token)) {
-        err.textContent = "Cole um PAT GitHub válido (github_pat_…, ghp_… ou gho_…).";
+      if (token.length < 20) {
+        err.textContent = "Cole o token Gitea da sessão. Não fica no disco.";
+        return;
+      }
+      if (/^(github_pat_|ghp_|gho_)/.test(token)) {
+        err.textContent = "Este PAT é GitHub. A esteira final da mentora é Gitea.";
         return;
       }
       clearSession();

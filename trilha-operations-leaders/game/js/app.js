@@ -3,70 +3,23 @@ import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003h";
 import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003h";
 import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003h";
 import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261013p";
+import { SPINE } from "../content/spine-10.js?v=20261023a";
+import { SPINE } from "../content/spine-10.js?v=20261023a";
+import { SPINE } from "../content/spine-10.js?v=20261023a";
+import { SPINE } from "../content/spine-10.js?v=20261023a";
+import { SPINE } from "../content/spine-10.js?v=20261023a";
+import { SPINE } from "../content/spine-10.js?v=20261023a";
 
 export function startJornada(cfg = {}) {
   const MAP_ISLANDS = cfg.islands || [];
-  const KEY = "afsl-cofre-v5";
-  const WEEKS = [
-    { n: 1, w: 1, t: "Habilidades na era da IA" },
-    { n: 2, w: 1, t: "O novo organograma" },
-    { n: 3, w: 2, t: "Outcomes vs. Outputs" },
-    { n: 4, w: 2, t: "OKRs e backlog de valor" },
-    { n: 5, w: 2, t: "Do problema ao produto" },
-    { n: 6, w: 2, t: "Hierarquia de backlog" },
-    { n: 7, w: 3, t: "Modelos mentais" },
-    { n: 8, w: 3, t: "Kanban e fluxo" },
-    { n: 9, w: 3, t: "Engenharia de ciclos" },
-    { n: 10, w: 3, t: "FinOps" },
-    { n: 11, w: 4, t: "Liderança holárquica" },
-    { n: 12, w: 4, t: "Design de agents" },
-    { n: 13, w: 4, t: "Orquestração agêntica" },
-    { n: 14, w: 4, t: "Esteira agêntica" },
-    { n: 15, w: 5, t: "Líder transformador" },
-    { n: 16, w: 5, t: "Potencial humano" },
-    { n: 17, w: 4, t: "Bônus · medida da entrega", bonus: true }
-  ];
-  const WAVES = { 1: "Pré-voo", 2: "Produto", 3: "Delivery", 4: "Times híbridos", 5: "Equilíbrio AI-Era" };
-  const WAVE_META = {
-    1: { pilar: "Pré-voo", subtitle: "O Despertar", artefato: "" },
-    2: { pilar: "Produto", subtitle: "O Mapa de Valor", artefato: "" },
-    3: { pilar: "Delivery", subtitle: "A Engenharia do Ciclo", artefato: "Métricas de fluxo (apoio)" },
-    4: { pilar: "Times híbridos", subtitle: "Humano & IA no loop", artefato: "Workflow Agêntico" },
-    5: { pilar: "Equilíbrio AI-Era", subtitle: "Seu potencial humano", artefato: "PDI Advisor" }
-  };
-  const LEADER_CALL = {
-    1: "Você não opera a máquina. Você desenha a base.",
-    2: "Você não entrega volume. Você entrega valor.",
-    3: "Você não reza pelo ciclo. Você engenharia o ritmo.",
-    4: "Você não perde o time. Você orquestra humano & IA.",
-    5: "Você não some na IA. Você lidera a era."
-  };
-  const WAVE_LINE = {
-    1: "Antes de voar, identifique sua base de fundamentos",
-    2: "O Mapa de Valor",
-    3: "A Engenharia do Ciclo",
-    4: "Times Híbridos: Humano & IA",
-    5: "O real potencial humano"
-  };
-  const SEMANA_TRILHA = {
-    1: "Os líderes e suas habilidades fundamentais na era da IA",
-    2: "O novo organograma: os departamentos e cargos que a IA criou",
-    3: "Outcomes vs. Outputs: o que o seu time realmente entrega?",
-    4: "Discovery Estratégico: OKRs e o Backlog que Gera Valor",
-    5: "Do Problema ao Produto",
-    6: "Hierarquia de Backlog e a Esteira Upstream com IA",
-    7: "Modelos Mentais importantes para a Liderança Moderna",
-    8: "Kanban Sistêmico e Métricas de Fluxo",
-    9: "Engenharia de Ciclos",
-    10: "FinOps e a Visão Econômica do Desenvolvimento",
-    11: "Liderança Holárquica: o ecossistema Humano & IA",
-    12: "Design de Agents: LangChain, LangGraph, Tools, Skills, Hooks e Personas",
-    13: "Orquestração Agêntica: construindo o maestro do seu time",
-    14: "A Esteira Agêntica Inteligente: RAG, MCP, Subagents e Evals",
-    15: "Consolidação do Líder Transformador da Era IA",
-    16: "O real potencial humano na era da IA",
-    17: "Medida da entrega — além do fluxo"
-  };
+  const KEY = "afol-v2-cofre-v1";
+  const N_WEEKS = SPINE.N_WEEKS;
+  const WEEKS = SPINE.WEEKS;
+  const WAVES = SPINE.WAVES;
+  const WAVE_META = SPINE.WAVE_META;
+  const LEADER_CALL = SPINE.LEADER_CALL;
+  const WAVE_LINE = SPINE.WAVE_LINE;
+  const SEMANA_TRILHA = SPINE.SEMANA_TRILHA;
 
   function weekTitle(n) {
     const label = SEMANA_TRILHA[n] || WEEKS[n - 1].t;
@@ -350,7 +303,7 @@ export function startJornada(cfg = {}) {
   const COURSE_NAME = "AI-First Operations Leadership";
   const LEADER_DIR = "AI-First-Operations-Leadership-Jornada";
   const COFRE_DIR = LEADER_DIR + "/";
-  const IN_WAVE = { 1: [1, 2], 2: [3, 4, 5, 6], 3: [7, 8, 9, 10], 4: [11, 12, 13, 14], 5: [15, 16] };
+  const IN_WAVE = SPINE.IN_WAVE;
   let WAVE_COLOR = { 1: "#3B67B0", 2: "#2BC0B4", 3: "#E88F2B", 4: "#5B2D8E", 5: "#C83E74" };
 
   function phraseLines(s) {
@@ -676,6 +629,42 @@ export function startJornada(cfg = {}) {
 
 
 
+
+  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
+  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
+  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
+  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
+
+
+  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
+  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
+  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
+  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
+
+
+  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
+  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
+  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
+  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
+
+
+  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
+  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
+  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
+  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
+
+
+  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
+  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
+  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
+  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
+
+
+  Object.keys(LABS).forEach((k) => { if (Number(k) > 10) delete LABS[k]; });
+  Object.keys(SPINE.LABS).forEach((k) => { LABS[k] = Object.assign({}, LABS[k] || {}, SPINE.LABS[k]); });
+  Object.keys(PLAY).forEach((k) => { if (Number(k) > 10) delete PLAY[k]; });
+  Object.keys(SPINE.PLAY).forEach((k) => { PLAY[k] = Object.assign({}, PLAY[k] || {}, SPINE.PLAY[k]); });
+
   const canvas = document.getElementById("c");
   const ctx = canvas.getContext("2d");
   const hintB = document.querySelector("#hint b");
@@ -694,17 +683,17 @@ export function startJornada(cfg = {}) {
   let save = load();
 
   function wonSet() { return new Set(save.won); }
-  function isBonus(n) { return n === 17; }
+  function isBonus(n) { return false; }
   function unlocked(n) {
-    return n >= 1 && n <= 17;
+    return n >= 1 && n <= N_WEEKS;
   }
   function nextHole() {
-    for (let i = 1; i <= 16; i++) { if (unlocked(i) && !wonSet().has(i)) return i; }
-    return 16;
+    for (let i = 1; i <= N_WEEKS; i++) { if (unlocked(i) && !wonSet().has(i)) return i; }
+    return N_WEEKS;
   }
   function streak() {
     let s = 0;
-    for (let i = 1; i <= 16; i++) { if (!wonSet().has(i)) break; s++; }
+    for (let i = 1; i <= N_WEEKS; i++) { if (!wonSet().has(i)) break; s++; }
     return s;
   }
 
@@ -1170,7 +1159,7 @@ export function startJornada(cfg = {}) {
   }
 
   function nextCofreHole() {
-    for (let n = 1; n <= 17; n++) {
+    for (let n = 1; n <= N_WEEKS; n++) {
       const f = filesOf(n);
       if (!save.cofre.find((x) => x.id === f.a2)) return { n, file: f.a2, aula: 2 };
       if (!save.cofre.find((x) => x.id === f.a3)) return { n, file: f.a3, aula: 3 };
@@ -1262,25 +1251,25 @@ export function startJornada(cfg = {}) {
   }
 
   function nextNomes() {
-    for (let n = 1; n <= 16; n++) {
+    for (let n = 1; n <= N_WEEKS; n++) {
       const f = filesOf(n);
       if (!save.cofre.find((x) => x.id === f.a2) || !save.cofre.find((x) => x.id === f.a3)) return f;
     }
-    return filesOf(16);
+    return filesOf(N_WEEKS);
   }
 
   function renderCofre() {
     const list = document.getElementById("cofre-list");
     const meta = document.getElementById("cofre-meta");
     const hole = nextCofreHole();
-    const done16 = wonSet().has(16);
+    const done16 = wonSet().has(N_WEEKS);
     meta.textContent = done16
       ? phraseLines(COFRE_DIR + " no Drive. Exporte o manifest e cole no git do engine.")
       : (hole
-        ? COFRE_DIR + save.cofre.length + "/34 · próximo " + cofreRelPath(hole.n, hole.file)
-        : COFRE_DIR + save.cofre.length + "/34 · diretório completo");
+        ? COFRE_DIR + save.cofre.length + "/20 · próximo " + cofreRelPath(hole.n, hole.file)
+        : COFRE_DIR + save.cofre.length + "/20 · diretório completo");
     const rows = [];
-    for (let n = 1; n <= 17; n++) {
+    for (let n = 1; n <= N_WEEKS; n++) {
       const f = filesOf(n);
       const a2 = save.cofre.find((x) => x.id === f.a2);
       const a3 = save.cofre.find((x) => x.id === f.a3);
@@ -1300,7 +1289,7 @@ export function startJornada(cfg = {}) {
     const pad = String(week).padStart(2, "0");
     const inputFile = "input-semana-" + pad + ".txt";
     const a3hint = week === 2
-      ? " A entrega do homework é o A3 Report aula 02 semana 02.md — cole o mesmo texto aqui, no Homework e no " + inputFile + "."
+      ? " A entrega do homework são as duas matrizes (CHA e É/Não É) em PDF/PNG — o PDI Advisor lê esses arquivos."
       : "";
     if (!pins.length) {
       return "Leia o contrato da Aula 2 no painel ao lado. No disco: " + inputFile + " na pasta semana-" + pad + "." + a3hint + " Lacuna = pergunte — não invente.";
@@ -1308,7 +1297,7 @@ export function startJornada(cfg = {}) {
     return [
       "Insumo da Aula 2 (painel ao lado + " + inputFile + " na pasta da semana):",
       pins.map((x, i) => (i + 1) + ". " + x).join("\n"),
-      week === 2 ? "Arquivo-fonte: A3 Report aula 02 semana 02.md (mesmo texto no Homework e no input)." : "",
+      week === 2 ? "Arquivo-fonte: matrizes CHA e É/Não É da Aula 02 (PDF/PNG)." : "",
       "Use só fatos que aparecem no contrato. Não complete com web nem com 'todo time faz'."
     ].filter(Boolean).join("\n");
   }
@@ -1349,13 +1338,13 @@ export function startJornada(cfg = {}) {
     if (week === 1) {
       lines.push("Semana 01: rode o mesmo prompt em ChatGPT e Gemini; salve os dois outputs e compare o GATE.");
     } else if (week === 2) {
-      lines.push("Aula 2 (insumo): A3 Report aula 02 semana 02.md — cole o mesmo texto em " + f.a2 + " e input-semana-02.txt.");
-      lines.push("Aula 3 (entrega): " + f.a3 + " · Link Project aula 03 semana 02.txt");
+      lines.push("Aula 2 (insumo): matrizes CHA + É/Não É (PDF/PNG).");
+      lines.push("Aula 3 (entrega): " + f.a3 + " — PDI Advisor, semente por papel. Não é currículo.");
     } else {
       lines.push("Aula 2 (insumo): " + f.a2 + " · Aula 3 (entrega): " + f.a3);
     }
     if (lab.casca) lines.push("Use o modelo de referência abaixo — mantenha os títulos das seções.");
-    if (week === 16) {
+    if (week === N_WEEKS) {
       lines.push("Fechamento: exporte o manifest e sincronize a pasta com o Drive.");
     } else if (week > 1) {
       const last = filesOf(week - 1);
@@ -1940,10 +1929,10 @@ export function startJornada(cfg = {}) {
     winLock = true;
     if (!save.won.includes(week)) save.won.push(week);
     persist();
-    if (week === 16) {
+    if (week === N_WEEKS) {
       toast("Campo fechado. Exporte o manifest.");
     } else if (isBonus(week)) {
-      toast("Bônus no diretório. A trilha das semanas 11 a 16 continua no mesmo lugar.");
+      toast("Semana no diretório.");
     }
     openSemanaDoneDialog(week);
   }
@@ -1990,10 +1979,10 @@ export function startJornada(cfg = {}) {
     app.classList.toggle("is-level", mode !== "map");
     document.body.classList.toggle("journey-map", mode === "map");
     document.body.classList.toggle("journey-level", mode === "level");
-    const trailWon = save.won.filter((n) => n <= 16).length;
+    const trailWon = save.won.filter((n) => n <= N_WEEKS).length;
     document.getElementById("hud-streak").innerHTML = mode === "level"
-      ? "<em>Semana</em>" + week + "/16"
-      : "<em>Semanas</em>" + trailWon + "/16";
+      ? "<em>Semana</em>" + week + "/" + N_WEEKS
+      : "<em>Semanas</em>" + trailWon + "/" + N_WEEKS;
     const wavesEl = document.getElementById("hud-waves");
     if (wavesEl) wavesEl.innerHTML = "<em>Waves</em>" + wavesWonCount() + "/5";
     const lessonEl = document.getElementById("hud-lesson");
@@ -2103,12 +2092,12 @@ export function startJornada(cfg = {}) {
   }
 
   function weekNode(m, n) {
-    return trailNodesEven(m, 16)[Math.min(15, Math.max(0, n - 1))];
+    return trailNodesEven(m, N_WEEKS)[Math.min(N_WEEKS - 1, Math.max(0, n - 1))];
   }
 
   function mapLayout(w, h) {
     const m = mapMetrics(w, h);
-    return trailNodesEven(m, 16).map((p, i) => ({
+    return trailNodesEven(m, N_WEEKS).map((p, i) => ({
       n: i + 1,
       x: p.x,
       y: p.y,
@@ -2134,7 +2123,7 @@ export function startJornada(cfg = {}) {
     const won = wonSet();
     const now = performance.now() / 1000;
     const nxt = nextHole();
-    const cuts = [0, 2, 6, 10, 14, 16];
+    const cuts = [0, 2, 4, 6, 8, 10];
     const sky = ctx.createLinearGradient(0, 0, 0, h);
     sky.addColorStop(0, "#EDE8F4");
     sky.addColorStop(1, "#F4F4F4");
@@ -2145,8 +2134,8 @@ export function startJornada(cfg = {}) {
     ctx.lineJoin = "round";
 
     for (let wave = 1; wave <= 5; wave++) {
-      const t0 = cuts[wave - 1] / 15;
-      const t1 = Math.min(1, (cuts[wave] - 0.02) / 15);
+      const t0 = cuts[wave - 1] / (N_WEEKS - 1);
+      const t1 = Math.min(1, (cuts[wave] - 0.02) / (N_WEEKS - 1));
       const lit = IN_WAVE[wave].some((n) => unlocked(n));
       ctx.beginPath();
       for (let i = 0; i <= 32; i++) {
@@ -2180,8 +2169,8 @@ export function startJornada(cfg = {}) {
       const lane = ((i % 7) - 3) * (1.6 * m.s);
       const px = p.x + (-dy / len) * lane;
       const py = p.y + (dx / len) * lane;
-      const weekN = 1 + Math.floor(t * 15);
-      const walking = unlocked(Math.min(16, weekN));
+      const weekN = 1 + Math.floor(t * (N_WEEKS - 1));
+      const walking = unlocked(Math.min(N_WEEKS, weekN));
       const col = walking ? WAVE_COLOR[WEEKS[Math.min(15, weekN - 1)].w] : "#FFFFFF";
       ctx.beginPath();
       ctx.arc(px, py, (walking ? 2.2 : 1.7) * m.s, 0, Math.PI * 2);
@@ -2361,7 +2350,7 @@ export function startJornada(cfg = {}) {
 
   function bootFromUrl() {
     const w = Number(new URLSearchParams(location.search).get("week"));
-    if (!(w >= 1 && w <= 17)) return;
+    if (!(w >= 1 && w <= N_WEEKS)) return;
     enterWeek(w);
   }
 

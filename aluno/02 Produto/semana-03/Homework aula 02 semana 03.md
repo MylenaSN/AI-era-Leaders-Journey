@@ -1,3 +1,10 @@
-# Homework aula 02 semana 03.md
+# Homework aula 02 semana 03
 
-(preencha na semana — o engine lê este nome)
+No Miro (ou whiteboard digital): Mapa Topológico Estratégico e Tático.
+Exporte `S03_.PNG` + `S03_.PDF` + `S03_.CSV`.
+
+- 1 Impacto (ou SEM FATO)
+- ≥2 Outcomes
+- ≥3 Outputs e Tasks
+- 1 Objective + KRs com baseline e target (sem baseline = [FALTA EVIDÊNCIA])
+- Fatia IN nomeada e OUT explícito

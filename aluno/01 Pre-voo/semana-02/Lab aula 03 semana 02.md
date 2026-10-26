@@ -1,27 +1,22 @@
-# Lab aula 03 semana 02.md
+# Lab aula 03 semana 02
 
-## Fase 1 — Enhancv
-- PDF gerado: [ ] sim
-- Login LinkedIn: [ ] sim
-- Onde salvei no Drive:
+**Time:**  
+**Líder:**  
+**Estado declarado:** M1 — Agente isolado  
+**Gem:** Agent PDI Advisor (CHA por papel/pessoa)
 
-## Fase 2 — Loop Vitae
-- ZIP / pasta no Drive: [ ] sim (licença individual — não redistribuir)
-- Notebook Gemini ativado: [ ] sim
-- Vaga hipotética Agile School · AI-Orchestrator Manager: [ ] gerada
-- Loop Curriculum-advisor: [ ] rodado
-- md-2-pdf da vaga: [ ] gerado
+## O que a Gem / construção devolveu
 
-## Linhas recusadas ([FALTA EVIDÊNCIA])
+…
 
-| Linha | Por quê |
-|-------|---------|
-|       |         |
+## SEM FATO / [FALTA EVIDÊNCIA]
 
-## Nota Jobscan (se rodou)
+…
 
--
+## GATE HUMANO
 
-## Observações
-
--
+- PARA:
+- QUEM:
+- SÓ DEPOIS DE:
+- TRAVA:
+- Decisão: APROVADO PARA O TIME / RECUSADO

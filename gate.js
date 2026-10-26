@@ -1,6 +1,6 @@
 (function () {
   const KEY = "patronloop-aiel-v1";
-  const PASS = "human loop";
+  const PASS = "Loop_Patron_Owner";
 
   function norm(s) {
     return String(s || "")

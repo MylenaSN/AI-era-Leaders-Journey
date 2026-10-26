@@ -1,5 +1,5 @@
 /**
- * Órbitas no mapa — círculos soltos junto à semana de referência (não na paleta W).
+ * Órbitas no mapa — só o setup da S01. Sem bônus 16w.
  */
 export const MAP_ISLANDS = [
   {
@@ -12,18 +12,5 @@ export const MAP_ISLANDS = [
     refWeek: 1,
     lane: "right",
     icon: "⚙️",
-  },
-  {
-    id: "plus-medida",
-    kind: "plus",
-    n: 17,
-    shortLabel: "Plus",
-    title: "Medida da entrega",
-    sub: "Além do fluxo · libera após FinOps",
-    wave: 4,
-    refWeek: 10,
-    lane: "right",
-    dy: -10,
-    icon: "◆",
   },
 ];

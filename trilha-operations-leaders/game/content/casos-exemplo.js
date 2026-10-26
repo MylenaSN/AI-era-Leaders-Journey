@@ -5,7 +5,7 @@
  * Nomes do elenco (só primeiro nome): Bartolomeu, Frederico, Yoshi, Pops,
  * Lunna, Shipp, Dexter, Maggie, Lisa. Sem sobrenome.
  *
- * Wave 01 · Orion Varejo (logística reversa) — STATIK + jornada / currículo
+ * Wave 01 · Orion Varejo — STATIK (S01 ouro) + matrizes CHA / PDI (S02)
  *   Lunna (Squad Leader) · Bartolomeu (Product) · Yoshi (Tech Lead) · Pops (Design) · Maggie (QA)
  * Wave 02 · Atlas Logística (janela de entrega)
  * Wave 03 · Lumen Educação (publicação de aula)
@@ -49,11 +49,10 @@ export const CASOS = {
 
 const CASO_POR_SEMANA = {
   1: "orion", 2: "orion",
-  3: "atlas", 4: "atlas", 5: "atlas", 6: "atlas",
-  7: "lumen", 8: "lumen", 9: "lumen", 10: "lumen",
-  11: "harbor", 12: "harbor", 13: "harbor", 14: "harbor",
-  15: "cora", 16: "cora",
-  17: "lumen",
+  3: "atlas", 4: "atlas",
+  5: "lumen", 6: "lumen",
+  7: "harbor", 8: "harbor",
+  9: "cora", 10: "cora",
 };
 
 export function casoDaSemana(n) {
@@ -216,4 +215,66 @@ export const EX = {
       { k: "alu", t: "GATE", d: "A IA não troca a lente nem conta ponto de função no escuro." }
     ]
   }
+};
+
+// AFOL v2 — S02 deixa de ser currículo. S04=INVEST; S05=fluxo; S06=ciclo; S07=mapa; S08=spec.
+EX[2] = {
+  a2: "Matrizes do time de Lunna (exemplo; não é o seu time).\n\n## CHA AS IS\nLunna · Squad Leader · C: STATIK do crédito. H: priorizar board com Bartolomeu. A: não autorizar demo sem SLA.\nYoshi · Tech Lead · C: conector WMS. H: destrava homologação. A: não vira herói silencioso.\nMaggie · QA · C: lote no CD. H: cronometrar uso real (11/14 em papel, terça 10h15). A: recusar 'Done' sem chão.\n\n## É / Não É / Faz / Não Faz\nLunna É dona do gate de calendário. Não é PO do WMS. Faz a Review com ciclo devolução→crédito. Não faz o conector.\n\nPilar em cada linha. Sem fato = célula em branco. PDI Advisor lê isto — não currículo de vaga.",
+  pv: [
+    { k: "fato", t: "Fato", d: "Célula da matriz com evidência da quinzena." },
+    { k: "hip", t: "Hipótese", d: "Papel desejado na IA-era — uma frase, não cargo de LinkedIn." },
+    { k: "alu", t: "Alucinação", d: "Currículo, vaga-alvo ou pessoa que não está na matriz." }
+  ]
+};
+EX[4] = EX[6];
+EX[5] = EX[8];
+EX[6] = EX[10];
+EX[7] = EX[11];
+EX[8] = EX[13];
+EX[9] = {
+  a2: "Quatro pontos autorizados — Cora. Squad Leader Elisa Duarte. Sem dado de saúde.\n\nTomás (planejador): objetivo = puxar WIP 8; força = quadro de sexta; desafio = S&OP sem dono de fila; hipótese = orquestrador só roteia. Autorizado para o PDC: sim.\nIara (manutenção): objetivo = torno parado visível; força = tempo de restauração; desafio = pedido informal. Autorizado: sim no desafio de fluxo; não na vida pessoal.\nElisa: dona do plano coletivo. PDI da S02 informa papel; este arquivo é PDC.",
+  pv: [
+    { k: "fato", t: "Fato", d: "Ponto só entra com autorização da pessoa." },
+    { k: "hip", t: "Hipótese", d: "Ação do gestor, não avaliação disciplinar." },
+    { k: "alu", t: "Alucinação", d: "CHA genérico ou currículo no lugar do plano coletivo." }
+  ]
+};
+EX[10] = {
+  a2: "Inventário AS IS — Cora. Kill switch: comando 'parar otimizador' · dona Elisa · teste na sexta 6h40 (caderno). Sem o teste, estado máximo M4.\n\nNós: quadro de Tomás (humano+gate) · chat solto do terceiro turno (M1) · Judge de fluxo ainda sem teto (M3 incompleto).\nHTML TO BE: toggle AS IS/TO BE, gates com zoom. Prioridade do próximo passo aberta até o ritual com o time.",
+  pv: [
+    { k: "fato", t: "Fato", d: "Kill switch com data de teste — ou não declare M5." },
+    { k: "hip", t: "Hipótese", d: "APA pedagógico conta componentes, não marketing de ferramenta." },
+    { k: "alu", t: "Alucinação", d: "Colar esteira de empregador ou fábrica M5 da autora." }
+  ]
+};
+
+// AFOL v2 — S02 deixa de ser currículo. S04=INVEST; S05=fluxo; S06=ciclo; S07=mapa; S08=spec.
+EX[2] = {
+  a2: "Matrizes do time de Lunna (exemplo; não é o seu time).\n\n## CHA AS IS\nLunna · Squad Leader · C: STATIK do crédito. H: priorizar board com Bartolomeu. A: não autorizar demo sem SLA.\nYoshi · Tech Lead · C: conector WMS. H: destrava homologação. A: não vira herói silencioso.\nMaggie · QA · C: lote no CD. H: cronometrar uso real (11/14 em papel, terça 10h15). A: recusar 'Done' sem chão.\n\n## É / Não É / Faz / Não Faz\nLunna É dona do gate de calendário. Não é PO do WMS. Faz a Review com ciclo devolução→crédito. Não faz o conector.\n\nPilar em cada linha. Sem fato = célula em branco. PDI Advisor lê isto — não currículo de vaga.",
+  pv: [
+    { k: "fato", t: "Fato", d: "Célula da matriz com evidência da quinzena." },
+    { k: "hip", t: "Hipótese", d: "Papel desejado na IA-era — uma frase, não cargo de LinkedIn." },
+    { k: "alu", t: "Alucinação", d: "Currículo, vaga-alvo ou pessoa que não está na matriz." }
+  ]
+};
+EX[4] = EX[6];
+EX[5] = EX[8];
+EX[6] = EX[10];
+EX[7] = EX[11];
+EX[8] = EX[13];
+EX[9] = {
+  a2: "Quatro pontos autorizados — Cora. Squad Leader Elisa Duarte. Sem dado de saúde.\n\nTomás (planejador): objetivo = puxar WIP 8; força = quadro de sexta; desafio = S&OP sem dono de fila; hipótese = orquestrador só roteia. Autorizado para o PDC: sim.\nIara (manutenção): objetivo = torno parado visível; força = tempo de restauração; desafio = pedido informal. Autorizado: sim no desafio de fluxo; não na vida pessoal.\nElisa: dona do plano coletivo. PDI da S02 informa papel; este arquivo é PDC.",
+  pv: [
+    { k: "fato", t: "Fato", d: "Ponto só entra com autorização da pessoa." },
+    { k: "hip", t: "Hipótese", d: "Ação do gestor, não avaliação disciplinar." },
+    { k: "alu", t: "Alucinação", d: "CHA genérico ou currículo no lugar do plano coletivo." }
+  ]
+};
+EX[10] = {
+  a2: "Inventário AS IS — Cora. Kill switch: comando 'parar otimizador' · dona Elisa · teste na sexta 6h40 (caderno). Sem o teste, estado máximo M4.\n\nNós: quadro de Tomás (humano+gate) · chat solto do terceiro turno (M1) · Judge de fluxo ainda sem teto (M3 incompleto).\nHTML TO BE: toggle AS IS/TO BE, gates com zoom. Prioridade do próximo passo aberta até o ritual com o time.",
+  pv: [
+    { k: "fato", t: "Fato", d: "Kill switch com data de teste — ou não declare M5." },
+    { k: "hip", t: "Hipótese", d: "APA pedagógico conta componentes, não marketing de ferramenta." },
+    { k: "alu", t: "Alucinação", d: "Colar esteira de empregador ou fábrica M5 da autora." }
+  ]
 };

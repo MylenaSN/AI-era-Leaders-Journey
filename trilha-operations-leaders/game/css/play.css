@@ -454,9 +454,16 @@
       border-radius: 14px;
       border: 1px solid color-mix(in srgb, var(--path) 35%, var(--line));
       background: color-mix(in srgb, var(--path) 8%, #fff);
-      font: 700 1.2rem/1.35 var(--font-title);
+      font: 500 1rem/1.4 var(--font-body);
       color: var(--ink);
       text-align: center;
+    }
+    .semana-done-line { display: block; }
+    .semana-done-role {
+      display: block;
+      margin-top: 0.75rem;
+      font: 700 1.45rem/1.15 var(--font-title);
+      color: var(--conceito);
     }
     .semana-done-ok {
       width: 100%;

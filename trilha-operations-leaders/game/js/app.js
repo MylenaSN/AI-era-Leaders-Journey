@@ -37,33 +37,44 @@ export function startJornada(cfg = {}) {
 
   function labOf() { return LABS[week]; }
 
-  function labEtapas(lab) {
-    if (lab.etapas && lab.etapas.length) return lab.etapas;
-    const out = [];
-    const pushEtapa = (tools) => {
-      const clean = tools.filter((t) => t && t.label && t.href);
-      if (clean.length) out.push({ tools: clean });
+  function toolHref(label) {
+    const key = String(label || "").toLowerCase();
+    const map = {
+      chatgpt: "https://chatgpt.com",
+      gemini: "https://gemini.google.com",
+      "notebook gemini": "https://gemini.google.com",
+      cursor: "https://cursor.com",
+      claude: "https://claude.ai",
+      kiro: "https://kiro.dev",
+      miro: "https://miro.com",
+      "google sheets": "https://sheets.google.com",
     };
-    const alt = String(lab.alt || "").trim();
-    const hasAlt = alt && alt !== "—";
-    const tool = String(lab.tool || "").trim();
-    if (hasAlt && lab.href2) {
-      pushEtapa([{ label: toolShortName(tool), href: lab.href }, { label: toolShortName(alt), href: lab.href2 }]);
-      return out;
+    return map[key] || "";
+  }
+
+  function chipsFromPhrase(raw) {
+    let text = String(raw || "").trim();
+    if (!text || text === "—") return [];
+    text = text.split(":")[0].trim();
+    const parts = /\s+ou\s+|,\s*/i.test(text) ? text.split(/\s+ou\s+|,\s*/i) : [text];
+    return parts.map((part) => {
+      const label = toolShortName(part);
+      if (!label || label === "—" || label.length > 32) return null;
+      return { label: label, href: toolHref(label) };
+    }).filter(Boolean);
+  }
+
+  function labEtapas(lab) {
+    if (lab.etapas && lab.etapas.length) {
+      return lab.etapas.map((etapa) => ({
+        tools: (etapa.tools || []).map((t) => ({
+          label: t.label,
+          href: t.href || toolHref(t.label),
+        })),
+      }));
     }
-    if (lab.href2 && /\s+ou\s+/i.test(tool)) {
-      const parts = tool.split(/\s+ou\s+/i).map((s) => s.trim()).filter(Boolean);
-      if (parts.length === 2) {
-        pushEtapa([
-          { label: toolShortName(parts[0]), href: lab.href },
-          { label: toolShortName(parts[1]), href: lab.href2 },
-        ]);
-        return out;
-      }
-    }
-    pushEtapa([{ label: toolShortName(tool), href: lab.href }]);
-    if (lab.href2) pushEtapa([{ label: toolShortName(alt || "Alternativa"), href: lab.href2 }]);
-    return out;
+    const tools = chipsFromPhrase(lab.tool).concat(chipsFromPhrase(lab.alt));
+    return tools.length ? [{ tools: tools }] : [];
   }
 
   function toolShortName(raw) {
@@ -107,6 +118,12 @@ export function startJornada(cfg = {}) {
       .join(" · ");
   }
 
+  function toolChipHtml(t) {
+    const label = escapeHtml(t.label);
+    if (!t.href) return '<span class="lab-tool">' + label + "</span>";
+    return '<a class="lab-tool" href="' + t.href + '" target="_blank" rel="noopener noreferrer">' + label + "</a>";
+  }
+
   function labToolsHtml(lab, vertical) {
     const etapas = labEtapas(lab);
     const paired = etapas.length > 1;
@@ -119,7 +136,7 @@ export function startJornada(cfg = {}) {
         html += '<span class="lab-etapa-label">' + etapaHeading(ei, etapas.length) + "</span>";
         html += '<div class="lab-etapa-btns">';
         (etapa.tools || []).forEach((t) => {
-          html += '<a class="lab-tool" href="' + t.href + '" target="_blank" rel="noopener noreferrer">' + t.label + "</a>";
+          html += toolChipHtml(t);
         });
         html += "</div></div>";
       });
@@ -131,7 +148,7 @@ export function startJornada(cfg = {}) {
         html += '<span class="lab-etapa-label">Etapa única</span>';
         html += '<div class="lab-etapa-btns">';
         tools.forEach((t) => {
-          html += '<a class="lab-tool" href="' + t.href + '" target="_blank" rel="noopener noreferrer">' + t.label + "</a>";
+          html += toolChipHtml(t);
         });
         html += "</div></div>";
       }
@@ -1419,25 +1436,11 @@ export function startJornada(cfg = {}) {
     return lines.join("\n");
   }
 
-  function labNamedToolsHtml(lab) {
-    const tool = String((lab && lab.tool) || "").trim();
-    const alt = String((lab && lab.alt) || "").trim();
-    let html = "";
-    if (tool && tool !== "—") {
-      html += '<p class="lab-chip lab-named-tool"><b>Ferramenta</b> · ' + escapeHtml(tool) + "</p>";
-    }
-    if (alt && alt !== "—") {
-      html += '<p class="lab-chip lab-named-tool"><b>Superfície</b> · ' + escapeHtml(alt) + "</p>";
-    }
-    return html;
-  }
-
   function labLabHtml() {
     const lab = labOf();
     const toolCount = labEtapas(lab).reduce((n, e) => n + (e.tools || []).length, 0);
     const manyCls = toolCount >= 3 ? " has-many-tools" : "";
     let html = '<div class="lab-lab">';
-    html += labNamedToolsHtml(lab);
     if (reforco) {
       html += "<p class='lab-chip reforco'>Nota 1 — chat novo. Use o contrato ao lado.</p>";
     }
@@ -1916,12 +1919,12 @@ export function startJornada(cfg = {}) {
   function openSemanaDoneDialog(wk) {
     const dlg = document.getElementById("semana-done-dialog");
     const msg = document.getElementById("semana-done-msg");
-    const label = "Semana " + String(wk).padStart(2, "0");
-    const next = wk < N_WEEKS ? wk + 1 : 0;
     if (msg) {
-      msg.textContent = next
-        ? label + " fechada. A Semana " + String(next).padStart(2, "0") + " já está no mapa."
-        : "Semana 10 fechada. A trilha inteira está no mapa.";
+      msg.innerHTML = ""
+        + '<span class="semana-done-line">Finalizamos os conhecimentos desta semana!</span>'
+        + '<span class="semana-done-line">Concluído um passo dignificativo para</span>'
+        + '<span class="semana-done-line">se tornar um verdadeiro:</span>'
+        + '<strong class="semana-done-role">AI-Operations Leader!</strong>';
     }
     if (dlg && !dlg.open) dlg.showModal();
   }
@@ -2036,8 +2039,8 @@ export function startJornada(cfg = {}) {
 
   function trailPoint(m, t) {
     const y = m.bot - t * (m.bot - m.top);
-    const amp = (m.w - m.padL - m.padR) * 0.32;
-    let x = m.cx + Math.sin(t * Math.PI) * amp;
+    const amp = (m.w - m.padL - m.padR) * (0.12 + t * 0.18);
+    let x = m.cx + Math.sin(t * Math.PI * 2.15 + 0.4) * amp;
     x = Math.max(m.padL + 24, Math.min(m.w - m.padR - 24, x));
     return { x, y };
   }
@@ -2116,7 +2119,7 @@ export function startJornada(cfg = {}) {
 
     for (let wave = 1; wave <= 5; wave++) {
       const t0 = cuts[wave - 1] / (N_WEEKS - 1);
-      const t1 = Math.min(1, (cuts[wave] - 0.02) / (N_WEEKS - 1));
+      const t1 = Math.min(1, cuts[wave] / (N_WEEKS - 1));
       const lit = IN_WAVE[wave].some((n) => unlocked(n));
       ctx.beginPath();
       for (let i = 0; i <= 32; i++) {
@@ -2124,8 +2127,8 @@ export function startJornada(cfg = {}) {
         if (i === 0) ctx.moveTo(p.x, p.y);
         else ctx.lineTo(p.x, p.y);
       }
-      ctx.strokeStyle = rgba(WAVE_COLOR[wave], lit ? 0.16 : 0.07);
-      ctx.lineWidth = Math.max(28, Math.min(72, 58 * m.s));
+      ctx.strokeStyle = rgba(WAVE_COLOR[wave], lit ? 0.2 : 0.09);
+      ctx.lineWidth = Math.max(18, Math.min(40, 30 * m.s));
       ctx.stroke();
     }
 

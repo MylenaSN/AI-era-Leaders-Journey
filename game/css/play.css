@@ -146,15 +146,33 @@
       font: 700 0.58rem/1 var(--font-title); color: var(--dim); margin-bottom: 2px;
     }
     .ex-wave-pilar {
-      display: block; font: 700 0.7rem/1.15 var(--font-title); color: var(--ink);
-      letter-spacing: 0.02em;
+      display: block; font: 700 1.15rem/1.15 var(--font-title); color: var(--ink);
+      letter-spacing: 0.01em;
     }
+    .ex-wave.open .ex-wave-pilar { font-size: 1.35rem; }
     .ex-wave-sub {
       display: block; font-size: 0.64rem; line-height: 1.25; color: var(--dim);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .ex-art { display: none; }
-    .ex-holes { display: flex; flex-wrap: wrap; gap: 5px; padding: 2px 8px 8px; }
+    .ex-holes { display: flex; flex-direction: column; align-items: stretch; gap: 2px; padding: 2px 6px 8px; }
+    .ex-lesson {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; text-align: left;
+      border: 0; background: transparent; color: var(--ink);
+      padding: 5px 4px; border-radius: 8px; cursor: pointer;
+      font: 500 0.84rem/1.25 var(--font-body);
+    }
+    .ex-lesson:hover { background: #5B2D8E0d; }
+    .ex-lesson-n {
+      flex: 0 0 1.6rem; height: 1.6rem; border-radius: 50%;
+      display: grid; place-items: center;
+      font: 700 0.72rem/1 var(--font-title);
+      border: 2px solid var(--line); color: var(--dim);
+    }
+    .ex-lesson.on .ex-lesson-n { background: var(--wave-color, var(--conceito)); border-color: transparent; color: #fff; }
+    .ex-lesson.next .ex-lesson-n { box-shadow: 0 0 0 3px #2BC0B455; }
+    .ex-lesson-t { min-width: 0; }
     .ex-week {
       width: 28px; height: 28px; padding: 0; border-radius: 50%;
       font: 700 0.65rem/1 var(--font-title); text-align: center;
@@ -190,6 +208,50 @@
     #map-canvas-wrap canvas { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; touch-action: none; cursor: pointer; }
     #map-gadgets {
       position: absolute; inset: 0; pointer-events: none; z-index: 12; overflow: visible;
+    }
+    .map-wave {
+      position: absolute;
+      transform: translate(0, -50%);
+      width: min(14rem, 34vw);
+      pointer-events: none;
+      color: var(--wave-color, var(--ink));
+    }
+    .map-wave small {
+      display: block;
+      font: 700 0.68rem/1 var(--font-title);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+    .map-wave strong {
+      display: block;
+      margin-top: 2px;
+      font: 700 1.35rem/1.1 var(--font-title);
+      color: var(--ink);
+    }
+    .map-wave.is-here strong { font-size: 1.7rem; color: var(--wave-color, var(--ink)); }
+    .map-lesson {
+      position: absolute;
+      transform: translate(-100%, -50%);
+      max-width: 11rem;
+      display: flex; align-items: center; gap: 6px;
+      padding: 0; border: 0; background: transparent;
+      text-align: right; cursor: pointer;
+      pointer-events: auto;
+      font: 600 0.78rem/1.2 var(--font-body);
+      color: var(--ink);
+    }
+    .map-lesson b {
+      order: 2;
+      flex: 0 0 auto;
+      font: 700 0.68rem/1 var(--font-title);
+      color: var(--dim);
+    }
+    .map-lesson span { min-width: 0; }
+    .map-lesson.is-next span { font-weight: 700; }
+    .map-lesson.is-done { opacity: 0.72; }
+    @media (max-width: 860px) {
+      .map-wave, .map-lesson { display: none; }
     }
     #map-islands {
       position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: visible;

@@ -207,6 +207,13 @@ export function startJornada(cfg = {}) {
     if (!layer || layer.dataset.bound === "1") return;
     layer.dataset.bound = "1";
     layer.addEventListener("click", (ev) => {
+      const lesson = ev.target.closest("[data-map-week]");
+      if (lesson) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        enterWeek(Number(lesson.getAttribute("data-map-week")));
+        return;
+      }
       const btn = ev.target.closest("[data-gadget]");
       if (!btn || btn.disabled) return;
       ev.preventDefault();
@@ -237,7 +244,35 @@ export function startJornada(cfg = {}) {
       return '<div class="orbit-wrap" style="left:' + pt.x + "px;top:" + pt.y + 'px">'
         + orbitHtml(g, st)
         + "</div>";
-    }).join("");
+    }).join("") + mapStoryHtml(m);
+  }
+
+  function mapStoryHtml(m) {
+    const nodes = mapLayout(m.w, m.h);
+    const won = wonSet();
+    const nxt = nextHole();
+    let html = "";
+    for (let w = 1; w <= 5; w++) {
+      const ids = IN_WAVE[w] || [];
+      const members = nodes.filter((nd) => ids.indexOf(nd.n) !== -1);
+      if (!members.length) continue;
+      const minX = Math.min.apply(null, members.map((nd) => nd.x));
+      const midY = members.reduce((sum, nd) => sum + nd.y, 0) / members.length;
+      const here = ids.indexOf(nxt) !== -1;
+      const left = Math.max(12, Math.min(minX - 250, m.w * 0.34));
+      html += '<div class="map-wave' + (here ? " is-here" : "") + '" style="left:' + Math.round(left) + "px;top:" + Math.round(midY) + "px;--wave-color:" + WAVE_COLOR[w] + '">';
+      html += "<small>Wave " + String(w).padStart(2, "0") + "</small>";
+      html += "<strong>" + escapeHtml(WAVE_META[w].pilar) + "</strong>";
+      html += "</div>";
+    }
+    nodes.forEach((nd) => {
+      const done = won.has(nd.n);
+      const next = nd.n === nxt && !done;
+      html += '<button type="button" class="map-lesson' + (done ? " is-done" : "") + (next ? " is-next" : "") + '" data-map-week="' + nd.n + '" style="left:' + Math.round(nd.x - 20) + "px;top:" + Math.round(nd.y) + 'px">';
+      html += "<b>" + String(nd.n).padStart(2, "0") + "</b><span>" + escapeHtml(WEEKS[nd.n - 1].t) + "</span>";
+      html += "</button>";
+    });
+    return html;
   }
 
   function openMapSetup() {
@@ -1172,7 +1207,7 @@ export function startJornada(cfg = {}) {
       ids.forEach((n) => {
         const cls = (won.has(n) ? " on" : "") + (n === nxt && !won.has(n) ? " next" : "");
         const style = won.has(n) ? " style='background:" + WAVE_COLOR[w] + "'" : "";
-        html += '<button type="button" class="ex-week' + cls + '" data-ex="' + n + '" title="' + weekTitle(n).replace(/"/g, "&quot;") + '"' + style + ">" + n + "</button>";
+        html += '<button type="button" class="ex-lesson' + cls + '" data-ex="' + n + '"><span class="ex-lesson-n">' + n + '</span><span class="ex-lesson-t">' + escapeHtml(WEEKS[n - 1].t) + "</span></button>";
       });
       html += "</div></div>";
       return html;

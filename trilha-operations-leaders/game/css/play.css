@@ -211,47 +211,49 @@
     }
     .map-wave {
       position: absolute;
-      transform: translate(0, -50%);
-      width: min(14rem, 34vw);
       pointer-events: none;
-      color: var(--wave-color, var(--ink));
+      padding: 8px 12px 8px 12px;
+      border-radius: 14px;
+      border: 1px solid color-mix(in srgb, var(--wave-color, var(--line)) 40%, #fff);
+      background: rgba(255, 255, 255, 0.9);
+      text-align: left;
     }
     .map-wave small {
       display: block;
-      font: 700 0.68rem/1 var(--font-title);
-      letter-spacing: 0.08em;
+      font: 700 0.62rem/1 var(--font-title);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      opacity: 0.75;
+      color: var(--wave-color, var(--dim));
     }
     .map-wave strong {
       display: block;
-      margin-top: 2px;
-      font: 700 1.35rem/1.1 var(--font-title);
+      margin: 2px 0 6px;
+      font: 700 1.2rem/1.1 var(--font-title);
       color: var(--ink);
     }
-    .map-wave.is-here strong { font-size: 1.7rem; color: var(--wave-color, var(--ink)); }
+    .map-wave.is-here strong {
+      font-size: 1.45rem;
+      color: var(--wave-color, var(--ink));
+    }
     .map-lesson {
-      position: absolute;
-      transform: translate(-100%, -50%);
-      max-width: 11rem;
-      display: flex; align-items: center; gap: 6px;
-      padding: 0; border: 0; background: transparent;
-      text-align: right; cursor: pointer;
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 3px 0 3px 8px;
+      border: 0;
+      border-left: 2px solid var(--wave-color, var(--line));
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
       pointer-events: auto;
-      font: 600 0.78rem/1.2 var(--font-body);
+      font: 500 0.8rem/1.25 var(--font-body);
       color: var(--ink);
     }
-    .map-lesson b {
-      order: 2;
-      flex: 0 0 auto;
-      font: 700 0.68rem/1 var(--font-title);
-      color: var(--dim);
-    }
-    .map-lesson span { min-width: 0; }
-    .map-lesson.is-next span { font-weight: 700; }
-    .map-lesson.is-done { opacity: 0.72; }
+    .map-lesson + .map-lesson { margin-top: 2px; }
+    .map-lesson.is-next { font-weight: 700; border-left-width: 3px; }
+    .map-lesson.is-done { opacity: 0.62; }
     @media (max-width: 860px) {
-      .map-wave, .map-lesson { display: none; }
+      .map-wave { display: none; }
     }
     #map-islands {
       position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: visible;

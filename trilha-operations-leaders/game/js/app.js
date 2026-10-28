@@ -251,28 +251,45 @@ export function startJornada(cfg = {}) {
     const nodes = mapLayout(m.w, m.h);
     const won = wonSet();
     const nxt = nextHole();
-    let html = "";
+    const cardW = Math.min(232, Math.max(168, m.w * 0.3));
+    const cardH = 92;
+    const blocks = [];
     for (let w = 1; w <= 5; w++) {
       const ids = IN_WAVE[w] || [];
       const members = nodes.filter((nd) => ids.indexOf(nd.n) !== -1);
       if (!members.length) continue;
       const minX = Math.min.apply(null, members.map((nd) => nd.x));
+      const maxX = Math.max.apply(null, members.map((nd) => nd.x));
       const midY = members.reduce((sum, nd) => sum + nd.y, 0) / members.length;
-      const here = ids.indexOf(nxt) !== -1;
-      const left = Math.max(12, Math.min(minX - 250, m.w * 0.34));
-      html += '<div class="map-wave' + (here ? " is-here" : "") + '" style="left:' + Math.round(left) + "px;top:" + Math.round(midY) + "px;--wave-color:" + WAVE_COLOR[w] + '">';
-      html += "<small>Wave " + String(w).padStart(2, "0") + "</small>";
-      html += "<strong>" + escapeHtml(WAVE_META[w].pilar) + "</strong>";
-      html += "</div>";
+      const spaceLeft = minX - 12;
+      const spaceRight = m.w - 12 - maxX;
+      const side = spaceLeft >= cardW + 40 || spaceLeft >= spaceRight ? "left" : "right";
+      const left = side === "left"
+        ? Math.max(10, minX - cardW - 40)
+        : Math.min(m.w - cardW - 10, maxX + 40);
+      blocks.push({ w: w, ids: ids, midY: midY, left: left });
     }
-    nodes.forEach((nd) => {
-      const done = won.has(nd.n);
-      const next = nd.n === nxt && !done;
-      html += '<button type="button" class="map-lesson' + (done ? " is-done" : "") + (next ? " is-next" : "") + '" data-map-week="' + nd.n + '" style="left:' + Math.round(nd.x - 20) + "px;top:" + Math.round(nd.y) + 'px">';
-      html += "<b>" + String(nd.n).padStart(2, "0") + "</b><span>" + escapeHtml(WEEKS[nd.n - 1].t) + "</span>";
-      html += "</button>";
+    blocks.sort((a, b) => a.midY - b.midY);
+    let cursor = 10;
+    blocks.forEach((block) => {
+      let top = block.midY - cardH / 2;
+      if (top < cursor) top = cursor;
+      block.top = top;
+      cursor = top + cardH + 8;
     });
-    return html;
+    const overflow = cursor - (m.h - 8);
+    if (overflow > 0) {
+      blocks.forEach((block) => { block.top = Math.max(8, block.top - overflow); });
+    }
+    return blocks.map((block) => {
+      const here = block.ids.indexOf(nxt) !== -1;
+      const lessons = block.ids.map((n) => {
+        const done = won.has(n);
+        const next = n === nxt && !done;
+        return '<button type="button" class="map-lesson' + (done ? " is-done" : "") + (next ? " is-next" : "") + '" data-map-week="' + n + '"><span>' + escapeHtml(WEEKS[n - 1].t) + "</span></button>";
+      }).join("");
+      return '<div class="map-wave' + (here ? " is-here" : "") + '" style="left:' + Math.round(block.left) + "px;top:" + Math.round(block.top) + "px;width:" + Math.round(cardW) + "px;--wave-color:" + WAVE_COLOR[block.w] + '"><small>Wave ' + String(block.w).padStart(2, "0") + "</small><strong>" + escapeHtml(WAVE_META[block.w].pilar) + "</strong>" + lessons + "</div>";
+    }).join("");
   }
 
   function openMapSetup() {

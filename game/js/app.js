@@ -244,7 +244,7 @@ export function startJornada(cfg = {}) {
       return '<div class="orbit-wrap" style="left:' + pt.x + "px;top:" + pt.y + 'px">'
         + orbitHtml(g, st)
         + "</div>";
-    }).join("") + mapStoryHtml(m);
+    }).join("");
   }
 
   function mapStoryHtml(m) {
@@ -1260,7 +1260,7 @@ export function startJornada(cfg = {}) {
 
   function depositWeek(n) {
     const f = filesOf(n);
-    const ids = [f.a2, f.a3];
+    const ids = [f.a2].concat(f.extras || []).concat([f.a3]).filter(Boolean);
     ids.forEach((id) => {
       if (!save.cofre.find((x) => x.id === id)) {
         save.cofre.push({
@@ -1292,26 +1292,30 @@ export function startJornada(cfg = {}) {
     return filesOf(N_WEEKS);
   }
 
+  function artifactIds(n) {
+    const f = filesOf(n);
+    return [f.a2].concat(f.extras || []).concat([f.a3]).filter(Boolean);
+  }
+
   function renderCofre() {
     const list = document.getElementById("cofre-list");
     const meta = document.getElementById("cofre-meta");
     const hole = nextCofreHole();
-    const done16 = wonSet().has(N_WEEKS);
-    meta.textContent = done16
-      ? phraseLines(COFRE_DIR + " no Drive. Exporte o manifest e cole no git do engine.")
-      : (hole
-        ? COFRE_DIR + save.cofre.length + "/20 · próximo " + cofreRelPath(hole.n, hole.file)
-        : COFRE_DIR + save.cofre.length + "/20 · diretório completo");
+    let total = 0;
+    for (let n = 1; n <= N_WEEKS; n++) total += artifactIds(n).length;
+    meta.textContent = hole
+      ? save.cofre.length + "/" + total + " · próximo " + hole.file
+      : save.cofre.length + "/" + total + " · diretório completo";
     const rows = [];
     for (let n = 1; n <= N_WEEKS; n++) {
-      const f = filesOf(n);
-      const a2 = save.cofre.find((x) => x.id === f.a2);
-      const a3 = save.cofre.find((x) => x.id === f.a3);
-      const mark = (ok, id, num) => ok
-        ? "<code title='" + cofreRelPath(num, id) + "'>" + cofreRelPath(num, id) + "</code>"
-        : "<span class='miss' title='" + cofreRelPath(num, id) + "'>" + cofreRelPath(num, id) + "</span>";
-      const label = isBonus(n) ? "B04" : "S" + String(n).padStart(2, "0");
-      rows.push("<li><b>" + label + "</b><br>" + mark(a2, f.a2, n) + "<br>" + mark(a3, f.a3, n) + "</li>");
+      const title = WEEKS[n - 1].t;
+      const files = artifactIds(n).map((id) => {
+        const ok = !!save.cofre.find((x) => x.id === id);
+        return ok
+          ? "<code>" + id + "</code>"
+          : "<span class='miss'>" + id + "</span>";
+      }).join("<br>");
+      rows.push("<li><b>S" + String(n).padStart(2, "0") + " · " + title + "</b><br>" + files + "</li>");
     }
     list.innerHTML = rows.join("");
   }

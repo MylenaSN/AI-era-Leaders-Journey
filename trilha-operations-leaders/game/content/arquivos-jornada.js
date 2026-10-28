@@ -30,13 +30,13 @@ const ARTIFACTS = {
   },
   3: {
     a2: "S03_.PNG",
-    a3: "writer-estrategico.md",
-    extras: ["S03_.PDF", "S03_.CSV", "writer-tatico.md"],
+    a3: "Agent Writer de Objetivos e Roadmaps (IDE do aluno)",
+    extras: ["S03_.PDF", "S03_.CSV"],
   },
   4: {
     a2: "S04_.PNG",
-    a3: "writer-operacional.md",
-    extras: ["S04_.PDF", "S04_.CSV", "story-writer.md"],
+    a3: "Agent Writer de Backlog Valioso (IDE do aluno)",
+    extras: ["S04_.PDF", "S04_.CSV"],
   },
   5: {
     a2: "S05_Diagnóstico de Métricas de Fluxo.csv",
@@ -56,7 +56,7 @@ const ARTIFACTS = {
   8: {
     a2: "S08_Homework aula 02 semana 08.md",
     a3: "S08_Homework aula 03 semana 08.md",
-    extras: ["steering.md", "skill.md", "eval.md"],
+    extras: ["Agente Orquestrador (IDE do aluno)"],
   },
   9: {
     a2: "S09_Homework aula 02 semana 09.md",

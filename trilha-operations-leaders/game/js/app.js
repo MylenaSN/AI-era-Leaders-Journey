@@ -1,7 +1,7 @@
 ﻿import { LAB_DELIVERABLES, labPersona, labSessionTitle } from "../content/lab-deliverables.js?v=20261003h";
 import { buildLabPrompt } from "../content/lab-prompts.js?v=20261003h";
 import { aula03BriefOf } from "../content/aula03-brief.js?v=20261003h";
-import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261003h";
+import { FILES, WAVE_DIR, pastaSemana, pastaBonus } from "../content/arquivos-jornada.js?v=20261028a";
 import { EX, casoBanner, casoLinha, casoCabecalho } from "../content/casos-exemplo.js?v=20261013p";
 import { SPINE } from "../content/spine-10.js?v=20261026a";
 
